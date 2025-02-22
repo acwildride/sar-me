@@ -6,44 +6,29 @@
             <title>SAR Meran</title>
                 
             <style>
-
                 body {
-                    background-color: black; /* Black background */
-                    color: white; /* White text */
+                    background-color: black;
+                    color: white;
                     font-family: Calibri, sans-serif;
                     margin: 0;
-                    padding: 0;  
+                    padding: 0;
                 }
-
-                .background-container {
-                    position: absolute;
-                    background-size: 100%;
-                    top: -5px;
-                    right: 0px;
-                    width: 100%;
-                    height: 100%;
-                    background-image: url('images/Eiszapfen-M2000.jpeg');
-                    background-position: center center;
-                    background-repeat: no-repeat;
-                }
-
-                #plotly-figure1 {
-                    position: absolute;
-                    height: 100%;
-                    width: 85%;
-                    margin-top: 40px;
-                    margin-left: 590px;
-                    margin-right: 50px;
-                }
-
                 h1 {
-                    position: absolute;
-                    top: 70px;
-                    left: 30px;
-                    font-size: 52px;
-                    color: white;
+                    text-align: left;
+                    font-size: 2em;
+                    margin-top: 20px;
+                    margin-left: 70px;
                 }
 
+                h2 {
+                    text-align: left;
+                    margin-top: 20px;
+                    margin-left: 70px;
+                    font-size: 12px;
+                    color: white;
+                    line-height: 1.5;
+                    white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+                }
                 p#down_left {
                     position: fixed;
                     bottom: 30px;
@@ -57,59 +42,91 @@
                     border-radius: 50px;
                     border: 1px solid green; /* Highlight the container bounds */
                 }
-
-                 ul {
+                .ul {
                     list-style-type: none;
                     margin: 0;
                     padding: 0;
                     overflow: hidden;
-                    background-color: rgba(0, 0, 0, 0.25); /* Semi-transparent black */
-                    /* background-color: #333;*/
-                    position: relative;
                     padding-left: 30px;
                     padding-right: 30px;
                 }
-
-
-                li {
+                .li {
                     float: right;
                     margin-right: 10px;
                 }
+                .li:hover > .sub-menu,
+                    .sub-menu:hover {
+                        display: block;
+                }
+                .sub-menu {
+                    display: none;
+                    list-style-type: none;
+                    padding-left: 15px;
+                }
+                a {
+                    color: white; /* White links */
+                    text-decoration: none; /* Remove underline */
+                    padding: 8px; /* Padding around links */
+                    display: inline-block; /* Ensures padding works */
+                }
 
-                li a {
-                    display: block;
-                    color: white;
+                a:hover {
+                    background-color: #444; /* Darken on hover */
+                }
+                .footer {
+                    margin-top: auto; /* Pushes the footer to the bottom of the page */
                     text-align: center;
-                    padding: 8px;
-                    text-decoration: none;
+                    padding: 20px;
+                    background-color: #222; /* Dark background for the footer */
                 }
 
-                li a:hover {
-                    background-color: #444;
+                .footer a {
+                    margin: 0 10px; /* Add spacing between links */
                 }
-
+                
             </style>
-
+            <script>
+                function toggleSubmenu(id) {
+                    var submenu = document.getElementById(id);
+                    if (submenu.style.display === "none") {
+                        submenu.style.display = "block";
+                    } else {
+                        submenu.style.display = "none";
+                    }
+                }
+            </script>
         </head>
-
         <body>
-            <div class="background-container"></div>
+            <ul class="ul">
+                
+                <li class="li">
+                    <a href="#" onclick="toggleSubmenu('submenu-2')">2023</a>
+                    <ul id="submenu-2" class="sub-menu">
+                        <li><a href="gesamtes_2023.html">Gesamte Dienste</a></li>
+                        <li><a href="dienste_sar_2023.html">SAR Dienste</a></li>
+                        <li><a href="notarzt_2023.html">Notarzt Dienste</a></li>
+                        <li><a href="arbeitszeit_2023.html">Arbeitszeitverhältnis</a></li>
+                    </ul>
+                </li>
 
-            <!-- Navigation Bar -->
-            <ul>
-                <li><a href="arbeitszeit.html">Dienste:Arbeitszeit</a></li>
-                <li><a href="notarzt.html">Notarztdienste</a></li>
-                <li><a href="dienste_sar.html">SAR-Dienste</a></li>
-                <li><a href="gesamtes.html">Gesamte-Dienste</a></li>
-                <li><a href="index.html">Home</a></li>
-            </ul>
+                <li class="li">
+                    <a href="#" onclick="toggleSubmenu('submenu-3')">2024</a>
+                    <ul id="submenu-3" class="sub-menu">
+                        <li><a href="gesamtes_2024.html">Gesamte Dienste</a></li>
+                        <li><a href="dienste_sar_2024.html">SAR Dienste</a></li>
+                        <li><a href="notarzt_2024.html">Notarzt Dienste</a></li>
+                        <li><a href="arbeitszeit_2024.html">Arbeitszeitverhältnis</a></li>
+                    </ul>
+                </li>
+
+                
+             
 
             <h1 id="page-title">SAR Meran</h1>
 
             <p id="down_left">
                 
-
-                Last updated: 31:01:2025 - 22:28
+                Last updated: 22:02:2025 - 23:08
             </p>
 
         </body>
