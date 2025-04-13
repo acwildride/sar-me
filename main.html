@@ -1,0 +1,162 @@
+
+        <!DOCTYPE html>
+        <html>
+
+        <head>
+            <title>SAR Meran</title>
+                
+            <style>
+                body {
+                    background-color: black;
+                    color: white;
+                    font-family: Calibri, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                }
+                h1 {
+                    text-align: left;
+                    font-size: 2em;
+                    margin-top: 20px;
+                    margin-left: 70px;
+                }
+
+                h2 {
+                    text-align: left;
+                    margin-top: 20px;
+                    margin-left: 70px;
+                    font-size: 12px;
+                    color: white;
+                    line-height: 1.5;
+                    white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+                }
+                p#down_left {
+                    position: fixed;
+                    bottom: 30px;
+                    left: 30px;
+                    font-size: 14px;
+                    color: white;
+                    line-height: 1.5;
+                    white-space: pre-wrap;
+                    background-color: rgba(0, 0, 0, 0.25); /* Semi-transparent black */
+                    padding: 10px 50px 10px 1px;  /* Top: px, Right: px, Bottom: px, Left: px */
+                    border-radius: 50px;
+                    border: 1px solid green; /* Highlight the container bounds */
+                }
+                .ul {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    padding-left: 30px;
+                    padding-right: 30px;
+                }
+                .li {
+                    float: right;
+                    margin-right: 10px;
+                }
+                .li:hover > .sub-menu,
+                    .sub-menu:hover {
+                        display: block;
+                }
+                .sub-menu {
+                    display: none;
+                    list-style-type: none;
+                    padding-left: 15px;
+                }
+                a {
+                    color: white; /* White links */
+                    text-decoration: none; /* Remove underline */
+                    padding: 8px; /* Padding around links */
+                    display: inline-block; /* Ensures padding works */
+                }
+
+                a:hover {
+                    background-color: #444; /* Darken on hover */
+                }
+                .footer {
+                    margin-top: auto; /* Pushes the footer to the bottom of the page */
+                    text-align: center;
+                    padding: 20px;
+                    background-color: #222; /* Dark background for the footer */
+                }
+
+                .footer a {
+                    margin: 0 10px; /* Add spacing between links */
+                }
+                
+            </style>
+            <script>
+                function toggleSubmenu(id) {
+                    var submenu = document.getElementById(id);
+                    if (submenu.style.display === "none") {
+                        submenu.style.display = "block";
+                    } else {
+                        submenu.style.display = "none";
+                    }
+                }
+            </script>
+        </head>
+        <body>
+            <ul class="ul">
+              
+                <li class="li">
+                    <a href="#" onclick="toggleSubmenu('submenu-22')">2022</a>
+                    <ul id="submenu-22" class="sub-menu">
+                        <li><a href="gesamtes_2022.html">Gesamte Dienste</a></li>
+                        <li><a href="dienste_sar_2022.html">SAR Dienste</a></li>
+                        <li><a href="notarzt_2022.html">Notarzt Dienste</a></li>
+                        <li><a href="arbeitszeit_2022.html">Arbeitszeitverhältnis</a></li>
+                        <li><a href="freizeit_2022.html">Freizeit</a></li>
+                    </ul>
+                </li>
+                
+                <li class="li">
+                    <a href="#" onclick="toggleSubmenu('submenu-23')">2023</a>
+                    <ul id="submenu-23" class="sub-menu">
+                        <li><a href="gesamtes_2023.html">Gesamte Dienste</a></li>
+                        <li><a href="dienste_sar_2023.html">SAR Dienste</a></li>
+                        <li><a href="notarzt_2023.html">Notarzt Dienste</a></li>
+                        <li><a href="arbeitszeit_2023.html">Arbeitszeitverhältnis</a></li>
+                        <li><a href="freizeit_2023.html">Freizeit</a></li>
+                    </ul>
+                </li>
+
+                <li class="li">
+                    <a href="#" onclick="toggleSubmenu('submenu-24')">2024</a>
+                    <ul id="submenu-24" class="sub-menu">
+                        <li><a href="gesamtes_2024.html">Gesamte Dienste</a></li>
+                        <li><a href="dienste_sar_2024.html">SAR Dienste</a></li>
+                        <li><a href="notarzt_2024.html">Notarzt Dienste</a></li>
+                        <li><a href="arbeitszeit_2024.html">Arbeitszeitverhältnis</a></li>
+                        <li><a href="freizeit_2024.html">Freizeit</a></li>
+                    </ul>
+                </li>
+
+                <li class="li">
+                    <a href="#" onclick="toggleSubmenu('submenu-25')">2025</a>
+                    <ul id="submenu-25" class="sub-menu">
+                        <li><a href="gesamtes_2025.html">Gesamte Dienste</a></li>
+                        <li><a href="dienste_sar_2025.html">SAR Dienste</a></li>
+                        <li><a href="notarzt_2025.html">Notarzt Dienste</a></li>
+                        <li><a href="arbeitszeit_2025.html">Arbeitszeitverhältnis</a></li>
+                        <li><a href="freizeit_2025.html">Freizeit</a></li>
+                    </ul>
+                </li>
+
+                <li class="li"><a href="index.html">Home</a></li>
+                
+             
+
+            <h1 id="page-title">SAR Meran</h1>
+
+            <p id="down_left">
+                
+                Last updated: 13:04:2025 - 08:37
+            </p>
+
+        </body>
+
+        </html>
+
+
+        
