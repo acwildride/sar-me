@@ -120,3 +120,5 @@ h3.sec .seg{text-transform:none;letter-spacing:0}
 .nav a,.nav button{padding:15px 9px;font-size:13.5px}
 #steck{grid-template-columns:repeat(auto-fit,minmax(min(215px,45%),1fr))}
 .kpi .v{overflow:hidden;text-overflow:ellipsis}
+.est{display:inline-block;margin-left:8px;font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#f5b83d;border:1px solid #5a4520;background:#221b0e;border-radius:4px;padding:1px 5px;vertical-align:2px}
+h3.sec .est{font-size:9px}
