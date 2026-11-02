@@ -1,162 +1,177 @@
-
-        <!DOCTYPE html>
-        <html>
-
-        <head>
-            <title>SAR Meran</title>
-                
-            <style>
-                body {
-                    background-color: black;
-                    color: white;
-                    font-family: Calibri, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                }
-                h1 {
-                    text-align: left;
-                    font-size: 2em;
-                    margin-top: 20px;
-                    margin-left: 70px;
-                }
-
-                h2 {
-                    text-align: left;
-                    margin-top: 20px;
-                    margin-left: 70px;
-                    font-size: 12px;
-                    color: white;
-                    line-height: 1.5;
-                    white-space: pre-wrap; /* Preserve whitespace and wrap lines */
-                }
-                p#down_left {
-                    position: fixed;
-                    bottom: 30px;
-                    left: 30px;
-                    font-size: 14px;
-                    color: white;
-                    line-height: 1.5;
-                    white-space: pre-wrap;
-                    background-color: rgba(0, 0, 0, 0.25); /* Semi-transparent black */
-                    padding: 10px 50px 10px 1px;  /* Top: px, Right: px, Bottom: px, Left: px */
-                    border-radius: 50px;
-                    border: 1px solid green; /* Highlight the container bounds */
-                }
-                .ul {
-                    list-style-type: none;
-                    margin: 0;
-                    padding: 0;
-                    overflow: hidden;
-                    padding-left: 30px;
-                    padding-right: 30px;
-                }
-                .li {
-                    float: right;
-                    margin-right: 10px;
-                }
-                .li:hover > .sub-menu,
-                    .sub-menu:hover {
-                        display: block;
-                }
-                .sub-menu {
-                    display: none;
-                    list-style-type: none;
-                    padding-left: 15px;
-                }
-                a {
-                    color: white; /* White links */
-                    text-decoration: none; /* Remove underline */
-                    padding: 8px; /* Padding around links */
-                    display: inline-block; /* Ensures padding works */
-                }
-
-                a:hover {
-                    background-color: #444; /* Darken on hover */
-                }
-                .footer {
-                    margin-top: auto; /* Pushes the footer to the bottom of the page */
-                    text-align: center;
-                    padding: 20px;
-                    background-color: #222; /* Dark background for the footer */
-                }
-
-                .footer a {
-                    margin: 0 10px; /* Add spacing between links */
-                }
-                
-            </style>
-            <script>
-                function toggleSubmenu(id) {
-                    var submenu = document.getElementById(id);
-                    if (submenu.style.display === "none") {
-                        submenu.style.display = "block";
-                    } else {
-                        submenu.style.display = "none";
-                    }
-                }
-            </script>
-        </head>
-        <body>
-            <ul class="ul">
-              
-                <li class="li">
-                    <a href="#" onclick="toggleSubmenu('submenu-22')">2022</a>
-                    <ul id="submenu-22" class="sub-menu">
-                        <li><a href="gesamtes_2022.html">Gesamte Dienste</a></li>
-                        <li><a href="dienste_sar_2022.html">SAR Dienste</a></li>
-                        <li><a href="notarzt_2022.html">Notarzt Dienste</a></li>
-                        <li><a href="arbeitszeit_2022.html">Arbeitszeitverhältnis</a></li>
-                        <li><a href="freizeit_2022.html">Freizeit</a></li>
-                    </ul>
-                </li>
-                
-                <li class="li">
-                    <a href="#" onclick="toggleSubmenu('submenu-23')">2023</a>
-                    <ul id="submenu-23" class="sub-menu">
-                        <li><a href="gesamtes_2023.html">Gesamte Dienste</a></li>
-                        <li><a href="dienste_sar_2023.html">SAR Dienste</a></li>
-                        <li><a href="notarzt_2023.html">Notarzt Dienste</a></li>
-                        <li><a href="arbeitszeit_2023.html">Arbeitszeitverhältnis</a></li>
-                        <li><a href="freizeit_2023.html">Freizeit</a></li>
-                    </ul>
-                </li>
-
-                <li class="li">
-                    <a href="#" onclick="toggleSubmenu('submenu-24')">2024</a>
-                    <ul id="submenu-24" class="sub-menu">
-                        <li><a href="gesamtes_2024.html">Gesamte Dienste</a></li>
-                        <li><a href="dienste_sar_2024.html">SAR Dienste</a></li>
-                        <li><a href="notarzt_2024.html">Notarzt Dienste</a></li>
-                        <li><a href="arbeitszeit_2024.html">Arbeitszeitverhältnis</a></li>
-                        <li><a href="freizeit_2024.html">Freizeit</a></li>
-                    </ul>
-                </li>
-
-                <li class="li">
-                    <a href="#" onclick="toggleSubmenu('submenu-25')">2025</a>
-                    <ul id="submenu-25" class="sub-menu">
-                        <li><a href="gesamtes_2025.html">Gesamte Dienste</a></li>
-                        <li><a href="dienste_sar_2025.html">SAR Dienste</a></li>
-                        <li><a href="notarzt_2025.html">Notarzt Dienste</a></li>
-                        <li><a href="arbeitszeit_2025.html">Arbeitszeitverhältnis</a></li>
-                        <li><a href="freizeit_2025.html">Freizeit</a></li>
-                    </ul>
-                </li>
-
-                <li class="li"><a href="index.html">Home</a></li>
-                
-             
-
-            <h1 id="page-title">SAR Meran</h1>
-
-            <p id="down_left">
-                
-                Last updated: 10:11:2025 - 17:54
-            </p>
-
-        </body>
-
-        </html>
-
-
-        
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Übersicht · SAR Meran</title>
+<script>try{if(localStorage.getItem('sarme_ok')!=='1'&&sessionStorage.getItem('sarme_ok')!=='1')location.replace('index.html');}catch(e){}</script>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<style>
+:root{
+  --bg:#111111; --panel:#1a1a1a; --panel2:#202020; --line:#2a2f3a; --fg:#e8e8e8; --muted:#9aa0a6;
+  --accent:#f5b83d; --nacht:#5aa9e6; --sar:#4fd1c5; --na:#ff8a65; --az:#c4a7ff; --frei:#9ccc65;
+  --up:#ff7b72; --down:#7ee787;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
+a{color:inherit}
+.top{position:sticky;top:0;z-index:50;background:rgba(17,17,17,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1400px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:16px;min-height:52px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:.2px;white-space:nowrap}
+.brand .dot{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--accent),#e0663a);display:grid;place-items:center;color:#111}
+.nav{list-style:none;margin:0 0 0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:flex-end}
+.nav>li{position:relative}
+.nav a,.nav button{display:block;background:none;border:0;color:var(--fg);font:inherit;font-size:14px;text-decoration:none;padding:15px 12px;cursor:pointer;border-bottom:2px solid transparent}
+.nav a:hover,.nav button:hover{background:#1f1f1f}
+.nav .on>a,.nav .on>button{border-bottom-color:var(--accent)}
+.nav button::after{content:"";display:inline-block;margin-left:6px;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-3px) rotate(45deg)}
+.sub{display:none;position:absolute;right:0;top:100%;list-style:none;margin:0;padding:6px 0;background:var(--panel);border:1px solid var(--line);border-radius:8px;min-width:170px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.sub a{padding:8px 14px;border:0}
+.sub a.cur{color:var(--accent)}
+.nav li.open>.sub{display:block}
+@media (hover:hover){.nav li:hover>.sub{display:block}}
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer}
+@media (max-width:980px){
+  .burger{display:block}
+  .nav{display:none;width:100%;flex-direction:column;margin:0;padding-bottom:8px}
+  .top .in{flex-wrap:wrap}
+  .top.open .nav{display:flex}
+  .nav a,.nav button{padding:10px 4px;width:100%;text-align:left}
+  .sub{position:static;box-shadow:none;border:0;border-left:2px solid var(--line);border-radius:0;margin-left:6px;background:transparent}
+}
+.wrap{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
+h1{font-weight:500;margin:0 0 6px;font-size:26px}
+.lead{color:var(--muted);margin:0 0 6px;max-width:1000px;line-height:1.55}
+.meta{font-size:12px;color:var(--muted);margin:0 0 18px}
+.meta b{color:var(--fg);font-weight:500}
+h3.sec{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+h3.sec .note{text-transform:none;letter-spacing:0;font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,45%),1fr));gap:12px;margin-bottom:6px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--accent))}
+.kpi .t{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.kpi .v{font-size:clamp(20px,5vw,26px);margin:6px 0 2px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.kpi .v small{font-size:13px;color:var(--muted);margin-left:4px}
+.kpi .s{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid>.full{grid-column:1/-1}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;min-width:0;scroll-margin-top:70px}
+.card h2{font-size:15px;font-weight:500;margin:0 0 2px}
+.card p{font-size:12px;color:var(--muted);margin:0 0 6px}
+.card .hd{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.card .hd a{font-size:12px;color:var(--muted);text-decoration:none;white-space:nowrap}
+.card .hd a:hover{color:var(--fg)}
+.plot{width:100%;height:360px}
+.plot.tall{height:440px}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.toc a,.toc span{font-size:12px;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--panel)}
+.toc a:hover{color:var(--fg);border-color:#3a404c}
+@media (max-width:700px){.toc2{display:none}}
+.toc .cur{color:#111;background:var(--accent);border-color:var(--accent)}
+.hero{position:relative;border-radius:14px;overflow:hidden;min-height:300px;display:flex;align-items:flex-end;border:1px solid var(--line);margin-bottom:16px;background:#1a1a1a}
+.hero .img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,17,.05) 0%,rgba(17,17,17,.35) 45%,rgba(17,17,17,.92) 100%)}
+.hero .tx{position:relative;z-index:1;padding:26px 24px}
+.hero h1{font-size:34px;font-weight:600;margin:0 0 4px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.hero p{margin:0;color:#cfd3d8}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.tile{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;transition:border-color .15s,transform .15s,background .15s}
+.tile:hover{border-color:var(--c);background:var(--panel2);transform:translateY(-2px)}
+.tile .ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);margin-bottom:10px}
+.tile b{display:block;font-weight:500;margin-bottom:3px}
+.tile span{font-size:13px;color:var(--muted)}
+.foot{max-width:1400px;margin:0 auto;padding:18px 16px 36px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+.foot a{color:var(--muted)}
+.sel{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;font-size:14px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{background:var(--panel);color:var(--muted);border:0;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--accent);color:#111}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl th{color:var(--muted);font-weight:500;font-size:12px}
+.tbl td .rk{color:var(--muted);font-size:11px;margin-left:6px}
+.scroll{overflow-x:auto}
+.me-note{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.me-note i{display:inline-block;width:10px;height:10px;border-radius:2px;background:#fff}
+</style>
+<script>
+var CFG={responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d','autoScale2d']};
+var SMALL=window.innerWidth<700;
+function P(id,fig){
+  var el=document.getElementById(id); if(!el||!window.Plotly) return;
+  var L=fig.layout||{};
+  if(SMALL){L.margin=Object.assign({},L.margin,{l:44,r:8});
+    if(L.legend){L.legend.orientation='h';L.legend.x=0;L.legend.y=-0.22;L.legend.xanchor='left';L.legend.yanchor='top';}}
+  Plotly.newPlot(el,fig.data,L,CFG);
+}
+</script>
+</head>
+<body>
+<header class="top" id="top"><div class="in">
+  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>SAR Meran</a>
+  <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">Menü</button>
+  <ul class="nav"><li class="on"><a href="main.html">Übersicht</a></li><li class="dd "><button type="button" aria-haspopup="true">Gesamt</button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Anä/ICU</button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Notarzt</button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Arbeitszeit</button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Freizeit</button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class=""><a href="vergleich.html">Jahresvergleich</a></li><li class=""><a href="profil.html">Profil</a></li></ul>
+</div></header>
+<main class="wrap">
+<section class="hero">
+  <div class="img" id="hero-img"></div>
+  <div class="tx">
+    <h1>SAR Meran</h1>
+    <p>Dienstplan Anästhesie, Intensiv &amp; Notarzt · Auswertung 2022–2025</p>
+  </div>
+</section>
+<script>
+(function(){var b=["images/01C579D9-280D-4F5C-B6ED-9891535390EE.JPEG", "images/099a4330-ab14-425c-b8cb-846436b63d5f.JPEG", "images/11528db2-9b12-4121-8c7d-c6b153451525.JPEG", "images/220e50c5-e6cd-443e-930d-e2d45e93da91.JPEG", "images/4ac80d95-d12e-46cd-bbf4-d1c65d1ba4cf.JPEG", "images/4e68e3c9-bee4-4830-8c08-c3d7756d7158.JPEG", "images/6b5cdc61-eb54-48dc-a1d3-8f9c07e39ca0.JPEG", "images/793fd9ae-363c-454f-9503-93c756e2a02f.JPEG", "images/Eiszapfen-M2000.JPEG", "images/GPTempDownload(1).JPEG", "images/GPTempDownload(11).JPEG", "images/GPTempDownload(12).JPEG", "images/GPTempDownload(13).JPEG", "images/GPTempDownload(14).JPEG", "images/GPTempDownload(15).JPEG", "images/GPTempDownload(16).JPEG", "images/GPTempDownload(17).JPEG", "images/GPTempDownload(18).JPEG", "images/GPTempDownload(19).JPEG", "images/GPTempDownload(2).JPEG", "images/GPTempDownload(21).JPEG", "images/GPTempDownload(22).JPEG", "images/GPTempDownload(23).JPEG", "images/GPTempDownload(24).JPEG", "images/GPTempDownload(25).JPEG", "images/GPTempDownload(26).JPEG", "images/GPTempDownload(27).JPEG", "images/GPTempDownload(28).JPEG", "images/GPTempDownload(3).JPEG", "images/GPTempDownload(30).JPEG", "images/GPTempDownload(31).JPEG", "images/GPTempDownload(32).JPEG", "images/GPTempDownload(35).JPEG", "images/GPTempDownload(36).JPEG", "images/GPTempDownload(37).JPEG", "images/GPTempDownload(38).JPEG", "images/GPTempDownload(39).JPEG", "images/GPTempDownload(4).JPEG", "images/GPTempDownload(42).JPEG", "images/GPTempDownload(43).JPEG", "images/GPTempDownload(44).JPEG", "images/GPTempDownload(45).JPEG", "images/GPTempDownload(46).JPEG", "images/GPTempDownload(47).JPEG", "images/GPTempDownload(48).JPEG", "images/GPTempDownload(49).JPEG", "images/GPTempDownload(5).JPEG", "images/GPTempDownload(50).JPEG", "images/GPTempDownload(51).JPEG", "images/GPTempDownload(52).JPEG", "images/GPTempDownload(53).JPEG", "images/GPTempDownload(54).JPEG", "images/GPTempDownload(55).JPEG", "images/GPTempDownload(56).JPEG", "images/GPTempDownload(57).JPEG", "images/GPTempDownload(58).JPEG", "images/GPTempDownload(59).JPEG", "images/GPTempDownload(6).JPEG", "images/GPTempDownload(60).JPEG", "images/GPTempDownload(61).JPEG", "images/GPTempDownload(62).JPEG", "images/GPTempDownload(7).JPEG", "images/GPTempDownload(8).JPEG", "images/GPTempDownload(9).JPEG", "images/GPTempDownload.JPEG", "images/IMG_0262.JPEG", "images/IMG_0279.JPEG", "images/IMG_0341.JPEG", "images/IMG_0445.JPEG", "images/IMG_0550.JPEG", "images/IMG_0654.JPEG", "images/IMG_0741.JPEG", "images/IMG_0767.JPEG", "images/IMG_0801.JPEG", "images/IMG_0804.JPEG", "images/IMG_0817.JPEG", "images/IMG_0851.JPEG", "images/IMG_0869.JPEG", "images/IMG_0931.JPEG", "images/IMG_0957.JPEG", "images/IMG_0962.JPEG", "images/IMG_0997.JPEG", "images/IMG_1008.JPEG", "images/IMG_1022.JPEG", "images/IMG_1026.JPEG", "images/IMG_1029.JPEG", "images/IMG_1048.JPEG", "images/IMG_1415.JPEG", "images/IMG_2949.JPEG", "images/IMG_3134.JPEG", "images/IMG_3462.JPEG", "images/IMG_4330.JPEG", "images/IMG_4355.JPEG", "images/IMG_4465.JPEG", "images/IMG_5066.JPEG", "images/IMG_5121.JPEG", "images/IMG_5333.JPEG", "images/IMG_5578.JPEG", "images/IMG_5739.JPEG", "images/IMG_5815.JPEG", "images/IMG_6256.JPEG", "images/IMG_7205.JPEG", "images/IMG_7234.JPEG", "images/IMG_7302.JPEG", "images/IMG_7317.JPEG", "images/IMG_7336.JPEG", "images/IMG_7391.JPEG", "images/IMG_7413.JPEG", "images/IMG_7733.JPEG", "images/IMG_7759.JPEG", "images/IMG_7786.JPEG", "images/IMG_7940.JPEG", "images/IMG_8013.JPEG", "images/IMG_8104.JPEG", "images/Snapshot 01-06-2021 19_35.JPEG", "images/Snapshot 25-08-2020 13_36.JPEG", "images/Snapshot 30-08-2020 08_45.JPEG", "images/background (11).JPEG", "images/background (17).JPEG", "images/background (19).JPEG", "images/background (20).JPEG", "images/background (21).JPEG", "images/background (24).JPEG", "images/background (26).JPEG", "images/background (30).JPEG", "images/background (32).JPEG", "images/background (33).JPEG", "images/background (36).JPEG", "images/background (37).JPEG", "images/background (41).JPEG", "images/background (9).JPEG", "images/background2 (1).JPEG", "images/background2 (1).jpg", "images/background2 (10).JPEG", "images/background2 (10).jpg", "images/background2 (11).JPEG", "images/background2 (12).JPEG", "images/background2 (12).jpg", "images/background2 (13).JPEG", "images/background2 (13).jpg", "images/background2 (14).JPEG", "images/background2 (14).jpg", "images/background2 (15).jpg", "images/background2 (17).jpg", "images/background2 (18).JPEG", "images/background2 (18).jpg", "images/background2 (19).JPEG", "images/background2 (19).jpg", "images/background2 (2).JPEG", "images/background2 (2).jpg", "images/background2 (22).JPEG", "images/background2 (26).JPEG", "images/background2 (3).jpg", "images/background2 (32).JPEG", "images/background2 (35).JPEG", "images/background2 (36).JPEG", "images/background2 (37).JPEG", "images/background2 (38).JPEG", "images/background2 (39).JPEG", "images/background2 (4).jpg", "images/background2 (48).JPEG", "images/background2 (5).JPEG", "images/background2 (5).jpg", "images/background2 (52).JPEG", "images/background2 (6).JPEG", "images/background2 (6).jpg", "images/background2 (7).JPEG", "images/background2 (8).jpg", "images/background2 (9).jpg", "images/cb321f09-271b-401c-990a-5b61db1efa1f.JPEG", "images/cde6aa70-96c8-4302-99f0-e9efa9a0ce5c.JPEG"];var el=document.getElementById('hero-img');
+  if(b.length) el.style.backgroundImage="url('"+b[Math.floor(Math.random()*b.length)]+"')";})();
+</script>
+<h3 class="sec">Team 2025 <span class="note">· Veränderung gegenüber 2024</span></h3><div class="kpis"><div class="kpi" style="--c:var(--accent)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Geplante Dienststunden</div><div class="v">47.804<small>h</small></div><div class="s"><span class="up">▲ 3,3 %</span> ggü. Vorjahr<br>35 Ärztinnen und Ärzte im Plan</div></div><div class="kpi" style="--c:var(--sar)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>12-h-Dienste</div><div class="v">2.413<small></small></div><div class="s"><span class="flat">● ±0 %</span> ggü. Vorjahr<br>Tag 1.318 · Nacht 1.095</div></div><div class="kpi" style="--c:var(--na)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 0 1 10 0v6M5 18h14v3H5zM12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/></svg>Notarztdienste</div><div class="v">735<small></small></div><div class="s"><span class="flat">● ±0 %</span> ggü. Vorjahr<br>davon 230 an Feiertagen</div></div><div class="kpi" style="--c:var(--az)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>Berechnete Überstunden</div><div class="v">5.020<small>h</small></div><div class="s"><span class="down">▲ 10,3 %</span> ggü. Vorjahr<br>Summe über alle mit AZV</div></div><div class="kpi" style="--c:var(--frei)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></svg>Kalender</div><div class="v">115<small>Feiertage</small></div><div class="s">inkl. Wochenenden · 250 Werktage<br>letzter Eintrag 31.12.2025</div></div></div><h3 class="sec">Mein Jahr 2025 · Cla</h3><div class="kpis"><div class="kpi" style="--c:var(--accent)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Gesamtstunden</div><div class="v">2.056<small>h</small></div><div class="s"><span class="down">▼ 4,1 %</span> ggü. 2024<br>Rang 7 von 35 · Median 1.440</div></div><div class="kpi" style="--c:var(--az)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>Überstunden</div><div class="v">296<small>h</small></div><div class="s"><span class="down">▼ 22,9 %</span> ggü. 2024<br>Rang 8 von 33 · Median 84</div></div><div class="kpi" style="--c:var(--nacht)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Nachtdienste</div><div class="v">61<small></small></div><div class="s"><span class="up">▲ 13,0 %</span> ggü. 2024<br>Rang 6 von 35 · Median 35</div></div><div class="kpi" style="--c:var(--frei)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></svg>Dienste an Feiertagen</div><div class="v">40<small></small></div><div class="s"><span class="up">▲ 33,3 %</span> ggü. 2024<br>Rang 4 von 35 · Median 21</div></div><div class="kpi" style="--c:var(--na)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 0 1 10 0v6M5 18h14v3H5zM12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/></svg>Notarztdienste</div><div class="v">46,0<small></small></div><div class="s"><span class="up">▲ 8,7 %</span> ggü. 2024<br>Rang 6 von 35 · Median 21,3</div></div></div><h3 class="sec">Überblick</h3><div class="grid"><section class="card full" id="ov-stunden">
+  <div class="hd"><h2>Gesamte Arbeitsstunden 2025</h2><a href="gesamtes_2025.html">mehr →</a></div>
+  <p>Alle geplanten Dienststunden je Arzt – gestrichelt der Median.</p>
+  <div class="plot" id="p-ov-stunden"></div>
+  <script>P('p-ov-stunden',{"data":[{"type":"bar","x":["Bor","Usp","Pal","Barb","Sera","Gat","Cla","Ang","Mars","Bra","Hu","Hin","Gut","Mor","Zel","Piv","Rau","Dava","Mass","Wi","Lut","Capo","Fel","Kar","Fisch","Bia","Cap","Fico","Nikif","Kirch","Lug","Hüb","Rov","Caps","Bock"],"y":[2332.0,2232.0,2204.0,2188.0,2152.0,2148.0,2056.0,2008.0,2000.0,1960.0,1928.0,1844.0,1788.0,1680.0,1628.0,1568.0,1504.0,1440.0,1364.0,1328.0,1312.0,1232.0,1176.0,1172.0,980.0,804.0,772.0,768.0,636.0,584.0,336.0,320.0,256.0,72.0,32.0],"marker":{"color":["#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#ffffff","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d","#f5b83d"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Stunden","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":1440.0,"y1":1440.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":1440.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 1.440","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
+</section>
+<section class="card half" id="ov-team">
+  <div class="hd"><h2>Team-Dienste je Monat</h2><a href="gesamtes_2025.html#monate">mehr →</a></div>
+  <p>12-h-Dienste 2025 nach Bereich.</p>
+  <div class="plot" id="p-ov-team"></div>
+  <script>P('p-ov-team',{"data":[{"type":"bar","name":"Anä/ICU Tag","x":["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],"y":[77,73,82,79,83,79,85,82,82,85,80,80],"marker":{"color":"#4fd1c5"},"hovertemplate":"Anä/ICU Tag: %{y}<extra></extra>"},{"type":"bar","name":"Anä/ICU Nacht","x":["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],"y":[62,56,62,60,62,60,62,62,60,62,60,62],"marker":{"color":"#5aa9e6"},"hovertemplate":"Anä/ICU Nacht: %{y}<extra></extra>"},{"type":"bar","name":"Notarzt Tag","x":["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],"y":[29,26,30,29,30,29,30,30,30,31,29,28],"marker":{"color":"#ff8a65"},"hovertemplate":"Notarzt Tag: %{y}<extra></extra>"},{"type":"bar","name":"Notarzt Nacht","x":["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],"y":[31,28,31,30,31,30,31,31,30,31,30,31],"marker":{"color":"#c4a7ff"},"hovertemplate":"Notarzt Nacht: %{y}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":48,"r":10,"t":10,"b":40},"xaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"}},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"12-h-Dienste","font":{"color":"#9aa0a6","size":11}}},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":true,"bargap":0.25,"barmode":"stack","legend":{"orientation":"h","x":0,"y":1.12,"font":{"color":"#9aa0a6"}},"hovermode":"x unified"}});</script>
+</section>
+<section class="card half" id="ov-nacht">
+  <div class="hd"><h2>Nachtdienste 2025</h2><a href="gesamtes_2025.html#nacht_gesamt">mehr →</a></div>
+  <p>Anästhesie/Intensiv und Notarzt zusammen.</p>
+  <div class="plot" id="p-ov-nacht"></div>
+  <script>P('p-ov-nacht',{"data":[{"type":"bar","x":["Mars","Hu","Barb","Bia","Sera","Cla","Bor","Pal","Usp","Gat","Hin","Dava","Zel","Gut","Lut","Rau","Piv","Ang","Fel","Kirch","Wi","Fisch","Capo","Mor","Fico","Lug","Caps","Mass","Bock"],"y":[70.0,67.0,64.0,63.0,62.0,61.0,59.0,57.0,56.0,55.0,54.0,47.0,45.0,44.0,39.0,37.0,36.0,35.0,26.0,24.0,22.0,19.0,17.0,11.0,10.0,9.0,3.0,2.0,1.0],"marker":{"color":["#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#ffffff","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6","#5aa9e6"],"opacity":[0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":39.0,"y1":39.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":39.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 39","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
+</section>
+<section class="card half" id="ov-jahre">
+  <div class="hd"><h2>Dienste im Jahresvergleich</h2><a href="vergleich.html">mehr →</a></div>
+  <p>Team-Summe der 12-h-Dienste nach Bereich.</p>
+  <div class="plot" id="p-ov-jahre"></div>
+  <script>P('p-ov-jahre',{"data":[{"type":"bar","name":"Anä/ICU Tag","x":["2022","2023","2024","2025"],"y":[1045,952,960,967],"marker":{"color":"#4fd1c5"},"hovertemplate":"Anä/ICU Tag: %{y}<extra></extra>"},{"type":"bar","name":"Anä/ICU Nacht","x":["2022","2023","2024","2025"],"y":[730,730,732,730],"marker":{"color":"#5aa9e6"},"hovertemplate":"Anä/ICU Nacht: %{y}<extra></extra>"},{"type":"bar","name":"Notarzt Tag","x":["2022","2023","2024","2025"],"y":[359,355,349,351],"marker":{"color":"#ff8a65"},"hovertemplate":"Notarzt Tag: %{y}<extra></extra>"},{"type":"bar","name":"Notarzt Nacht","x":["2022","2023","2024","2025"],"y":[365,365,366,365],"marker":{"color":"#c4a7ff"},"hovertemplate":"Notarzt Nacht: %{y}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":48,"r":10,"t":10,"b":40},"xaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"type":"category"},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"12-h-Dienste","font":{"color":"#9aa0a6","size":11}}},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":true,"bargap":0.25,"barmode":"stack","legend":{"orientation":"h","x":0,"y":1.12,"font":{"color":"#9aa0a6"}},"hovermode":"x unified"}});</script>
+</section>
+<section class="card half" id="ov-feiertag">
+  <div class="hd"><h2>Feiertagsdienste im Verhältnis zum AZV 2025</h2><a href="arbeitszeit_2025.html#az_feiertag">mehr →</a></div>
+  <p>Feiertagsdienste ÷ Feiertage, geteilt durch das AZV – höher heißt mehr Feiertagsdienste im Verhältnis zum Vertrag.</p>
+  <div class="plot" id="p-ov-feiertag"></div>
+  <script>P('p-ov-feiertag',{"data":[{"type":"bar","x":["Fisch","Usp","Hu","Barb","Cla","Mars","Bor","Pal","Gat","Dava","Rau","Bra","Zel","Hin","Mass","Lut","Piv","Sera","Ang","Fel","Gut","Bia","Wi","Capo","Lug","Mor","Nikif","Fico","Bock"],"y":[0.4348,0.3826,0.3565,0.3565,0.3478,0.3391,0.3043,0.3043,0.2957,0.287,0.2783,0.2696,0.2551,0.2435,0.2435,0.2274,0.2087,0.2087,0.2,0.1826,0.1826,0.1739,0.1507,0.1391,0.0696,0.0609,0.0522,0.0464,0.0087],"marker":{"color":["#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#ffffff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff","#c4a7ff"],"opacity":[0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:.2f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Feiertagsdienste : Feiertage : AZV","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":0.24347826086956523,"y1":0.24347826086956523,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":0.24347826086956523,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 0,24","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
+</section>
+</div><h3 class="sec">Bereiche</h3><div class="tiles"><a class="tile" href="gesamtes_2025.html" style="--c:var(--accent)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></div><b>Gesamte Dienste 2025</b><span>Stunden, Überstunden, Tag-, Nacht- und Feiertagsdienste.</span></a><a class="tile" href="dienste_sar_2025.html" style="--c:var(--sar)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></div><b>Anästhesie & Intensiv 2025</b><span>Tag- und Nachtdienste auf Werk- und Feiertagen.</span></a><a class="tile" href="notarzt_2025.html" style="--c:var(--na)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 0 1 10 0v6M5 18h14v3H5zM12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/></svg></div><b>Notarzt 2025</b><span>Alle NA-Dienste in 12-h-Äquivalenten.</span></a><a class="tile" href="arbeitszeit_2025.html" style="--c:var(--az)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/></svg></div><b>Arbeitszeitverhältnis 2025</b><span>Alle Dienste im Verhältnis zum Vertrag.</span></a><a class="tile" href="freizeit_2025.html" style="--c:var(--frei)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div><b>Freizeit 2025</b><span>Freie Feiertage, freie Werktage, Stundenabzüge, 2er-Blöcke.</span></a><a class="tile" href="vergleich.html" style="--c:var(--nacht)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></div><b>Jahresvergleich</b><span>Wie sich Dienste und Stunden seit 2022 entwickeln.</span></a><a class="tile" href="profil.html" style="--c:var(--accent)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><b>Profil je Arzt</b><span>Alle Kennzahlen einer Person über alle Jahre, mit Rang im Team.</span></a></div></main>
+<footer class="foot">
+  <span>SAR Meran · Dienstplan Anästhesie, Intensiv &amp; Notarzt</span>
+  <span>Datenquelle: geplanter Dienstplan · Stand: 02.11.2026, 11:38</span>
+  <a href="#top">nach oben ↑</a>
+</footer>
+<script>
+document.querySelectorAll('.nav .dd>button').forEach(function(b){
+  b.addEventListener('click',function(e){
+    var li=b.parentElement, offen=li.classList.contains('open');
+    document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')});
+    if(!offen) li.classList.add('open'); e.stopPropagation();
+  });
+});
+document.addEventListener('click',function(){document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')})});
+</script>
+</body></html>
