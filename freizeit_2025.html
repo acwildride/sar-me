@@ -1,172 +1,63 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8">
+<html lang="de" data-lang="de" data-title-de="Freizeit 2025 · SAR Meran" data-title-it="Tempo libero 2025 · SAR Meran"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Freizeit 2025 · SAR Meran</title>
 <script>try{if(localStorage.getItem('sarme_ok')!=='1'&&sessionStorage.getItem('sarme_ok')!=='1')location.replace('index.html');}catch(e){}</script>
+<script>(function(){var l=null;try{l=localStorage.getItem('sarme_lang')}catch(e){}if(!l)l=((navigator.language||'').slice(0,2)==='it')?'it':'de';document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l;})();</script>
+<link rel="stylesheet" href="assets/sarme.css?v=202611021159">
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
-<style>
-:root{
-  --bg:#111111; --panel:#1a1a1a; --panel2:#202020; --line:#2a2f3a; --fg:#e8e8e8; --muted:#9aa0a6;
-  --accent:#f5b83d; --nacht:#5aa9e6; --sar:#4fd1c5; --na:#ff8a65; --az:#c4a7ff; --frei:#9ccc65;
-  --up:#ff7b72; --down:#7ee787;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
-a{color:inherit}
-.top{position:sticky;top:0;z-index:50;background:rgba(17,17,17,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.top .in{max-width:1400px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:16px;min-height:52px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:.2px;white-space:nowrap}
-.brand .dot{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--accent),#e0663a);display:grid;place-items:center;color:#111}
-.nav{list-style:none;margin:0 0 0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:flex-end}
-.nav>li{position:relative}
-.nav a,.nav button{display:block;background:none;border:0;color:var(--fg);font:inherit;font-size:14px;text-decoration:none;padding:15px 12px;cursor:pointer;border-bottom:2px solid transparent}
-.nav a:hover,.nav button:hover{background:#1f1f1f}
-.nav .on>a,.nav .on>button{border-bottom-color:var(--accent)}
-.nav button::after{content:"";display:inline-block;margin-left:6px;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-3px) rotate(45deg)}
-.sub{display:none;position:absolute;right:0;top:100%;list-style:none;margin:0;padding:6px 0;background:var(--panel);border:1px solid var(--line);border-radius:8px;min-width:170px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.sub a{padding:8px 14px;border:0}
-.sub a.cur{color:var(--accent)}
-.nav li.open>.sub{display:block}
-@media (hover:hover){.nav li:hover>.sub{display:block}}
-.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer}
-@media (max-width:980px){
-  .burger{display:block}
-  .nav{display:none;width:100%;flex-direction:column;margin:0;padding-bottom:8px}
-  .top .in{flex-wrap:wrap}
-  .top.open .nav{display:flex}
-  .nav a,.nav button{padding:10px 4px;width:100%;text-align:left}
-  .sub{position:static;box-shadow:none;border:0;border-left:2px solid var(--line);border-radius:0;margin-left:6px;background:transparent}
-}
-.wrap{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
-h1{font-weight:500;margin:0 0 6px;font-size:26px}
-.lead{color:var(--muted);margin:0 0 6px;max-width:1000px;line-height:1.55}
-.meta{font-size:12px;color:var(--muted);margin:0 0 18px}
-.meta b{color:var(--fg);font-weight:500}
-h3.sec{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-h3.sec .note{text-transform:none;letter-spacing:0;font-size:12px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,45%),1fr));gap:12px;margin-bottom:6px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
-.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--accent))}
-.kpi .t{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.kpi .v{font-size:clamp(20px,5vw,26px);margin:6px 0 2px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.kpi .v small{font-size:13px;color:var(--muted);margin-left:4px}
-.kpi .s{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.grid>.full{grid-column:1/-1}
-@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;min-width:0;scroll-margin-top:70px}
-.card h2{font-size:15px;font-weight:500;margin:0 0 2px}
-.card p{font-size:12px;color:var(--muted);margin:0 0 6px}
-.card .hd{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
-.card .hd a{font-size:12px;color:var(--muted);text-decoration:none;white-space:nowrap}
-.card .hd a:hover{color:var(--fg)}
-.plot{width:100%;height:360px}
-.plot.tall{height:440px}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
-.toc a,.toc span{font-size:12px;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--panel)}
-.toc a:hover{color:var(--fg);border-color:#3a404c}
-@media (max-width:700px){.toc2{display:none}}
-.toc .cur{color:#111;background:var(--accent);border-color:var(--accent)}
-.hero{position:relative;border-radius:14px;overflow:hidden;min-height:300px;display:flex;align-items:flex-end;border:1px solid var(--line);margin-bottom:16px;background:#1a1a1a}
-.hero .img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02)}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,17,.05) 0%,rgba(17,17,17,.35) 45%,rgba(17,17,17,.92) 100%)}
-.hero .tx{position:relative;z-index:1;padding:26px 24px}
-.hero h1{font-size:34px;font-weight:600;margin:0 0 4px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
-.hero p{margin:0;color:#cfd3d8}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.tile{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;transition:border-color .15s,transform .15s,background .15s}
-.tile:hover{border-color:var(--c);background:var(--panel2);transform:translateY(-2px)}
-.tile .ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);margin-bottom:10px}
-.tile b{display:block;font-weight:500;margin-bottom:3px}
-.tile span{font-size:13px;color:var(--muted)}
-.foot{max-width:1400px;margin:0 auto;padding:18px 16px 36px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-.foot a{color:var(--muted)}
-.sel{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;font-size:14px}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{background:var(--panel);color:var(--muted);border:0;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
-.seg button+button{border-left:1px solid var(--line)}
-.seg button.on{background:var(--accent);color:#111}
-.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
-.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-.tbl th:first-child,.tbl td:first-child{text-align:left}
-.tbl th{color:var(--muted);font-weight:500;font-size:12px}
-.tbl td .rk{color:var(--muted);font-size:11px;margin-left:6px}
-.scroll{overflow-x:auto}
-.me-note{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
-.me-note i{display:inline-block;width:10px;height:10px;border-radius:2px;background:#fff}
-</style>
-<script>
-var CFG={responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d','autoScale2d']};
-var SMALL=window.innerWidth<700;
-function P(id,fig){
-  var el=document.getElementById(id); if(!el||!window.Plotly) return;
-  var L=fig.layout||{};
-  if(SMALL){L.margin=Object.assign({},L.margin,{l:44,r:8});
-    if(L.legend){L.legend.orientation='h';L.legend.x=0;L.legend.y=-0.22;L.legend.xanchor='left';L.legend.yanchor='top';}}
-  Plotly.newPlot(el,fig.data,L,CFG);
-}
-</script>
 </head>
 <body>
 <header class="top" id="top"><div class="in">
-  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>SAR Meran</a>
-  <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">Menü</button>
-  <ul class="nav"><li class=""><a href="main.html">Übersicht</a></li><li class="dd "><button type="button" aria-haspopup="true">Gesamt</button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Anä/ICU</button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Notarzt</button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Arbeitszeit</button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd on"><button type="button" aria-haspopup="true">Freizeit</button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class=""><a href="vergleich.html">Jahresvergleich</a></li><li class=""><a href="profil.html">Profil</a></li></ul>
+  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span><span class="bn">SAR Meran</span></a>
+  <ul class="nav"><li class=""><a href="main.html"><span class="i-de">Übersicht</span><span class="i-it">Panoramica</span></a></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Gesamt</span><span class="i-it">Totale</span></button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Anä/ICU</span><span class="i-it">Anest./Rian.</span></button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Notarzt</span><span class="i-it">Notarzt</span></button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Arbeitszeit</span><span class="i-it">Contratto</span></button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd on"><button type="button" aria-haspopup="true"><span class="i-de">Freizeit</span><span class="i-it">Tempo libero</span></button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class=""><a href="vergleich.html"><span class="i-de">Jahresvergleich</span><span class="i-it">Confronto annuale</span></a></li><li class=""><a href="analysen.html"><span class="i-de">Analysen</span><span class="i-it">Analisi</span></a></li><li class=""><a href="profil.html"><span class="i-de">Profil</span><span class="i-it">Profilo</span></a></li></ul>
+  <div class="tools">
+    <label class="mesel" title="Ich bin / Io sono"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span id="me-lab">Ich bin</span><select id="me-sel" class="sel sm" aria-label="Ich bin / Io sono"></select></label>
+    <div class="seg langsw"><button type="button" data-l="de">DE</button><button type="button" data-l="it">IT</button></div>
+    <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">☰</button>
+  </div>
 </div></header>
 <main class="wrap">
-<h1>Freizeit 2025</h1><p class="lead">Freie Feiertage, freie Werktage nach Nachtdiensten, Stundenabzüge und Nachtdienste im 2er-Block.</p><p class="meta">Datenquelle: <b>geplanter Dienstplan 2025</b> · letzter Eintrag <b>31.12.2025</b> · 365 Tage, davon 115 Feiertage/Wochenendtage · <span class="me-note"><i></i>Cla hervorgehoben</span></p><div class="toc"><a href="freizeit_2022.html">2022</a><a href="freizeit_2023.html">2023</a><a href="freizeit_2024.html">2024</a><span class="cur">2025</span></div><div class="toc toc2"><a href="#freie_feiertage">Freie Tage an Feiertagen</a><a href="#r_frei_feiertag">Verhältnis freie Feiertage zu Feiertage</a><a href="#freie_werktage">Freie Tage unter der Woche nach Nachtdienst</a><a href="#r_frei_werktag">Verhältnis frei an Werktagen zu Werktage</a><a href="#stundenabzug">Stundenabzüge wegen Nachtschicht auf Werktage</a><a href="#blocks">Nachtdienste hintereinander im 2er-Block</a></div><h3 class="sec">Cla im Team</h3><div class="kpis"><div class="kpi" style="--c:var(--frei)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Freie Tage an Feiertagen</div><div class="v">75<small></small></div><div class="s">Cla: Rang 32 von 35 · Median 94</div></div><div class="kpi" style="--c:var(--frei)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Verhältnis freie Feiertage zu Feiertage</div><div class="v">0,65<small></small></div><div class="s">Cla: Rang 32 von 35 · Median 0,82</div></div><div class="kpi" style="--c:var(--frei)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Freie Tage unter der Woche nach Nachtdienst</div><div class="v">45<small></small></div><div class="s">Cla: Rang 3 von 35 · Median 18</div></div><div class="kpi" style="--c:var(--frei)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Verhältnis frei an Werktagen zu Werktage</div><div class="v">0,18<small></small></div><div class="s">Cla: Rang 3 von 35 · Median 0,07</div></div></div><h3 class="sec">Grafiken</h3><div class="grid"><section class="card full" id="freie_feiertage">
-  <div class="hd"><h2>Freie Tage an Feiertagen</h2></div>
-  <p>Feiertage im Jahr minus Feiertagsdienste.</p>
-  <div class="plot tall" id="p-freie_feiertage"></div>
-  <script>P('p-freie_feiertage',{"data":[{"type":"bar","x":["Kar","Cap","Hüb","Kirch","Rov","Bock","Nikif","Fico","Caps","Mor","Lug","Capo","Wi","Lut","Piv","Bia","Fel","Mass","Gut","Zel","Ang","Rau","Sera","Fisch","Hin","Bra","Dava","Gat","Pal","Bor","Mars","Cla","Barb","Hu","Usp"],"y":[115.0,115.0,115.0,115.0,115.0,114.0,112.0,111.0,109.0,108.0,107.0,103.0,102.0,98.0,97.0,95.0,94.0,94.0,94.0,93.0,92.0,91.0,91.0,90.0,87.0,84.0,82.0,81.0,80.0,80.0,76.0,75.0,74.0,74.0,71.0],"marker":{"color":["#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#ffffff","#9ccc65","#9ccc65","#9ccc65"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Tage","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":94.0,"y1":94.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":94.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 94","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="r_frei_feiertag">
-  <div class="hd"><h2>Verhältnis freie Feiertage zu Feiertage</h2></div>
+<h1><span class="i-de">Freizeit</span><span class="i-it">Tempo libero</span> 2025</h1>
+<p class="lead"><span class="i-de">Freie Feiertage, freie Werktage nach Nachtdiensten, Stundenabzüge und Nachtdienste im 2er-Block.</span><span class="i-it">Festivi liberi, giorni feriali liberi dopo il turno notturno, ore in meno e turni notturni in blocco da due.</span></p>
+<p class="meta"><span class="i-de">Datenquelle</span><span class="i-it">Fonte</span>: <b><span class="i-de">geplanter Dienstplan</span><span class="i-it">piano turni pianificato</span> 2025</b> · <span class="i-de">letzter Eintrag</span><span class="i-it">ultima voce</span> <b>31.12.2025</b> ·
+365 <span class="i-de">Tage, davon</span><span class="i-it">giorni, di cui</span> 115 <span class="i-de">Feiertage/Wochenendtage</span><span class="i-it">festivi/weekend</span> · <span class="i-de">Tipp: auf einen Balken klicken, um sich selbst hervorzuheben.</span><span class="i-it">Suggerimento: clicca su una barra per evidenziarti.</span></p>
+<div class="toc"><a href="freizeit_2022.html">2022</a><a href="freizeit_2023.html">2023</a><a href="freizeit_2024.html">2024</a><span class="cur">2025</span></div>
+<div class="toc toc2"><a href="#freie_feiertage"><span class="i-de">Freie Tage an Feiertagen</span><span class="i-it">Giorni festivi liberi</span></a><a href="#r_frei_feiertag"><span class="i-de">Verhältnis freie Feiertage zu Feiertage</span><span class="i-it">Rapporto festivi liberi e giorni festivi</span></a><a href="#freie_werktage"><span class="i-de">Freie Tage unter der Woche nach Nachtdienst</span><span class="i-it">Giorni liberi infrasettimanali dopo il turno notturno</span></a><a href="#r_frei_werktag"><span class="i-de">Verhältnis frei an Werktagen zu Werktage</span><span class="i-it">Rapporto giorni feriali liberi e giorni feriali</span></a><a href="#stundenabzug"><span class="i-de">Stundenabzüge wegen Nachtschicht auf Werktage</span><span class="i-it">Ore in meno per smonto notte feriale</span></a><a href="#blocks"><span class="i-de">Nachtdienste hintereinander im 2er-Block</span><span class="i-it">Turni notturni consecutivi in blocco da 2</span></a></div>
+<h3 class="sec" id="me-h"></h3><div class="kpis" id="me-kpis"></div>
+<h3 class="sec"><span class="i-de">Grafiken</span><span class="i-it">Grafici</span></h3><div class="grid"><section class="card full" id="freie_feiertage">
+  <div class="hd"><h2><span class="i-de">Freie Tage an Feiertagen</span><span class="i-it">Giorni festivi liberi</span></h2></div>
+  <p><span class="i-de">Feiertage im Jahr minus Feiertagsdienste.</span><span class="i-it">Festivi dell’anno meno turni festivi.</span></p>
+  <div class="plot" id="p-freie_feiertage"></div>
+</section><section class="card half" id="r_frei_feiertag">
+  <div class="hd"><h2><span class="i-de">Verhältnis freie Feiertage zu Feiertage</span><span class="i-it">Rapporto festivi liberi e giorni festivi</span></h2></div>
   
   <div class="plot" id="p-r_frei_feiertag"></div>
-  <script>P('p-r_frei_feiertag',{"data":[{"type":"bar","x":["Kar","Cap","Hüb","Kirch","Rov","Bock","Nikif","Fico","Caps","Mor","Lug","Capo","Wi","Lut","Piv","Bia","Fel","Mass","Gut","Zel","Ang","Rau","Sera","Fisch","Hin","Bra","Dava","Gat","Pal","Bor","Mars","Cla","Barb","Hu","Usp"],"y":[1.0,1.0,1.0,1.0,1.0,0.9913,0.9739,0.9652,0.9478,0.9391,0.9304,0.8957,0.887,0.8522,0.8435,0.8261,0.8174,0.8174,0.8174,0.8087,0.8,0.7913,0.7913,0.7826,0.7565,0.7304,0.713,0.7043,0.6957,0.6957,0.6609,0.6522,0.6435,0.6435,0.6174],"marker":{"color":["#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#ffffff","#9ccc65","#9ccc65","#9ccc65"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:.2f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"freie Feiertage : Feiertage","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":0.8173913043478261,"y1":0.8173913043478261,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":0.8173913043478261,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 0,82","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="freie_werktage">
-  <div class="hd"><h2>Freie Tage unter der Woche nach Nachtdienst</h2></div>
-  <p>Frei1–Frei3.</p>
+</section><section class="card half" id="freie_werktage">
+  <div class="hd"><h2><span class="i-de">Freie Tage unter der Woche nach Nachtdienst</span><span class="i-it">Giorni liberi infrasettimanali dopo il turno notturno</span></h2></div>
+  <p><span class="i-de">Frei1–Frei3.</span><span class="i-it">Libero 1–3.</span></p>
   <div class="plot" id="p-freie_werktage"></div>
-  <script>P('p-freie_werktage',{"data":[{"type":"bar","x":["Mars","Hu","Cla","Usp","Bor","Pal","Barb","Zel","Gat","Hin","Gut","Lut","Dava","Rau","Sera","Wi","Piv","Fel","Ang","Capo","Fico","Mor","Lug","Mass"],"y":[52.0,47.0,45.0,43.0,42.0,37.0,36.0,36.0,35.0,35.0,33.0,31.0,31.0,28.0,27.0,20.0,20.0,18.0,15.0,11.0,7.0,5.0,5.0,1.0],"marker":{"color":["#9ccc65","#9ccc65","#ffffff","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65"],"opacity":[0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Tage","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":31.0,"y1":31.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":31.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 31","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="r_frei_werktag">
-  <div class="hd"><h2>Verhältnis frei an Werktagen zu Werktage</h2></div>
+</section><section class="card half" id="r_frei_werktag">
+  <div class="hd"><h2><span class="i-de">Verhältnis frei an Werktagen zu Werktage</span><span class="i-it">Rapporto giorni feriali liberi e giorni feriali</span></h2></div>
   
   <div class="plot" id="p-r_frei_werktag"></div>
-  <script>P('p-r_frei_werktag',{"data":[{"type":"bar","x":["Mars","Hu","Cla","Usp","Bor","Pal","Barb","Zel","Gat","Hin","Gut","Lut","Dava","Rau","Sera","Wi","Piv","Fel","Ang","Capo","Fico","Mor","Lug","Mass"],"y":[0.208,0.188,0.18,0.172,0.168,0.148,0.144,0.144,0.14,0.14,0.132,0.124,0.124,0.112,0.108,0.08,0.08,0.072,0.06,0.044,0.028,0.02,0.02,0.004],"marker":{"color":["#9ccc65","#9ccc65","#ffffff","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65"],"opacity":[0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:.2f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"freie Werktage : Werktage","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":0.124,"y1":0.124,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":0.124,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 0,12","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="stundenabzug">
-  <div class="hd"><h2>Stundenabzüge wegen Nachtschicht auf Werktage</h2></div>
-  <p>−4 h je freiem Werktag, +4 h je 2er-Block an Nachtdiensten.</p>
+</section><section class="card half" id="stundenabzug">
+  <div class="hd"><h2><span class="i-de">Stundenabzüge wegen Nachtschicht auf Werktage</span><span class="i-it">Ore in meno per smonto notte feriale</span></h2></div>
+  <p><span class="i-de">−4 h je freiem Werktag, +4 h je 2er-Block an Nachtdiensten.</span><span class="i-it">−4 h per ogni feriale libero, +4 h per ogni blocco di 2 notti.</span></p>
   <div class="plot" id="p-stundenabzug"></div>
-  <script>P('p-stundenabzug',{"data":[{"type":"bar","x":["Bia","Mass","Mor","Lug","Fico","Sera","Capo","Fel","Ang","Piv","Wi","Rau","Lut","Dava","Gut","Barb","Pal","Gat","Hin","Zel","Mars","Usp","Bor","Cla","Hu"],"y":[76.0,-4.0,-20.0,-20.0,-28.0,-44.0,-44.0,-60.0,-60.0,-76.0,-80.0,-104.0,-124.0,-124.0,-132.0,-136.0,-136.0,-136.0,-140.0,-144.0,-164.0,-164.0,-164.0,-168.0,-180.0],"marker":{"color":["#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#ffffff","#9ccc65"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Stunden","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":-124.0,"y1":-124.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":-124.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median -124","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="blocks">
-  <div class="hd"><h2>Nachtdienste hintereinander im 2er-Block</h2></div>
+</section><section class="card half" id="blocks">
+  <div class="hd"><h2><span class="i-de">Nachtdienste hintereinander im 2er-Block</span><span class="i-it">Turni notturni consecutivi in blocco da 2</span></h2></div>
   
   <div class="plot" id="p-blocks"></div>
-  <script>P('p-blocks',{"data":[{"type":"bar","x":["Bia","Sera","Mars","Fel","Cla","Pal","Hu","Barb","Usp","Rau","Gat","Piv","Bor"],"y":[19.0,16.0,11.0,3.0,3.0,3.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0],"marker":{"color":["#9ccc65","#9ccc65","#9ccc65","#9ccc65","#ffffff","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65","#9ccc65"],"opacity":[0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Blöcke","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":2.0,"y1":2.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":2.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 2","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-</div></main>
+</section></div>
+</main>
 <footer class="foot">
-  <span>SAR Meran · Dienstplan Anästhesie, Intensiv &amp; Notarzt</span>
-  <span>Datenquelle: geplanter Dienstplan · Stand: 02.11.2026, 11:38</span>
-  <a href="#top">nach oben ↑</a>
+  <span>SAR Meran · <span class="i-de">Dienstplan Anästhesie, Intensiv &amp; Notarzt</span><span class="i-it">Piano turni anestesia, rianimazione e Notarzt</span></span>
+  <span><span class="i-de">Datenquelle: geplanter Dienstplan</span><span class="i-it">Fonte: piano turni pianificato</span> · <span class="i-de">Stand</span><span class="i-it">Aggiornato</span>: 02.11.2026, 11:59</span>
+  <a href="#top"><span class="i-de">nach oben ↑</span><span class="i-it">torna su ↑</span></a>
 </footer>
-<script>
-document.querySelectorAll('.nav .dd>button').forEach(function(b){
-  b.addEventListener('click',function(e){
-    var li=b.parentElement, offen=li.classList.contains('open');
-    document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')});
-    if(!offen) li.classList.add('open'); e.stopPropagation();
-  });
-});
-document.addEventListener('click',function(){document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')})});
-</script>
+<script src="assets/data.js?v=202611021159"></script>
+<script>window.PG={"type":"year","year":2025,"color":"frei","stand":"02.11.2026, 11:59","charts":[{"k":"freie_feiertage","t":{"de":"Freie Tage an Feiertagen","it":"Giorni festivi liberi"},"yt":{"de":"Tage","it":"Giorni"},"f":"n","azv":false,"soll":false},{"k":"r_frei_feiertag","t":{"de":"Verhältnis freie Feiertage zu Feiertage","it":"Rapporto festivi liberi e giorni festivi"},"yt":{"de":"freie Feiertage : Feiertage","it":"Festivi liberi : festivi"},"f":"r","azv":false,"soll":false},{"k":"freie_werktage","t":{"de":"Freie Tage unter der Woche nach Nachtdienst","it":"Giorni liberi infrasettimanali dopo il turno notturno"},"yt":{"de":"Tage","it":"Giorni"},"f":"n","azv":false,"soll":false},{"k":"r_frei_werktag","t":{"de":"Verhältnis frei an Werktagen zu Werktage","it":"Rapporto giorni feriali liberi e giorni feriali"},"yt":{"de":"freie Werktage : Werktage","it":"Feriali liberi : feriali"},"f":"r","azv":false,"soll":false},{"k":"stundenabzug","t":{"de":"Stundenabzüge wegen Nachtschicht auf Werktage","it":"Ore in meno per smonto notte feriale"},"yt":{"de":"Stunden","it":"Ore"},"f":"h","azv":false,"soll":false},{"k":"blocks","t":{"de":"Nachtdienste hintereinander im 2er-Block","it":"Turni notturni consecutivi in blocco da 2"},"yt":{"de":"Blöcke","it":"Blocchi"},"f":"n","azv":false,"soll":false}]};</script>
+<script src="assets/sarme.js?v=202611021159"></script>
 </body></html>

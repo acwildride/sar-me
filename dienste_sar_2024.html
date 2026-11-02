@@ -1,172 +1,63 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8">
+<html lang="de" data-lang="de" data-title-de="Anästhesie &amp; Intensiv 2024 · SAR Meran" data-title-it="Anestesia e rianimazione 2024 · SAR Meran"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Anästhesie &amp; Intensiv 2024 · SAR Meran</title>
 <script>try{if(localStorage.getItem('sarme_ok')!=='1'&&sessionStorage.getItem('sarme_ok')!=='1')location.replace('index.html');}catch(e){}</script>
+<script>(function(){var l=null;try{l=localStorage.getItem('sarme_lang')}catch(e){}if(!l)l=((navigator.language||'').slice(0,2)==='it')?'it':'de';document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l;})();</script>
+<link rel="stylesheet" href="assets/sarme.css?v=202611021159">
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
-<style>
-:root{
-  --bg:#111111; --panel:#1a1a1a; --panel2:#202020; --line:#2a2f3a; --fg:#e8e8e8; --muted:#9aa0a6;
-  --accent:#f5b83d; --nacht:#5aa9e6; --sar:#4fd1c5; --na:#ff8a65; --az:#c4a7ff; --frei:#9ccc65;
-  --up:#ff7b72; --down:#7ee787;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
-a{color:inherit}
-.top{position:sticky;top:0;z-index:50;background:rgba(17,17,17,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.top .in{max-width:1400px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:16px;min-height:52px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:.2px;white-space:nowrap}
-.brand .dot{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--accent),#e0663a);display:grid;place-items:center;color:#111}
-.nav{list-style:none;margin:0 0 0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:flex-end}
-.nav>li{position:relative}
-.nav a,.nav button{display:block;background:none;border:0;color:var(--fg);font:inherit;font-size:14px;text-decoration:none;padding:15px 12px;cursor:pointer;border-bottom:2px solid transparent}
-.nav a:hover,.nav button:hover{background:#1f1f1f}
-.nav .on>a,.nav .on>button{border-bottom-color:var(--accent)}
-.nav button::after{content:"";display:inline-block;margin-left:6px;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-3px) rotate(45deg)}
-.sub{display:none;position:absolute;right:0;top:100%;list-style:none;margin:0;padding:6px 0;background:var(--panel);border:1px solid var(--line);border-radius:8px;min-width:170px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.sub a{padding:8px 14px;border:0}
-.sub a.cur{color:var(--accent)}
-.nav li.open>.sub{display:block}
-@media (hover:hover){.nav li:hover>.sub{display:block}}
-.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer}
-@media (max-width:980px){
-  .burger{display:block}
-  .nav{display:none;width:100%;flex-direction:column;margin:0;padding-bottom:8px}
-  .top .in{flex-wrap:wrap}
-  .top.open .nav{display:flex}
-  .nav a,.nav button{padding:10px 4px;width:100%;text-align:left}
-  .sub{position:static;box-shadow:none;border:0;border-left:2px solid var(--line);border-radius:0;margin-left:6px;background:transparent}
-}
-.wrap{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
-h1{font-weight:500;margin:0 0 6px;font-size:26px}
-.lead{color:var(--muted);margin:0 0 6px;max-width:1000px;line-height:1.55}
-.meta{font-size:12px;color:var(--muted);margin:0 0 18px}
-.meta b{color:var(--fg);font-weight:500}
-h3.sec{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-h3.sec .note{text-transform:none;letter-spacing:0;font-size:12px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,45%),1fr));gap:12px;margin-bottom:6px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
-.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--accent))}
-.kpi .t{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.kpi .v{font-size:clamp(20px,5vw,26px);margin:6px 0 2px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.kpi .v small{font-size:13px;color:var(--muted);margin-left:4px}
-.kpi .s{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.grid>.full{grid-column:1/-1}
-@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;min-width:0;scroll-margin-top:70px}
-.card h2{font-size:15px;font-weight:500;margin:0 0 2px}
-.card p{font-size:12px;color:var(--muted);margin:0 0 6px}
-.card .hd{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
-.card .hd a{font-size:12px;color:var(--muted);text-decoration:none;white-space:nowrap}
-.card .hd a:hover{color:var(--fg)}
-.plot{width:100%;height:360px}
-.plot.tall{height:440px}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
-.toc a,.toc span{font-size:12px;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--panel)}
-.toc a:hover{color:var(--fg);border-color:#3a404c}
-@media (max-width:700px){.toc2{display:none}}
-.toc .cur{color:#111;background:var(--accent);border-color:var(--accent)}
-.hero{position:relative;border-radius:14px;overflow:hidden;min-height:300px;display:flex;align-items:flex-end;border:1px solid var(--line);margin-bottom:16px;background:#1a1a1a}
-.hero .img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02)}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,17,.05) 0%,rgba(17,17,17,.35) 45%,rgba(17,17,17,.92) 100%)}
-.hero .tx{position:relative;z-index:1;padding:26px 24px}
-.hero h1{font-size:34px;font-weight:600;margin:0 0 4px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
-.hero p{margin:0;color:#cfd3d8}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.tile{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;transition:border-color .15s,transform .15s,background .15s}
-.tile:hover{border-color:var(--c);background:var(--panel2);transform:translateY(-2px)}
-.tile .ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);margin-bottom:10px}
-.tile b{display:block;font-weight:500;margin-bottom:3px}
-.tile span{font-size:13px;color:var(--muted)}
-.foot{max-width:1400px;margin:0 auto;padding:18px 16px 36px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-.foot a{color:var(--muted)}
-.sel{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;font-size:14px}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{background:var(--panel);color:var(--muted);border:0;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
-.seg button+button{border-left:1px solid var(--line)}
-.seg button.on{background:var(--accent);color:#111}
-.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
-.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-.tbl th:first-child,.tbl td:first-child{text-align:left}
-.tbl th{color:var(--muted);font-weight:500;font-size:12px}
-.tbl td .rk{color:var(--muted);font-size:11px;margin-left:6px}
-.scroll{overflow-x:auto}
-.me-note{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
-.me-note i{display:inline-block;width:10px;height:10px;border-radius:2px;background:#fff}
-</style>
-<script>
-var CFG={responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d','autoScale2d']};
-var SMALL=window.innerWidth<700;
-function P(id,fig){
-  var el=document.getElementById(id); if(!el||!window.Plotly) return;
-  var L=fig.layout||{};
-  if(SMALL){L.margin=Object.assign({},L.margin,{l:44,r:8});
-    if(L.legend){L.legend.orientation='h';L.legend.x=0;L.legend.y=-0.22;L.legend.xanchor='left';L.legend.yanchor='top';}}
-  Plotly.newPlot(el,fig.data,L,CFG);
-}
-</script>
 </head>
 <body>
 <header class="top" id="top"><div class="in">
-  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>SAR Meran</a>
-  <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">Menü</button>
-  <ul class="nav"><li class=""><a href="main.html">Übersicht</a></li><li class="dd "><button type="button" aria-haspopup="true">Gesamt</button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd on"><button type="button" aria-haspopup="true">Anä/ICU</button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Notarzt</button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Arbeitszeit</button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Freizeit</button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class=""><a href="vergleich.html">Jahresvergleich</a></li><li class=""><a href="profil.html">Profil</a></li></ul>
+  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span><span class="bn">SAR Meran</span></a>
+  <ul class="nav"><li class=""><a href="main.html"><span class="i-de">Übersicht</span><span class="i-it">Panoramica</span></a></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Gesamt</span><span class="i-it">Totale</span></button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd on"><button type="button" aria-haspopup="true"><span class="i-de">Anä/ICU</span><span class="i-it">Anest./Rian.</span></button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Notarzt</span><span class="i-it">Notarzt</span></button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Arbeitszeit</span><span class="i-it">Contratto</span></button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Freizeit</span><span class="i-it">Tempo libero</span></button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class=""><a href="vergleich.html"><span class="i-de">Jahresvergleich</span><span class="i-it">Confronto annuale</span></a></li><li class=""><a href="analysen.html"><span class="i-de">Analysen</span><span class="i-it">Analisi</span></a></li><li class=""><a href="profil.html"><span class="i-de">Profil</span><span class="i-it">Profilo</span></a></li></ul>
+  <div class="tools">
+    <label class="mesel" title="Ich bin / Io sono"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span id="me-lab">Ich bin</span><select id="me-sel" class="sel sm" aria-label="Ich bin / Io sono"></select></label>
+    <div class="seg langsw"><button type="button" data-l="de">DE</button><button type="button" data-l="it">IT</button></div>
+    <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">☰</button>
+  </div>
 </div></header>
 <main class="wrap">
-<h1>Anästhesie &amp; Intensiv 2024</h1><p class="lead">Tag- und Nachtdienste in Anästhesie und Intensivstation, aufgeteilt nach Werk- und Feiertagen.</p><p class="meta">Datenquelle: <b>geplanter Dienstplan 2024</b> · letzter Eintrag <b>31.12.2024</b> · 366 Tage, davon 112 Feiertage/Wochenendtage · <span class="me-note"><i></i>Cla hervorgehoben</span></p><div class="toc"><a href="dienste_sar_2022.html">2022</a><a href="dienste_sar_2023.html">2023</a><span class="cur">2024</span><a href="dienste_sar_2025.html">2025</a></div><div class="toc toc2"><a href="#sar_tag">Tagdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)</a><a href="#sar_nacht">Nachtdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)</a><a href="#sar_tag_werktag">Tagdienste Anästhesie oder Intensiv an Werktagen</a><a href="#sar_tag_feiertag">Tagdienste Anästhesie oder Intensiv an Feiertagen</a><a href="#sar_nacht_auf_werktag">Nachtdienste Anästhesie oder Intensiv auf Werktage (mit Stundenabzug)</a><a href="#sar_nacht_auf_feiertag">Nachtdienste Anästhesie oder Intensiv auf Feiertage (ohne Stundenabzug)</a></div><h3 class="sec">Cla im Team</h3><div class="kpis"><div class="kpi" style="--c:var(--sar)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>Tagdienste Anästhesie oder Intensiv insgesamt …</div><div class="v">57<small></small></div><div class="s">Cla: Rang 3 von 33 · Median 29</div></div><div class="kpi" style="--c:var(--sar)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>Nachtdienste Anästhesie oder Intensiv insgesam…</div><div class="v">32<small></small></div><div class="s">Cla: Rang 11 von 33 · Median 23</div></div><div class="kpi" style="--c:var(--sar)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>Tagdienste Anästhesie oder Intensiv an Werktag…</div><div class="v">45<small></small></div><div class="s">Cla: Rang 3 von 33 · Median 23</div></div><div class="kpi" style="--c:var(--sar)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>Tagdienste Anästhesie oder Intensiv an Feierta…</div><div class="v">12<small></small></div><div class="s">Cla: Rang 4 von 33 · Median 7</div></div></div><h3 class="sec">Grafiken</h3><div class="grid"><section class="card full" id="sar_tag">
-  <div class="hd"><h2>Tagdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)</h2></div>
-  <p>OP Tag und Tagdienst.</p>
-  <div class="plot tall" id="p-sar_tag"></div>
-  <script>P('p-sar_tag',{"data":[{"type":"bar","x":["Sera","Usp","Cla","Nikif","Wi","Bra","Hin","Pal","Zel","Rau","Piv","Bor","Fico","Barb","Ang","Dava","Lug","Mars","Mass","Lut","Fisch","Capo","Hu","Kirch","Rov","Fel","Gat","Cap","Don","Opp","Bock","Bia"],"y":[60.0,59.0,57.0,54.0,45.0,40.0,38.0,38.0,36.0,36.0,36.0,35.0,35.0,31.0,30.0,30.0,29.0,28.0,28.0,27.0,25.0,24.0,23.0,23.0,21.0,21.0,20.0,15.0,7.0,6.0,2.0,1.0],"marker":{"color":["#4fd1c5","#4fd1c5","#ffffff","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5"],"opacity":[0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":29.5,"y1":29.5,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":29.5,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 30","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="sar_nacht">
-  <div class="hd"><h2>Nachtdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)</h2></div>
+<h1><span class="i-de">Anästhesie &amp; Intensiv</span><span class="i-it">Anestesia e rianimazione</span> 2024</h1>
+<p class="lead"><span class="i-de">Tag- und Nachtdienste in Anästhesie und Intensivstation, aufgeteilt nach Werk- und Feiertagen.</span><span class="i-it">Turni diurni e notturni in anestesia e rianimazione, suddivisi tra giorni feriali e festivi.</span></p>
+<p class="meta"><span class="i-de">Datenquelle</span><span class="i-it">Fonte</span>: <b><span class="i-de">geplanter Dienstplan</span><span class="i-it">piano turni pianificato</span> 2024</b> · <span class="i-de">letzter Eintrag</span><span class="i-it">ultima voce</span> <b>31.12.2024</b> ·
+366 <span class="i-de">Tage, davon</span><span class="i-it">giorni, di cui</span> 112 <span class="i-de">Feiertage/Wochenendtage</span><span class="i-it">festivi/weekend</span> · <span class="i-de">Tipp: auf einen Balken klicken, um sich selbst hervorzuheben.</span><span class="i-it">Suggerimento: clicca su una barra per evidenziarti.</span></p>
+<div class="toc"><a href="dienste_sar_2022.html">2022</a><a href="dienste_sar_2023.html">2023</a><span class="cur">2024</span><a href="dienste_sar_2025.html">2025</a></div>
+<div class="toc toc2"><a href="#sar_tag"><span class="i-de">Tagdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)</span><span class="i-it">Turni diurni in anestesia o rianimazione totali (feriali e festivi)</span></a><a href="#sar_nacht"><span class="i-de">Nachtdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)</span><span class="i-it">Turni notturni in anestesia o rianimazione totali (feriali e festivi)</span></a><a href="#sar_tag_werktag"><span class="i-de">Tagdienste Anästhesie oder Intensiv an Werktagen</span><span class="i-it">Turni diurni in anestesia o rianimazione nei giorni feriali</span></a><a href="#sar_tag_feiertag"><span class="i-de">Tagdienste Anästhesie oder Intensiv an Feiertagen</span><span class="i-it">Turni diurni in anestesia o rianimazione nei giorni festivi</span></a><a href="#sar_nacht_auf_werktag"><span class="i-de">Nachtdienste Anästhesie oder Intensiv auf Werktage (mit Stundenabzug)</span><span class="i-it">Turni notturni in anestesia o rianimazione con smonto feriale (con ore in meno)</span></a><a href="#sar_nacht_auf_feiertag"><span class="i-de">Nachtdienste Anästhesie oder Intensiv auf Feiertage (ohne Stundenabzug)</span><span class="i-it">Turni notturni in anestesia o rianimazione con smonto festivo (senza ore in meno)</span></a></div>
+<h3 class="sec" id="me-h"></h3><div class="kpis" id="me-kpis"></div>
+<h3 class="sec"><span class="i-de">Grafiken</span><span class="i-it">Grafici</span></h3><div class="grid"><section class="card full" id="sar_tag">
+  <div class="hd"><h2><span class="i-de">Tagdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)</span><span class="i-it">Turni diurni in anestesia o rianimazione totali (feriali e festivi)</span></h2></div>
+  
+  <div class="plot" id="p-sar_tag"></div>
+</section><section class="card half" id="sar_nacht">
+  <div class="hd"><h2><span class="i-de">Nachtdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)</span><span class="i-it">Turni notturni in anestesia o rianimazione totali (feriali e festivi)</span></h2></div>
   
   <div class="plot" id="p-sar_nacht"></div>
-  <script>P('p-sar_nacht',{"data":[{"type":"bar","x":["Dava","Mars","Hu","Bor","Lug","Barb","Hin","Ang","Pal","Zel","Cla","Piv","Lut","Capo","Gat","Fico","Kirch","Wi","Fel","Usp","Sera","Fisch","Rau","Rov","Cap","Bia","Don","Mass"],"y":[44.0,43.0,42.0,41.0,39.0,39.0,37.0,36.0,34.0,33.0,32.0,29.0,28.0,27.0,24.0,24.0,23.0,22.0,21.0,20.0,20.0,18.0,17.0,16.0,9.0,8.0,4.0,2.0],"marker":{"color":["#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#ffffff","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":25.5,"y1":25.5,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":25.5,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 26","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="sar_tag_werktag">
-  <div class="hd"><h2>Tagdienste Anästhesie oder Intensiv an Werktagen</h2></div>
+</section><section class="card half" id="sar_tag_werktag">
+  <div class="hd"><h2><span class="i-de">Tagdienste Anästhesie oder Intensiv an Werktagen</span><span class="i-it">Turni diurni in anestesia o rianimazione nei giorni feriali</span></h2></div>
   
   <div class="plot" id="p-sar_tag_werktag"></div>
-  <script>P('p-sar_tag_werktag',{"data":[{"type":"bar","x":["Nikif","Sera","Cla","Wi","Hin","Ang","Pal","Dava","Bor","Fico","Mars","Zel","Bra","Piv","Barb","Lug","Hu","Kirch","Rau","Mass","Lut","Usp","Capo","Fisch","Gat","Fel","Cap","Rov","Don","Opp","Bock"],"y":[50.0,49.0,45.0,35.0,32.0,30.0,30.0,30.0,28.0,27.0,27.0,27.0,26.0,25.0,24.0,24.0,23.0,23.0,23.0,21.0,19.0,17.0,17.0,17.0,16.0,15.0,15.0,12.0,5.0,2.0,2.0],"marker":{"color":["#4fd1c5","#4fd1c5","#ffffff","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5"],"opacity":[0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":24.0,"y1":24.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":24.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 24","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="sar_tag_feiertag">
-  <div class="hd"><h2>Tagdienste Anästhesie oder Intensiv an Feiertagen</h2></div>
+</section><section class="card half" id="sar_tag_feiertag">
+  <div class="hd"><h2><span class="i-de">Tagdienste Anästhesie oder Intensiv an Feiertagen</span><span class="i-it">Turni diurni in anestesia o rianimazione nei giorni festivi</span></h2></div>
   
   <div class="plot" id="p-sar_tag_feiertag"></div>
-  <script>P('p-sar_tag_feiertag',{"data":[{"type":"bar","x":["Usp","Bra","Rau","Cla","Sera","Piv","Wi","Zel","Rov","Fico","Lut","Fisch","Pal","Barb","Capo","Bor","Mass","Fel","Hin","Lug","Gat","Nikif","Opp","Don","Mars","Bia"],"y":[42.0,14.0,13.0,12.0,11.0,11.0,10.0,9.0,9.0,8.0,8.0,8.0,8.0,7.0,7.0,7.0,7.0,6.0,6.0,5.0,4.0,4.0,4.0,2.0,1.0,1.0],"marker":{"color":["#4fd1c5","#4fd1c5","#4fd1c5","#ffffff","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5"],"opacity":[0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":7.5,"y1":7.5,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":7.5,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 8","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="sar_nacht_auf_werktag">
-  <div class="hd"><h2>Nachtdienste Anästhesie oder Intensiv auf Werktage (mit Stundenabzug)</h2></div>
+</section><section class="card half" id="sar_nacht_auf_werktag">
+  <div class="hd"><h2><span class="i-de">Nachtdienste Anästhesie oder Intensiv auf Werktage (mit Stundenabzug)</span><span class="i-it">Turni notturni in anestesia o rianimazione con smonto feriale (con ore in meno)</span></h2></div>
   
   <div class="plot" id="p-sar_nacht_auf_werktag"></div>
-  <script>P('p-sar_nacht_auf_werktag',{"data":[{"type":"bar","x":["Hu","Mars","Bor","Dava","Barb","Hin","Cla","Pal","Zel","Capo","Lug","Piv","Wi","Lut","Fico","Kirch","Fel","Ang","Gat","Sera","Usp","Rau","Fisch","Rov","Cap","Bia","Don","Mass"],"y":[36.0,33.0,31.0,29.0,28.0,28.0,25.0,23.0,23.0,22.0,22.0,21.0,20.0,19.0,18.0,17.0,16.0,14.0,14.0,13.0,13.0,12.0,10.0,9.0,5.0,4.0,3.0,2.0],"marker":{"color":["#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#ffffff","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":18.5,"y1":18.5,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":18.5,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 18","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="sar_nacht_auf_feiertag">
-  <div class="hd"><h2>Nachtdienste Anästhesie oder Intensiv auf Feiertage (ohne Stundenabzug)</h2></div>
+</section><section class="card half" id="sar_nacht_auf_feiertag">
+  <div class="hd"><h2><span class="i-de">Nachtdienste Anästhesie oder Intensiv auf Feiertage (ohne Stundenabzug)</span><span class="i-it">Turni notturni in anestesia o rianimazione con smonto festivo (senza ore in meno)</span></h2></div>
   
   <div class="plot" id="p-sar_nacht_auf_feiertag"></div>
-  <script>P('p-sar_nacht_auf_feiertag',{"data":[{"type":"bar","x":["Ang","Lug","Dava","Pal","Barb","Mars","Gat","Zel","Bor","Hin","Lut","Fisch","Piv","Cla","Usp","Sera","Rov","Hu","Kirch","Fico","Capo","Rau","Fel","Bia","Cap","Wi","Don"],"y":[22.0,17.0,15.0,11.0,11.0,10.0,10.0,10.0,10.0,9.0,9.0,8.0,8.0,7.0,7.0,7.0,7.0,6.0,6.0,6.0,5.0,5.0,5.0,4.0,4.0,2.0,1.0],"marker":{"color":["#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#ffffff","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5","#4fd1c5"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":7.0,"y1":7.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":7.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 7","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-</div></main>
+</section></div>
+</main>
 <footer class="foot">
-  <span>SAR Meran · Dienstplan Anästhesie, Intensiv &amp; Notarzt</span>
-  <span>Datenquelle: geplanter Dienstplan · Stand: 02.11.2026, 11:38</span>
-  <a href="#top">nach oben ↑</a>
+  <span>SAR Meran · <span class="i-de">Dienstplan Anästhesie, Intensiv &amp; Notarzt</span><span class="i-it">Piano turni anestesia, rianimazione e Notarzt</span></span>
+  <span><span class="i-de">Datenquelle: geplanter Dienstplan</span><span class="i-it">Fonte: piano turni pianificato</span> · <span class="i-de">Stand</span><span class="i-it">Aggiornato</span>: 02.11.2026, 11:59</span>
+  <a href="#top"><span class="i-de">nach oben ↑</span><span class="i-it">torna su ↑</span></a>
 </footer>
-<script>
-document.querySelectorAll('.nav .dd>button').forEach(function(b){
-  b.addEventListener('click',function(e){
-    var li=b.parentElement, offen=li.classList.contains('open');
-    document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')});
-    if(!offen) li.classList.add('open'); e.stopPropagation();
-  });
-});
-document.addEventListener('click',function(){document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')})});
-</script>
+<script src="assets/data.js?v=202611021159"></script>
+<script>window.PG={"type":"year","year":2024,"color":"sar","stand":"02.11.2026, 11:59","charts":[{"k":"sar_tag","t":{"de":"Tagdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)","it":"Turni diurni in anestesia o rianimazione totali (feriali e festivi)"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false},{"k":"sar_nacht","t":{"de":"Nachtdienste Anästhesie oder Intensiv insgesamt (Werk- und Feiertage)","it":"Turni notturni in anestesia o rianimazione totali (feriali e festivi)"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false},{"k":"sar_tag_werktag","t":{"de":"Tagdienste Anästhesie oder Intensiv an Werktagen","it":"Turni diurni in anestesia o rianimazione nei giorni feriali"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false},{"k":"sar_tag_feiertag","t":{"de":"Tagdienste Anästhesie oder Intensiv an Feiertagen","it":"Turni diurni in anestesia o rianimazione nei giorni festivi"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false},{"k":"sar_nacht_auf_werktag","t":{"de":"Nachtdienste Anästhesie oder Intensiv auf Werktage (mit Stundenabzug)","it":"Turni notturni in anestesia o rianimazione con smonto feriale (con ore in meno)"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false},{"k":"sar_nacht_auf_feiertag","t":{"de":"Nachtdienste Anästhesie oder Intensiv auf Feiertage (ohne Stundenabzug)","it":"Turni notturni in anestesia o rianimazione con smonto festivo (senza ore in meno)"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false}]};</script>
+<script src="assets/sarme.js?v=202611021159"></script>
 </body></html>

@@ -1,166 +1,67 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8">
+<html lang="de" data-lang="de" data-title-de="Jahresvergleich · SAR Meran" data-title-it="Confronto annuale · SAR Meran"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Jahresvergleich · SAR Meran</title>
 <script>try{if(localStorage.getItem('sarme_ok')!=='1'&&sessionStorage.getItem('sarme_ok')!=='1')location.replace('index.html');}catch(e){}</script>
+<script>(function(){var l=null;try{l=localStorage.getItem('sarme_lang')}catch(e){}if(!l)l=((navigator.language||'').slice(0,2)==='it')?'it':'de';document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l;})();</script>
+<link rel="stylesheet" href="assets/sarme.css?v=202611021159">
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
-<style>
-:root{
-  --bg:#111111; --panel:#1a1a1a; --panel2:#202020; --line:#2a2f3a; --fg:#e8e8e8; --muted:#9aa0a6;
-  --accent:#f5b83d; --nacht:#5aa9e6; --sar:#4fd1c5; --na:#ff8a65; --az:#c4a7ff; --frei:#9ccc65;
-  --up:#ff7b72; --down:#7ee787;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
-a{color:inherit}
-.top{position:sticky;top:0;z-index:50;background:rgba(17,17,17,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.top .in{max-width:1400px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:16px;min-height:52px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:.2px;white-space:nowrap}
-.brand .dot{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--accent),#e0663a);display:grid;place-items:center;color:#111}
-.nav{list-style:none;margin:0 0 0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:flex-end}
-.nav>li{position:relative}
-.nav a,.nav button{display:block;background:none;border:0;color:var(--fg);font:inherit;font-size:14px;text-decoration:none;padding:15px 12px;cursor:pointer;border-bottom:2px solid transparent}
-.nav a:hover,.nav button:hover{background:#1f1f1f}
-.nav .on>a,.nav .on>button{border-bottom-color:var(--accent)}
-.nav button::after{content:"";display:inline-block;margin-left:6px;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-3px) rotate(45deg)}
-.sub{display:none;position:absolute;right:0;top:100%;list-style:none;margin:0;padding:6px 0;background:var(--panel);border:1px solid var(--line);border-radius:8px;min-width:170px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.sub a{padding:8px 14px;border:0}
-.sub a.cur{color:var(--accent)}
-.nav li.open>.sub{display:block}
-@media (hover:hover){.nav li:hover>.sub{display:block}}
-.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer}
-@media (max-width:980px){
-  .burger{display:block}
-  .nav{display:none;width:100%;flex-direction:column;margin:0;padding-bottom:8px}
-  .top .in{flex-wrap:wrap}
-  .top.open .nav{display:flex}
-  .nav a,.nav button{padding:10px 4px;width:100%;text-align:left}
-  .sub{position:static;box-shadow:none;border:0;border-left:2px solid var(--line);border-radius:0;margin-left:6px;background:transparent}
-}
-.wrap{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
-h1{font-weight:500;margin:0 0 6px;font-size:26px}
-.lead{color:var(--muted);margin:0 0 6px;max-width:1000px;line-height:1.55}
-.meta{font-size:12px;color:var(--muted);margin:0 0 18px}
-.meta b{color:var(--fg);font-weight:500}
-h3.sec{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-h3.sec .note{text-transform:none;letter-spacing:0;font-size:12px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,45%),1fr));gap:12px;margin-bottom:6px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
-.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--accent))}
-.kpi .t{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.kpi .v{font-size:clamp(20px,5vw,26px);margin:6px 0 2px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.kpi .v small{font-size:13px;color:var(--muted);margin-left:4px}
-.kpi .s{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.grid>.full{grid-column:1/-1}
-@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;min-width:0;scroll-margin-top:70px}
-.card h2{font-size:15px;font-weight:500;margin:0 0 2px}
-.card p{font-size:12px;color:var(--muted);margin:0 0 6px}
-.card .hd{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
-.card .hd a{font-size:12px;color:var(--muted);text-decoration:none;white-space:nowrap}
-.card .hd a:hover{color:var(--fg)}
-.plot{width:100%;height:360px}
-.plot.tall{height:440px}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
-.toc a,.toc span{font-size:12px;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--panel)}
-.toc a:hover{color:var(--fg);border-color:#3a404c}
-@media (max-width:700px){.toc2{display:none}}
-.toc .cur{color:#111;background:var(--accent);border-color:var(--accent)}
-.hero{position:relative;border-radius:14px;overflow:hidden;min-height:300px;display:flex;align-items:flex-end;border:1px solid var(--line);margin-bottom:16px;background:#1a1a1a}
-.hero .img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02)}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,17,.05) 0%,rgba(17,17,17,.35) 45%,rgba(17,17,17,.92) 100%)}
-.hero .tx{position:relative;z-index:1;padding:26px 24px}
-.hero h1{font-size:34px;font-weight:600;margin:0 0 4px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
-.hero p{margin:0;color:#cfd3d8}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.tile{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;transition:border-color .15s,transform .15s,background .15s}
-.tile:hover{border-color:var(--c);background:var(--panel2);transform:translateY(-2px)}
-.tile .ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);margin-bottom:10px}
-.tile b{display:block;font-weight:500;margin-bottom:3px}
-.tile span{font-size:13px;color:var(--muted)}
-.foot{max-width:1400px;margin:0 auto;padding:18px 16px 36px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-.foot a{color:var(--muted)}
-.sel{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;font-size:14px}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{background:var(--panel);color:var(--muted);border:0;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
-.seg button+button{border-left:1px solid var(--line)}
-.seg button.on{background:var(--accent);color:#111}
-.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
-.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-.tbl th:first-child,.tbl td:first-child{text-align:left}
-.tbl th{color:var(--muted);font-weight:500;font-size:12px}
-.tbl td .rk{color:var(--muted);font-size:11px;margin-left:6px}
-.scroll{overflow-x:auto}
-.me-note{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
-.me-note i{display:inline-block;width:10px;height:10px;border-radius:2px;background:#fff}
-</style>
-<script>
-var CFG={responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d','autoScale2d']};
-var SMALL=window.innerWidth<700;
-function P(id,fig){
-  var el=document.getElementById(id); if(!el||!window.Plotly) return;
-  var L=fig.layout||{};
-  if(SMALL){L.margin=Object.assign({},L.margin,{l:44,r:8});
-    if(L.legend){L.legend.orientation='h';L.legend.x=0;L.legend.y=-0.22;L.legend.xanchor='left';L.legend.yanchor='top';}}
-  Plotly.newPlot(el,fig.data,L,CFG);
-}
-</script>
 </head>
 <body>
 <header class="top" id="top"><div class="in">
-  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>SAR Meran</a>
-  <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">Menü</button>
-  <ul class="nav"><li class=""><a href="main.html">Übersicht</a></li><li class="dd "><button type="button" aria-haspopup="true">Gesamt</button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Anä/ICU</button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Notarzt</button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Arbeitszeit</button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Freizeit</button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class="on"><a href="vergleich.html">Jahresvergleich</a></li><li class=""><a href="profil.html">Profil</a></li></ul>
+  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span><span class="bn">SAR Meran</span></a>
+  <ul class="nav"><li class=""><a href="main.html"><span class="i-de">Übersicht</span><span class="i-it">Panoramica</span></a></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Gesamt</span><span class="i-it">Totale</span></button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Anä/ICU</span><span class="i-it">Anest./Rian.</span></button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Notarzt</span><span class="i-it">Notarzt</span></button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Arbeitszeit</span><span class="i-it">Contratto</span></button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Freizeit</span><span class="i-it">Tempo libero</span></button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class="on"><a href="vergleich.html"><span class="i-de">Jahresvergleich</span><span class="i-it">Confronto annuale</span></a></li><li class=""><a href="analysen.html"><span class="i-de">Analysen</span><span class="i-it">Analisi</span></a></li><li class=""><a href="profil.html"><span class="i-de">Profil</span><span class="i-it">Profilo</span></a></li></ul>
+  <div class="tools">
+    <label class="mesel" title="Ich bin / Io sono"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span id="me-lab">Ich bin</span><select id="me-sel" class="sel sm" aria-label="Ich bin / Io sono"></select></label>
+    <div class="seg langsw"><button type="button" data-l="de">DE</button><button type="button" data-l="it">IT</button></div>
+    <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">☰</button>
+  </div>
 </div></header>
 <main class="wrap">
-<h1>Jahresvergleich 2022–2025</h1><p class="lead">Wie sich Dienste, Stunden und Feiertagsbelastung im Team über die Jahre entwickeln – und wie sie sich auf die einzelnen Ärztinnen und Ärzte verteilen.</p><p class="meta"><span class="me-note"><i></i>Cla hervorgehoben</span></p><h3 class="sec">Team je Jahr</h3><div class="card scroll"><table class="tbl"><tr><th>Jahr</th><th>Dienststunden</th><th>12-h-Dienste</th><th>Nachtdienste</th><th>Notarztdienste</th><th>Überstunden</th><th>Personen</th><th>Feiertage</th></tr><tr><td>2022</td><td>43.780</td><td>2.499</td><td>1.095</td><td>739</td><td>3.564</td><td>38</td><td>113</td></tr><tr><td>2023</td><td>44.960</td><td>2.402</td><td>1.095</td><td>731</td><td>4.584</td><td>35</td><td>114</td></tr><tr><td>2024</td><td>46.260</td><td>2.407</td><td>1.098</td><td>733</td><td>4.552</td><td>33</td><td>112</td></tr><tr><td>2025</td><td>47.804</td><td>2.413</td><td>1.095</td><td>735</td><td>5.020</td><td>35</td><td>115</td></tr></table></div><h3 class="sec">Entwicklung</h3><div class="grid"><section class="card half" id="v-stack">
-  <div class="hd"><h2>12-h-Dienste nach Bereich</h2></div>
-  <p>Team-Summe je Jahr.</p>
+<h1><span class="i-de">Jahresvergleich</span><span class="i-it">Confronto annuale</span> 2022–2025</h1>
+<p class="lead"><span class="i-de">Wie sich Dienste, Stunden und Feiertagsbelastung im Team über die Jahre entwickeln – und wie sie sich auf die einzelnen Personen verteilen.</span><span class="i-it">Come si evolvono negli anni turni, ore e carico festivo nel team – e come si distribuiscono tra le singole persone.</span></p>
+<p class="meta"><span class="i-de">Tipp: auf einen Balken klicken, um sich selbst hervorzuheben.</span><span class="i-it">Suggerimento: clicca su una barra per evidenziarti.</span></p>
+<h3 class="sec"><span class="i-de">Team je Jahr</span><span class="i-it">Team per anno</span></h3><div class="card scroll"><table class="tbl" id="v-tbl"></table></div>
+<h3 class="sec"><span class="i-de">Entwicklung</span><span class="i-it">Andamento</span></h3><div class="grid">
+<section class="card half" id="v-stack">
+  <div class="hd"><h2><span class="i-de">12-h-Dienste nach Bereich</span><span class="i-it">Turni da 12 h per area</span></h2></div>
+  <p><span class="i-de">Team-Summe je Jahr.</span><span class="i-it">Somma del team per anno.</span></p>
   <div class="plot" id="p-v-stack"></div>
-  <script>P('p-v-stack',{"data":[{"type":"bar","name":"Anä/ICU Tag","x":["2022","2023","2024","2025"],"y":[1045,952,960,967],"marker":{"color":"#4fd1c5"},"hovertemplate":"Anä/ICU Tag: %{y}<extra></extra>"},{"type":"bar","name":"Anä/ICU Nacht","x":["2022","2023","2024","2025"],"y":[730,730,732,730],"marker":{"color":"#5aa9e6"},"hovertemplate":"Anä/ICU Nacht: %{y}<extra></extra>"},{"type":"bar","name":"Notarzt Tag","x":["2022","2023","2024","2025"],"y":[359,355,349,351],"marker":{"color":"#ff8a65"},"hovertemplate":"Notarzt Tag: %{y}<extra></extra>"},{"type":"bar","name":"Notarzt Nacht","x":["2022","2023","2024","2025"],"y":[365,365,366,365],"marker":{"color":"#c4a7ff"},"hovertemplate":"Notarzt Nacht: %{y}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":48,"r":10,"t":10,"b":40},"xaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"type":"category"},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"12-h-Dienste","font":{"color":"#9aa0a6","size":11}}},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":true,"bargap":0.25,"barmode":"stack","legend":{"orientation":"h","x":0,"y":1.12,"font":{"color":"#9aa0a6"}},"hovermode":"x unified"}});</script>
 </section>
 <section class="card half" id="v-box">
-  <div class="hd"><h2>Verteilung der Gesamtstunden</h2></div>
-  <p>Jeder Punkt eine Person mit AZV; weiße Linie = Cla.</p>
+  <div class="hd"><h2><span class="i-de">Verteilung der Gesamtstunden</span><span class="i-it">Distribuzione delle ore totali</span></h2></div>
+  <p><span class="i-de">Jeder Punkt eine Person mit AZV; weiße Linie = du.</span><span class="i-it">Ogni punto è una persona con contratto noto; linea bianca = tu.</span></p>
   <div class="plot" id="p-v-box"></div>
-  <script>P('p-v-box',{"data":[{"type":"box","name":"2022","y":[1824.0,1824.0,1896.0,172.0,2016.0,1696.0,2196.0,944.0,1528.0,1920.0,1652.0,1572.0,180.0,2168.0,2036.0,1724.0,1452.0,1960.0,1156.0,2116.0,1288.0,64.0,720.0,436.0,2048.0,248.0,1412.0,492.0,1928.0,32.0,172.0,1560.0,108.0],"text":["Alf","Ang","Barb","Bock","Bor","Bra","Cap","Capo","Cla","Dava","Don","Fel","Fu","Gat","Hin","Hu","Leg","Lug","Lut","Mars","Mass","Mi","Nikif","Opp","Pal","Piv","Rau","Rov","Sera","Usp","Wi","Zel","Zögg"],"boxpoints":"all","jitter":0.4,"pointpos":0,"marker":{"color":"#f5b83d","size":5,"opacity":0.55},"line":{"color":"#f5b83d","width":1},"fillcolor":"rgba(245,184,61,.12)","hovertemplate":"<b>%{text}</b><br>%{y:,.0f} h<extra></extra>"},{"type":"box","name":"2023","y":[760.0,1672.0,1892.0,48.0,2100.0,1552.0,2024.0,392.0,2008.0,2300.0,1856.0,768.0,32.0,2548.0,2056.0,1948.0,480.0,1232.0,1732.0,1164.0,2064.0,1368.0,540.0,372.0,1908.0,1452.0,1564.0,976.0,1924.0,1296.0,1132.0,1504.0],"text":["Alf","Ang","Barb","Bock","Bor","Bra","Cap","Capo","Cla","Dava","Don","Fel","Fisch","Gat","Hin","Hu","Kirch","Leg","Lug","Lut","Mars","Mass","Nikif","Opp","Pal","Piv","Rau","Rov","Sera","Usp","Wi","Zel"],"boxpoints":"all","jitter":0.4,"pointpos":0,"marker":{"color":"#f5b83d","size":5,"opacity":0.55},"line":{"color":"#f5b83d","width":1},"fillcolor":"rgba(245,184,61,.12)","hovertemplate":"<b>%{text}</b><br>%{y:,.0f} h<extra></extra>"},{"type":"box","name":"2024","y":[1776.0,1920.0,116.0,28.0,2132.0,1760.0,968.0,1356.0,2144.0,2360.0,248.0,1888.0,1356.0,1004.0,2184.0,2220.0,1832.0,552.0,1972.0,1244.0,1920.0,856.0,584.0,648.0,664.0,2008.0,1484.0,1444.0,996.0,1944.0,2032.0,1140.0,1480.0],"text":["Ang","Barb","Bia","Bock","Bor","Bra","Cap","Capo","Cla","Dava","Don","Fel","Fico","Fisch","Gat","Hin","Hu","Kirch","Lug","Lut","Mars","Mass","Mor","Nikif","Opp","Pal","Piv","Rau","Rov","Sera","Usp","Wi","Zel"],"boxpoints":"all","jitter":0.4,"pointpos":0,"marker":{"color":"#f5b83d","size":5,"opacity":0.55},"line":{"color":"#f5b83d","width":1},"fillcolor":"rgba(245,184,61,.12)","hovertemplate":"<b>%{text}</b><br>%{y:,.0f} h<extra></extra>"},{"type":"box","name":"2025","y":[2008.0,2188.0,804.0,32.0,2332.0,1960.0,772.0,1232.0,2056.0,1440.0,1176.0,768.0,980.0,2148.0,1788.0,1844.0,1928.0,1172.0,584.0,336.0,1312.0,2000.0,1364.0,1680.0,636.0,2204.0,1568.0,1504.0,256.0,2152.0,2232.0,1328.0,1628.0],"text":["Ang","Barb","Bia","Bock","Bor","Bra","Cap","Capo","Cla","Dava","Fel","Fico","Fisch","Gat","Gut","Hin","Hu","Kar","Kirch","Lug","Lut","Mars","Mass","Mor","Nikif","Pal","Piv","Rau","Rov","Sera","Usp","Wi","Zel"],"boxpoints":"all","jitter":0.4,"pointpos":0,"marker":{"color":"#f5b83d","size":5,"opacity":0.55},"line":{"color":"#f5b83d","width":1},"fillcolor":"rgba(245,184,61,.12)","hovertemplate":"<b>%{text}</b><br>%{y:,.0f} h<extra></extra>"},{"type":"scatter","mode":"lines+markers","name":"Cla","x":["2022","2023","2024","2025"],"y":[1528.0,2008.0,2144.0,2056.0],"line":{"color":"#ffffff","width":2},"marker":{"size":9,"color":"#ffffff"},"hovertemplate":"<b>Cla</b> %{x}<br>%{y:,.0f} h<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":10,"t":10,"b":40},"xaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"type":"category"},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Gesamtstunden","font":{"color":"#9aa0a6","size":11}}},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25}});</script>
 </section>
 <section class="card full" id="v-gesamtstunden">
-  <div class="hd"><h2>Gesamtstunden je Arzt und Jahr</h2></div>
-  <p>Personen mit Werten in mindestens zwei Jahren.</p>
-  <div class="plot" id="p-v-gesamtstunden" style="height:706px"></div>
-  <script>P('p-v-gesamtstunden',{"data":[{"type":"heatmap","z":[[36.0,84.0,null,null],[172.0,48.0,28.0,32.0],[64.0,92.0,null,null],[728.0,120.0,null,null],[null,null,116.0,804.0],[436.0,372.0,664.0,null],[null,480.0,552.0,584.0],[720.0,540.0,648.0,636.0],[null,32.0,1004.0,980.0],[492.0,976.0,996.0,256.0],[172.0,1132.0,1140.0,1328.0],[944.0,392.0,1356.0,1232.0],[null,null,1356.0,768.0],[null,null,584.0,1680.0],[248.0,1452.0,1484.0,1568.0],[1288.0,1368.0,856.0,1364.0],[1156.0,1164.0,1244.0,1312.0],[1652.0,1856.0,248.0,null],[1824.0,760.0,null,null],[1452.0,1232.0,null,null],[1572.0,768.0,1888.0,1176.0],[32.0,1296.0,2032.0,2232.0],[1412.0,1564.0,1444.0,1504.0],[2196.0,2024.0,968.0,772.0],[1960.0,1732.0,1972.0,336.0],[1560.0,1504.0,1480.0,1628.0],[1696.0,1552.0,1760.0,1960.0],[1824.0,1672.0,1776.0,2008.0],[1724.0,1948.0,1832.0,1928.0],[1528.0,2008.0,2144.0,2056.0],[1896.0,1892.0,1920.0,2188.0],[1928.0,1924.0,1944.0,2152.0],[1920.0,2300.0,2360.0,1440.0],[2116.0,2064.0,1920.0,2000.0],[2036.0,2056.0,2220.0,1844.0],[2048.0,1908.0,2008.0,2204.0],[2016.0,2100.0,2132.0,2332.0],[2168.0,2548.0,2184.0,2148.0]],"x":["2022","2023","2024","2025"],"y":["De Giud","Bock","Mi","Conti","Bia","Opp","Kirch","Nikif","Fisch","Rov","Wi","Capo","Fico","Mor","Piv","Mass","Lut","Don","Alf","Leg","Fel","Usp","Rau","Cap","Lug","Zel","Bra","Ang","Hu","<b>Cla</b>","Barb","Sera","Dava","Mars","Hin","Pal","Bor","Gat"],"text":[["36","84","–","–"],["172","48","28","32"],["64","92","–","–"],["728","120","–","–"],["–","–","116","804"],["436","372","664","–"],["–","480","552","584"],["720","540","648","636"],["–","32","1.004","980"],["492","976","996","256"],["172","1.132","1.140","1.328"],["944","392","1.356","1.232"],["–","–","1.356","768"],["–","–","584","1.680"],["248","1.452","1.484","1.568"],["1.288","1.368","856","1.364"],["1.156","1.164","1.244","1.312"],["1.652","1.856","248","–"],["1.824","760","–","–"],["1.452","1.232","–","–"],["1.572","768","1.888","1.176"],["32","1.296","2.032","2.232"],["1.412","1.564","1.444","1.504"],["2.196","2.024","968","772"],["1.960","1.732","1.972","336"],["1.560","1.504","1.480","1.628"],["1.696","1.552","1.760","1.960"],["1.824","1.672","1.776","2.008"],["1.724","1.948","1.832","1.928"],["1.528","2.008","2.144","2.056"],["1.896","1.892","1.920","2.188"],["1.928","1.924","1.944","2.152"],["1.920","2.300","2.360","1.440"],["2.116","2.064","1.920","2.000"],["2.036","2.056","2.220","1.844"],["2.048","1.908","2.008","2.204"],["2.016","2.100","2.132","2.332"],["2.168","2.548","2.184","2.148"]],"texttemplate":"%{text}","textfont":{"size":10},"xgap":2,"ygap":1,"colorscale":[[0,"#1a1a1a"],[1,"#f5b83d"]],"colorbar":{"thickness":10,"outlinewidth":0,"tickfont":{"color":"#9aa0a6"}},"hovertemplate":"<b>%{y}</b> · %{x}<br>%{text}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":70,"r":10,"t":10,"b":30},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"type":"category","side":"top"},"yaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":10,"color":"#9aa0a6"}},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25}});</script>
+  <div class="hd"><h2><span class="i-de">Gesamtstunden je Person und Jahr</span><span class="i-it">Ore totali per persona e anno</span></h2></div>
+  <p><span class="i-de">Personen mit Werten in mindestens zwei Jahren.</span><span class="i-it">Persone con valori in almeno due anni.</span></p>
+  <div class="plot" id="p-v-gesamtstunden"></div>
 </section>
 <section class="card full" id="v-az_feiertag">
-  <div class="hd"><h2>Feiertagsdienste im Verhältnis zum AZV je Arzt und Jahr</h2></div>
-  <p>Personen mit Werten in mindestens zwei Jahren.</p>
-  <div class="plot" id="p-v-az_feiertag" style="height:621px"></div>
-  <script>P('p-v-az_feiertag',{"data":[{"type":"heatmap","z":[[0.0,0.018,0.036,null],[0.044,0.035,0.0,0.009],[0.0,0.018,0.071,0.052],[0.0,0.047,0.155,0.139],[null,null,0.027,0.174],[0.016,0.144,0.26,0.0],[null,null,0.19,0.046],[0.059,0.175,0.167,0.151],[0.221,0.211,0.018,null],[0.035,0.222,0.202,0.209],[0.159,0.096,0.259,0.183],[0.248,0.105,null,null],[0.191,0.189,0.179,0.227],[0.239,0.158,null,null],[0.204,0.202,0.214,0.2],[0.236,0.175,0.179,0.255],[0.274,0.211,0.188,0.209],[0.336,0.289,0.268,0.0],[0.265,0.263,0.125,0.243],[0.301,0.263,0.268,0.07],[null,0.0,0.304,0.435],[0.239,0.254,0.241,0.304],[0.195,0.272,0.232,0.357],[0.0,0.211,0.482,0.383],[0.23,0.237,0.268,0.348],[0.31,0.272,0.241,0.27],[0.33,0.269,0.274,0.278],[0.292,0.316,0.304,0.243],[0.301,0.289,0.295,0.339],[0.283,0.298,0.304,0.357],[0.354,0.36,0.286,0.304],[0.319,0.395,0.321,0.296],[0.487,0.456,0.5,0.287]],"x":["2022","2023","2024","2025"],"y":["Opp","Bock","Nikif","Capo","Bia","Rov","Fico","Wi","Don","Piv","Fel","Alf","Lut","Leg","Ang","Zel","Sera","Cap","Mass","Lug","Fisch","Pal","Barb","Usp","<b>Cla</b>","Bra","Rau","Hin","Mars","Hu","Bor","Gat","Dava"],"text":[["0,00","0,02","0,04","–"],["0,04","0,04","0,00","0,01"],["0,00","0,02","0,07","0,05"],["0,00","0,05","0,15","0,14"],["–","–","0,03","0,17"],["0,02","0,14","0,26","0,00"],["–","–","0,19","0,05"],["0,06","0,18","0,17","0,15"],["0,22","0,21","0,02","–"],["0,04","0,22","0,20","0,21"],["0,16","0,10","0,26","0,18"],["0,25","0,11","–","–"],["0,19","0,19","0,18","0,23"],["0,24","0,16","–","–"],["0,20","0,20","0,21","0,20"],["0,24","0,18","0,18","0,26"],["0,27","0,21","0,19","0,21"],["0,34","0,29","0,27","0,00"],["0,27","0,26","0,12","0,24"],["0,30","0,26","0,27","0,07"],["–","0,00","0,30","0,43"],["0,24","0,25","0,24","0,30"],["0,19","0,27","0,23","0,36"],["0,00","0,21","0,48","0,38"],["0,23","0,24","0,27","0,35"],["0,31","0,27","0,24","0,27"],["0,33","0,27","0,27","0,28"],["0,29","0,32","0,30","0,24"],["0,30","0,29","0,29","0,34"],["0,28","0,30","0,30","0,36"],["0,35","0,36","0,29","0,30"],["0,32","0,39","0,32","0,30"],["0,49","0,46","0,50","0,29"]],"texttemplate":"%{text}","textfont":{"size":10},"xgap":2,"ygap":1,"colorscale":[[0,"#1a1a1a"],[1,"#c4a7ff"]],"colorbar":{"thickness":10,"outlinewidth":0,"tickfont":{"color":"#9aa0a6"}},"hovertemplate":"<b>%{y}</b> · %{x}<br>%{text}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":70,"r":10,"t":10,"b":30},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"type":"category","side":"top"},"yaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":10,"color":"#9aa0a6"}},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25}});</script>
+  <div class="hd"><h2><span class="i-de">Feiertagsdienste im Verhältnis zum AZV je Person und Jahr</span><span class="i-it">Turni festivi in rapporto al contratto per persona e anno</span></h2></div>
+  
+  <div class="plot" id="p-v-az_feiertag"></div>
 </section>
 <section class="card full" id="v-nacht_gesamt">
-  <div class="hd"><h2>Nachtdienste je Arzt und Jahr</h2></div>
-  <p>Personen mit Werten in mindestens zwei Jahren.</p>
-  <div class="plot" id="p-v-nacht_gesamt" style="height:621px"></div>
-  <script>P('p-v-nacht_gesamt',{"data":[{"type":"heatmap","z":[[2.0,0.0,0.0,1.0],[1.0,2.0,null,null],[3.0,15.0,16.0,0.0],[17.0,4.0,null,null],[2.0,2.0,27.0,17.0],[null,0.0,18.0,19.0],[1.0,15.0,22.0,22.0],[36.0,34.0,2.0,2.0],[null,null,27.0,10.0],[null,20.0,23.0,24.0],[1.0,26.0,40.0,36.0],[52.0,43.0,19.0,0.0],[0.0,29.0,33.0,56.0],[32.0,21.0,41.0,26.0],[47.0,41.0,7.0,null],[45.0,19.0,null,null],[38.0,29.0,null,null],[35.0,35.0,36.0,35.0],[null,null,8.0,63.0],[40.0,31.0,39.0,39.0],[52.0,35.0,28.0,37.0],[46.0,44.0,46.0,45.0],[63.0,51.0,58.0,9.0],[46.0,58.0,56.0,57.0],[49.0,53.0,54.0,61.0],[41.0,54.0,58.0,64.0],[51.0,55.0,54.0,62.0],[54.0,56.0,61.0,54.0],[60.0,59.0,54.0,55.0],[66.0,53.0,63.0,59.0],[61.0,66.0,64.0,67.0],[69.0,69.0,64.0,70.0],[71.0,76.0,80.0,47.0]],"x":["2022","2023","2024","2025"],"y":["Bock","Mi","Rov","Conti","Capo","Fisch","Wi","Mass","Fico","Kirch","Piv","Cap","Usp","Fel","Don","Alf","Leg","Ang","Bia","Lut","Rau","Zel","Lug","Pal","<b>Cla</b>","Barb","Sera","Hin","Gat","Bor","Hu","Mars","Dava"],"text":[["2","0","0","1"],["1","2","–","–"],["3","15","16","0"],["17","4","–","–"],["2","2","27","17"],["–","0","18","19"],["1","15","22","22"],["36","34","2","2"],["–","–","27","10"],["–","20","23","24"],["1","26","40","36"],["52","43","19","0"],["0","29","33","56"],["32","21","41","26"],["47","41","7","–"],["45","19","–","–"],["38","29","–","–"],["35","35","36","35"],["–","–","8","63"],["40","31","39","39"],["52","35","28","37"],["46","44","46","45"],["63","51","58","9"],["46","58","56","57"],["49","53","54","61"],["41","54","58","64"],["51","55","54","62"],["54","56","61","54"],["60","59","54","55"],["66","53","63","59"],["61","66","64","67"],["69","69","64","70"],["71","76","80","47"]],"texttemplate":"%{text}","textfont":{"size":10},"xgap":2,"ygap":1,"colorscale":[[0,"#1a1a1a"],[1,"#5aa9e6"]],"colorbar":{"thickness":10,"outlinewidth":0,"tickfont":{"color":"#9aa0a6"}},"hovertemplate":"<b>%{y}</b> · %{x}<br>%{text}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":70,"r":10,"t":10,"b":30},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"type":"category","side":"top"},"yaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":10,"color":"#9aa0a6"}},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25}});</script>
+  <div class="hd"><h2><span class="i-de">Nachtdienste je Person und Jahr</span><span class="i-it">Turni notturni per persona e anno</span></h2></div>
+  
+  <div class="plot" id="p-v-nacht_gesamt"></div>
 </section>
-</div></main>
+<section class="card full" id="v-top_feiertage">
+  <div class="hd"><h2><span class="i-de">Dienste an Top-Feiertagen je Person und Jahr</span><span class="i-it">Turni nelle grandi festività per persona e anno</span></h2></div>
+  <p><span class="i-de">Neujahr, Ostern, Ostermontag, Ferragosto, Heiligabend, Weihnachten, Stephanstag, Silvester.</span><span class="i-it">Capodanno, Pasqua, Pasquetta, Ferragosto, Vigilia, Natale, Santo Stefano, San Silvestro.</span></p>
+  <div class="plot" id="p-v-top_feiertage"></div>
+</section>
+</div>
+</main>
 <footer class="foot">
-  <span>SAR Meran · Dienstplan Anästhesie, Intensiv &amp; Notarzt</span>
-  <span>Datenquelle: geplanter Dienstplan · Stand: 02.11.2026, 11:38</span>
-  <a href="#top">nach oben ↑</a>
+  <span>SAR Meran · <span class="i-de">Dienstplan Anästhesie, Intensiv &amp; Notarzt</span><span class="i-it">Piano turni anestesia, rianimazione e Notarzt</span></span>
+  <span><span class="i-de">Datenquelle: geplanter Dienstplan</span><span class="i-it">Fonte: piano turni pianificato</span> · <span class="i-de">Stand</span><span class="i-it">Aggiornato</span>: 02.11.2026, 11:59</span>
+  <a href="#top"><span class="i-de">nach oben ↑</span><span class="i-it">torna su ↑</span></a>
 </footer>
-<script>
-document.querySelectorAll('.nav .dd>button').forEach(function(b){
-  b.addEventListener('click',function(e){
-    var li=b.parentElement, offen=li.classList.contains('open');
-    document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')});
-    if(!offen) li.classList.add('open'); e.stopPropagation();
-  });
-});
-document.addEventListener('click',function(){document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')})});
-</script>
+<script src="assets/data.js?v=202611021159"></script>
+<script>window.PG={"type":"vergleich","stand":"02.11.2026, 11:59"};</script>
+<script src="assets/sarme.js?v=202611021159"></script>
 </body></html>

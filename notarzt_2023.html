@@ -1,178 +1,67 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8">
+<html lang="de" data-lang="de" data-title-de="Notarzt 2023 · SAR Meran" data-title-it="Notarzt 2023 · SAR Meran"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Notarzt 2023 · SAR Meran</title>
 <script>try{if(localStorage.getItem('sarme_ok')!=='1'&&sessionStorage.getItem('sarme_ok')!=='1')location.replace('index.html');}catch(e){}</script>
+<script>(function(){var l=null;try{l=localStorage.getItem('sarme_lang')}catch(e){}if(!l)l=((navigator.language||'').slice(0,2)==='it')?'it':'de';document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l;})();</script>
+<link rel="stylesheet" href="assets/sarme.css?v=202611021159">
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
-<style>
-:root{
-  --bg:#111111; --panel:#1a1a1a; --panel2:#202020; --line:#2a2f3a; --fg:#e8e8e8; --muted:#9aa0a6;
-  --accent:#f5b83d; --nacht:#5aa9e6; --sar:#4fd1c5; --na:#ff8a65; --az:#c4a7ff; --frei:#9ccc65;
-  --up:#ff7b72; --down:#7ee787;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
-a{color:inherit}
-.top{position:sticky;top:0;z-index:50;background:rgba(17,17,17,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.top .in{max-width:1400px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:16px;min-height:52px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:.2px;white-space:nowrap}
-.brand .dot{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--accent),#e0663a);display:grid;place-items:center;color:#111}
-.nav{list-style:none;margin:0 0 0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:flex-end}
-.nav>li{position:relative}
-.nav a,.nav button{display:block;background:none;border:0;color:var(--fg);font:inherit;font-size:14px;text-decoration:none;padding:15px 12px;cursor:pointer;border-bottom:2px solid transparent}
-.nav a:hover,.nav button:hover{background:#1f1f1f}
-.nav .on>a,.nav .on>button{border-bottom-color:var(--accent)}
-.nav button::after{content:"";display:inline-block;margin-left:6px;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-3px) rotate(45deg)}
-.sub{display:none;position:absolute;right:0;top:100%;list-style:none;margin:0;padding:6px 0;background:var(--panel);border:1px solid var(--line);border-radius:8px;min-width:170px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.sub a{padding:8px 14px;border:0}
-.sub a.cur{color:var(--accent)}
-.nav li.open>.sub{display:block}
-@media (hover:hover){.nav li:hover>.sub{display:block}}
-.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer}
-@media (max-width:980px){
-  .burger{display:block}
-  .nav{display:none;width:100%;flex-direction:column;margin:0;padding-bottom:8px}
-  .top .in{flex-wrap:wrap}
-  .top.open .nav{display:flex}
-  .nav a,.nav button{padding:10px 4px;width:100%;text-align:left}
-  .sub{position:static;box-shadow:none;border:0;border-left:2px solid var(--line);border-radius:0;margin-left:6px;background:transparent}
-}
-.wrap{max-width:1400px;margin:0 auto;padding:24px 16px 48px}
-h1{font-weight:500;margin:0 0 6px;font-size:26px}
-.lead{color:var(--muted);margin:0 0 6px;max-width:1000px;line-height:1.55}
-.meta{font-size:12px;color:var(--muted);margin:0 0 18px}
-.meta b{color:var(--fg);font-weight:500}
-h3.sec{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-h3.sec .note{text-transform:none;letter-spacing:0;font-size:12px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,45%),1fr));gap:12px;margin-bottom:6px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
-.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--accent))}
-.kpi .t{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.kpi .v{font-size:clamp(20px,5vw,26px);margin:6px 0 2px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.kpi .v small{font-size:13px;color:var(--muted);margin-left:4px}
-.kpi .s{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.grid>.full{grid-column:1/-1}
-@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;min-width:0;scroll-margin-top:70px}
-.card h2{font-size:15px;font-weight:500;margin:0 0 2px}
-.card p{font-size:12px;color:var(--muted);margin:0 0 6px}
-.card .hd{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
-.card .hd a{font-size:12px;color:var(--muted);text-decoration:none;white-space:nowrap}
-.card .hd a:hover{color:var(--fg)}
-.plot{width:100%;height:360px}
-.plot.tall{height:440px}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
-.toc a,.toc span{font-size:12px;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--panel)}
-.toc a:hover{color:var(--fg);border-color:#3a404c}
-@media (max-width:700px){.toc2{display:none}}
-.toc .cur{color:#111;background:var(--accent);border-color:var(--accent)}
-.hero{position:relative;border-radius:14px;overflow:hidden;min-height:300px;display:flex;align-items:flex-end;border:1px solid var(--line);margin-bottom:16px;background:#1a1a1a}
-.hero .img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02)}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,17,.05) 0%,rgba(17,17,17,.35) 45%,rgba(17,17,17,.92) 100%)}
-.hero .tx{position:relative;z-index:1;padding:26px 24px}
-.hero h1{font-size:34px;font-weight:600;margin:0 0 4px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
-.hero p{margin:0;color:#cfd3d8}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.tile{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;transition:border-color .15s,transform .15s,background .15s}
-.tile:hover{border-color:var(--c);background:var(--panel2);transform:translateY(-2px)}
-.tile .ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);margin-bottom:10px}
-.tile b{display:block;font-weight:500;margin-bottom:3px}
-.tile span{font-size:13px;color:var(--muted)}
-.foot{max-width:1400px;margin:0 auto;padding:18px 16px 36px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-.foot a{color:var(--muted)}
-.sel{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;font-size:14px}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{background:var(--panel);color:var(--muted);border:0;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
-.seg button+button{border-left:1px solid var(--line)}
-.seg button.on{background:var(--accent);color:#111}
-.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
-.tbl th,.tbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-.tbl th:first-child,.tbl td:first-child{text-align:left}
-.tbl th{color:var(--muted);font-weight:500;font-size:12px}
-.tbl td .rk{color:var(--muted);font-size:11px;margin-left:6px}
-.scroll{overflow-x:auto}
-.me-note{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
-.me-note i{display:inline-block;width:10px;height:10px;border-radius:2px;background:#fff}
-</style>
-<script>
-var CFG={responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d','autoScale2d']};
-var SMALL=window.innerWidth<700;
-function P(id,fig){
-  var el=document.getElementById(id); if(!el||!window.Plotly) return;
-  var L=fig.layout||{};
-  if(SMALL){L.margin=Object.assign({},L.margin,{l:44,r:8});
-    if(L.legend){L.legend.orientation='h';L.legend.x=0;L.legend.y=-0.22;L.legend.xanchor='left';L.legend.yanchor='top';}}
-  Plotly.newPlot(el,fig.data,L,CFG);
-}
-</script>
 </head>
 <body>
 <header class="top" id="top"><div class="in">
-  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>SAR Meran</a>
-  <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">Menü</button>
-  <ul class="nav"><li class=""><a href="main.html">Übersicht</a></li><li class="dd "><button type="button" aria-haspopup="true">Gesamt</button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Anä/ICU</button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd on"><button type="button" aria-haspopup="true">Notarzt</button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Arbeitszeit</button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true">Freizeit</button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class=""><a href="vergleich.html">Jahresvergleich</a></li><li class=""><a href="profil.html">Profil</a></li></ul>
+  <a class="brand" href="main.html"><span class="dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span><span class="bn">SAR Meran</span></a>
+  <ul class="nav"><li class=""><a href="main.html"><span class="i-de">Übersicht</span><span class="i-it">Panoramica</span></a></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Gesamt</span><span class="i-it">Totale</span></button><ul class="sub"><li><a href="gesamtes_2025.html">2025</a></li><li><a href="gesamtes_2024.html">2024</a></li><li><a href="gesamtes_2023.html">2023</a></li><li><a href="gesamtes_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Anä/ICU</span><span class="i-it">Anest./Rian.</span></button><ul class="sub"><li><a href="dienste_sar_2025.html">2025</a></li><li><a href="dienste_sar_2024.html">2024</a></li><li><a href="dienste_sar_2023.html">2023</a></li><li><a href="dienste_sar_2022.html">2022</a></li></ul></li><li class="dd on"><button type="button" aria-haspopup="true"><span class="i-de">Notarzt</span><span class="i-it">Notarzt</span></button><ul class="sub"><li><a href="notarzt_2025.html">2025</a></li><li><a href="notarzt_2024.html">2024</a></li><li><a href="notarzt_2023.html">2023</a></li><li><a href="notarzt_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Arbeitszeit</span><span class="i-it">Contratto</span></button><ul class="sub"><li><a href="arbeitszeit_2025.html">2025</a></li><li><a href="arbeitszeit_2024.html">2024</a></li><li><a href="arbeitszeit_2023.html">2023</a></li><li><a href="arbeitszeit_2022.html">2022</a></li></ul></li><li class="dd "><button type="button" aria-haspopup="true"><span class="i-de">Freizeit</span><span class="i-it">Tempo libero</span></button><ul class="sub"><li><a href="freizeit_2025.html">2025</a></li><li><a href="freizeit_2024.html">2024</a></li><li><a href="freizeit_2023.html">2023</a></li><li><a href="freizeit_2022.html">2022</a></li></ul></li><li class=""><a href="vergleich.html"><span class="i-de">Jahresvergleich</span><span class="i-it">Confronto annuale</span></a></li><li class=""><a href="analysen.html"><span class="i-de">Analysen</span><span class="i-it">Analisi</span></a></li><li class=""><a href="profil.html"><span class="i-de">Profil</span><span class="i-it">Profilo</span></a></li></ul>
+  <div class="tools">
+    <label class="mesel" title="Ich bin / Io sono"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span id="me-lab">Ich bin</span><select id="me-sel" class="sel sm" aria-label="Ich bin / Io sono"></select></label>
+    <div class="seg langsw"><button type="button" data-l="de">DE</button><button type="button" data-l="it">IT</button></div>
+    <button class="burger" type="button" onclick="document.getElementById('top').classList.toggle('open')">☰</button>
+  </div>
 </div></header>
 <main class="wrap">
-<h1>Notarzt 2023</h1><p class="lead">Notarztdienste in 12-Stunden-Äquivalenten (NA Tag2 = 8 h, NA Tag3 = 4 h), getrennt nach Tag, Nacht, Werk- und Feiertagen.</p><p class="meta">Datenquelle: <b>geplanter Dienstplan 2023</b> · letzter Eintrag <b>31.12.2023</b> · 365 Tage, davon 114 Feiertage/Wochenendtage · <span class="me-note"><i></i>Cla hervorgehoben</span></p><div class="toc"><a href="notarzt_2022.html">2022</a><span class="cur">2023</span><a href="notarzt_2024.html">2024</a><a href="notarzt_2025.html">2025</a></div><div class="toc toc2"><a href="#na_dienste">Notarztdienste insgesamt (Tag, Nacht, Werk- und Feiertage)</a><a href="#na_feiertag">Notarzt Tag- und Nachtdienste an Feiertagen</a><a href="#na_werktag">Notarzt Tag- und Nachtdienste an Werktagen</a><a href="#na_tag_werktag">Notarzt Tagdienste an Werktagen</a><a href="#na_tag_feiertag">Notarzt Tagdienste an Feiertagen</a><a href="#na_nacht_auf_werktag">Notarzt Nachtdienste auf Werktage (mit Stundenabzug)</a><a href="#na_nacht_auf_feiertag">Notarzt Nachtdienste auf Feiertage (ohne Stundenabzug)</a></div><h3 class="sec">Cla im Team</h3><div class="kpis"><div class="kpi" style="--c:var(--na)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 0 1 10 0v6M5 18h14v3H5zM12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/></svg>Notarztdienste insgesamt (Tag, Nacht, Werk- un…</div><div class="v">37,3<small></small></div><div class="s">Cla: Rang 9 von 35 · Median 19,7</div></div><div class="kpi" style="--c:var(--na)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 0 1 10 0v6M5 18h14v3H5zM12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/></svg>Notarzt Tag- und Nachtdienste an Feiertagen</div><div class="v">7<small></small></div><div class="s">Cla: Rang 11 von 35 · Median 0</div></div><div class="kpi" style="--c:var(--na)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 0 1 10 0v6M5 18h14v3H5zM12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/></svg>Notarzt Tag- und Nachtdienste an Werktagen</div><div class="v">30,3<small></small></div><div class="s">Cla: Rang 6 von 35 · Median 15,0</div></div><div class="kpi" style="--c:var(--na)"><div class="t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 0 1 10 0v6M5 18h14v3H5zM12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/></svg>Notarzt Tagdienste an Werktagen</div><div class="v">15,3<small></small></div><div class="s">Cla: Rang 7 von 35 · Median 6,0</div></div></div><h3 class="sec">Grafiken</h3><div class="grid"><section class="card full" id="na_dienste">
-  <div class="hd"><h2>Notarztdienste insgesamt (Tag, Nacht, Werk- und Feiertage)</h2></div>
-  <p>Summe aller Notarztstunden ÷ 12.</p>
-  <div class="plot tall" id="p-na_dienste"></div>
-  <script>P('p-na_dienste',{"data":[{"type":"bar","x":["Gat","Dava","Mars","Sera","Hu","Cap","Bor","Hin","Cla","Bra","Rau","Pal","Lug","Barb","Zel","Lut","Don","Mass","Fel","Usp","Mi","Piv","Bock"],"y":[65.3333,61.6667,59.6667,58.0,55.6667,50.0,47.6667,47.0,37.3333,34.6667,27.0,27.0,27.0,25.6667,21.0,20.0,19.6667,19.6667,14.0,9.0,2.0,1.3333,1.0],"marker":{"color":["#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ffffff","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:.1f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"12-h-Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":27.0,"y1":27.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":27.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 27,0","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="na_feiertag">
-  <div class="hd"><h2>Notarzt Tag- und Nachtdienste an Feiertagen</h2></div>
+<h1><span class="i-de">Notarzt</span><span class="i-it">Notarzt</span> 2023</h1>
+<p class="lead"><span class="i-de">Notarztdienste in 12-Stunden-Äquivalenten (NA Tag2 = 8 h, NA Tag3 = 4 h), getrennt nach Tag, Nacht, Werk- und Feiertagen.</span><span class="i-it">Turni Notarzt in equivalenti da 12 ore (NA giorno 2 = 8 h, NA giorno 3 = 4 h), suddivisi in giorno, notte, feriali e festivi.</span></p>
+<p class="meta"><span class="i-de">Datenquelle</span><span class="i-it">Fonte</span>: <b><span class="i-de">geplanter Dienstplan</span><span class="i-it">piano turni pianificato</span> 2023</b> · <span class="i-de">letzter Eintrag</span><span class="i-it">ultima voce</span> <b>31.12.2023</b> ·
+365 <span class="i-de">Tage, davon</span><span class="i-it">giorni, di cui</span> 114 <span class="i-de">Feiertage/Wochenendtage</span><span class="i-it">festivi/weekend</span> · <span class="i-de">Tipp: auf einen Balken klicken, um sich selbst hervorzuheben.</span><span class="i-it">Suggerimento: clicca su una barra per evidenziarti.</span></p>
+<div class="toc"><a href="notarzt_2022.html">2022</a><span class="cur">2023</span><a href="notarzt_2024.html">2024</a><a href="notarzt_2025.html">2025</a></div>
+<div class="toc toc2"><a href="#na_dienste"><span class="i-de">Notarztdienste insgesamt (Tag, Nacht, Werk- und Feiertage)</span><span class="i-it">Turni Notarzt totali (diurni, notturni, feriali e festivi)</span></a><a href="#na_feiertag"><span class="i-de">Notarzt Tag- und Nachtdienste an Feiertagen</span><span class="i-it">Turni Notarzt diurni e notturni nei giorni festivi</span></a><a href="#na_werktag"><span class="i-de">Notarzt Tag- und Nachtdienste an Werktagen</span><span class="i-it">Turni Notarzt diurni e notturni nei giorni feriali</span></a><a href="#na_tag_werktag"><span class="i-de">Notarzt Tagdienste an Werktagen</span><span class="i-it">Turni Notarzt diurni nei giorni feriali</span></a><a href="#na_tag_feiertag"><span class="i-de">Notarzt Tagdienste an Feiertagen</span><span class="i-it">Turni Notarzt diurni nei giorni festivi</span></a><a href="#na_nacht_auf_werktag"><span class="i-de">Notarzt Nachtdienste auf Werktage (mit Stundenabzug)</span><span class="i-it">Turni Notarzt notturni con smonto feriale (con ore in meno)</span></a><a href="#na_nacht_auf_feiertag"><span class="i-de">Notarzt Nachtdienste auf Feiertage (ohne Stundenabzug)</span><span class="i-it">Turni Notarzt notturni con smonto festivo (senza ore in meno)</span></a></div>
+<h3 class="sec" id="me-h"></h3><div class="kpis" id="me-kpis"></div>
+<h3 class="sec"><span class="i-de">Grafiken</span><span class="i-it">Grafici</span></h3><div class="grid"><section class="card full" id="na_dienste">
+  <div class="hd"><h2><span class="i-de">Notarztdienste insgesamt (Tag, Nacht, Werk- und Feiertage)</span><span class="i-it">Turni Notarzt totali (diurni, notturni, feriali e festivi)</span></h2></div>
+  <p><span class="i-de">Summe aller Notarztstunden ÷ 12.</span><span class="i-it">Somma di tutte le ore Notarzt ÷ 12.</span></p>
+  <div class="plot" id="p-na_dienste"></div>
+</section><section class="card half" id="na_feiertag">
+  <div class="hd"><h2><span class="i-de">Notarzt Tag- und Nachtdienste an Feiertagen</span><span class="i-it">Turni Notarzt diurni e notturni nei giorni festivi</span></h2></div>
   
   <div class="plot" id="p-na_feiertag"></div>
-  <script>P('p-na_feiertag',{"data":[{"type":"bar","x":["Gat","Mars","Dava","Bor","Cap","Hu","Hin","Bra","Lug","Barb","Cla","Fel","Pal","Rau","Sera","Zel","Bock"],"y":[30.0,25.0,24.0,22.0,22.0,21.0,21.0,17.0,12.0,8.0,7.0,7.0,6.0,3.0,1.0,1.0,1.0],"marker":{"color":["#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ffffff","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":12.0,"y1":12.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":12.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 12","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="na_werktag">
-  <div class="hd"><h2>Notarzt Tag- und Nachtdienste an Werktagen</h2></div>
+</section><section class="card half" id="na_werktag">
+  <div class="hd"><h2><span class="i-de">Notarzt Tag- und Nachtdienste an Werktagen</span><span class="i-it">Turni Notarzt diurni e notturni nei giorni feriali</span></h2></div>
   
   <div class="plot" id="p-na_werktag"></div>
-  <script>P('p-na_werktag',{"data":[{"type":"bar","x":["Sera","Dava","Gat","Hu","Mars","Cla","Cap","Hin","Bor","Rau","Pal","Lut","Zel","Don","Mass","Barb","Bra","Lug","Usp","Fel","Mi","Piv"],"y":[57.0,37.6667,35.3333,34.6667,34.6667,30.3333,28.0,26.0,25.6667,24.0,21.0,20.0,20.0,19.6667,19.6667,17.6667,17.6667,15.0,9.0,7.0,2.0,1.3333],"marker":{"color":["#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ffffff","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65"],"opacity":[0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:.1f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"12-h-Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":20.5,"y1":20.5,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":20.5,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 20,5","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="na_tag_werktag">
-  <div class="hd"><h2>Notarzt Tagdienste an Werktagen</h2></div>
+</section><section class="card half" id="na_tag_werktag">
+  <div class="hd"><h2><span class="i-de">Notarzt Tagdienste an Werktagen</span><span class="i-it">Turni Notarzt diurni nei giorni feriali</span></h2></div>
   
   <div class="plot" id="p-na_tag_werktag"></div>
-  <script>P('p-na_tag_werktag',{"data":[{"type":"bar","x":["Sera","Mars","Hu","Cap","Bra","Dava","Cla","Hin","Bor","Gat","Rau","Lut","Mass","Zel","Don","Lug","Barb","Pal","Usp","Fel","Piv"],"y":[23.0,21.6667,18.6667,18.0,17.6667,16.6667,15.3333,14.0,13.6667,13.3333,12.0,12.0,10.6667,10.0,8.6667,7.0,6.6667,6.0,4.0,2.0,1.3333],"marker":{"color":["#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ffffff","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:.1f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"12-h-Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":12.0,"y1":12.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":12.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 12,0","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="na_tag_feiertag">
-  <div class="hd"><h2>Notarzt Tagdienste an Feiertagen</h2></div>
+</section><section class="card half" id="na_tag_feiertag">
+  <div class="hd"><h2><span class="i-de">Notarzt Tagdienste an Feiertagen</span><span class="i-it">Turni Notarzt diurni nei giorni festivi</span></h2></div>
   
   <div class="plot" id="p-na_tag_feiertag"></div>
-  <script>P('p-na_tag_feiertag',{"data":[{"type":"bar","x":["Bra","Gat","Hu","Dava","Mars","Bor","Cap","Hin","Lug","Pal","Fel","Barb","Cla","Bock"],"y":[17.0,14.0,12.0,12.0,12.0,11.0,11.0,10.0,4.0,3.0,3.0,3.0,1.0,1.0],"marker":{"color":["#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ffffff","#ff8a65"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":10.5,"y1":10.5,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":10.5,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 10","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="na_nacht_auf_werktag">
-  <div class="hd"><h2>Notarzt Nachtdienste auf Werktage (mit Stundenabzug)</h2></div>
+</section><section class="card half" id="na_nacht_auf_werktag">
+  <div class="hd"><h2><span class="i-de">Notarzt Nachtdienste auf Werktage (mit Stundenabzug)</span><span class="i-it">Turni Notarzt notturni con smonto feriale (con ore in meno)</span></h2></div>
   
   <div class="plot" id="p-na_nacht_auf_werktag"></div>
-  <script>P('p-na_nacht_auf_werktag',{"data":[{"type":"bar","x":["Sera","Mars","Dava","Bor","Gat","Cla","Hu","Hin","Pal","Rau","Don","Barb","Zel","Mass","Lut","Lug","Fel","Usp","Cap","Mi"],"y":[30.0,23.0,21.0,19.0,18.0,17.0,16.0,15.0,14.0,12.0,11.0,10.0,9.0,8.0,8.0,7.0,5.0,4.0,3.0,2.0],"marker":{"color":["#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ffffff","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65"],"opacity":[0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":11.5,"y1":11.5,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":11.5,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 12","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-<section class="card half" id="na_nacht_auf_feiertag">
-  <div class="hd"><h2>Notarzt Nachtdienste auf Feiertage (ohne Stundenabzug)</h2></div>
+</section><section class="card half" id="na_nacht_auf_feiertag">
+  <div class="hd"><h2><span class="i-de">Notarzt Nachtdienste auf Feiertage (ohne Stundenabzug)</span><span class="i-it">Turni Notarzt notturni con smonto festivo (senza ore in meno)</span></h2></div>
   
   <div class="plot" id="p-na_nacht_auf_feiertag"></div>
-  <script>P('p-na_nacht_auf_feiertag',{"data":[{"type":"bar","x":["Gat","Cap","Dava","Hu","Lug","Hin","Barb","Sera","Bor","Pal","Cla","Fel","Rau","Mars","Zel","Usp","Mass"],"y":[20.0,18.0,12.0,9.0,9.0,8.0,6.0,5.0,4.0,4.0,4.0,4.0,3.0,3.0,2.0,1.0,1.0],"marker":{"color":["#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ffffff","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65","#ff8a65"],"opacity":[0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,0.78,1,0.78,0.78,0.78,0.78,0.78,0.78],"line":{"width":0}},"hovertemplate":"<b>%{x}</b><br>%{y:,.0f}<extra></extra>"}],"layout":{"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","font":{"family":"system-ui,-apple-system,\"Segoe UI\",sans-serif","color":"#e8e8e8","size":12},"margin":{"l":56,"r":16,"t":10,"b":70},"xaxis":{"gridcolor":"rgba(0,0,0,0)","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"size":11,"color":"#9aa0a6"},"tickangle":-60},"yaxis":{"gridcolor":"#2a2f3a","linecolor":"#2a2f3a","zeroline":false,"tickfont":{"color":"#9aa0a6"},"title":{"text":"Dienste","font":{"color":"#9aa0a6","size":11}},"tickformat":null},"hoverlabel":{"bgcolor":"#202020","bordercolor":"#2a2f3a","font":{"color":"#e8e8e8"}},"showlegend":false,"bargap":0.25,"shapes":[{"type":"line","xref":"paper","x0":0,"x1":1,"y0":4.0,"y1":4.0,"line":{"color":"#9aa0a6","width":1,"dash":"dot"}}],"annotations":[{"xref":"paper","x":1,"y":4.0,"yanchor":"bottom","xanchor":"right","showarrow":false,"text":"Median 4","font":{"size":11,"color":"#9aa0a6"}}]}});</script>
-</section>
-</div></main>
+</section></div>
+</main>
 <footer class="foot">
-  <span>SAR Meran · Dienstplan Anästhesie, Intensiv &amp; Notarzt</span>
-  <span>Datenquelle: geplanter Dienstplan · Stand: 02.11.2026, 11:38</span>
-  <a href="#top">nach oben ↑</a>
+  <span>SAR Meran · <span class="i-de">Dienstplan Anästhesie, Intensiv &amp; Notarzt</span><span class="i-it">Piano turni anestesia, rianimazione e Notarzt</span></span>
+  <span><span class="i-de">Datenquelle: geplanter Dienstplan</span><span class="i-it">Fonte: piano turni pianificato</span> · <span class="i-de">Stand</span><span class="i-it">Aggiornato</span>: 02.11.2026, 11:59</span>
+  <a href="#top"><span class="i-de">nach oben ↑</span><span class="i-it">torna su ↑</span></a>
 </footer>
-<script>
-document.querySelectorAll('.nav .dd>button').forEach(function(b){
-  b.addEventListener('click',function(e){
-    var li=b.parentElement, offen=li.classList.contains('open');
-    document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')});
-    if(!offen) li.classList.add('open'); e.stopPropagation();
-  });
-});
-document.addEventListener('click',function(){document.querySelectorAll('.nav .dd.open').forEach(function(x){x.classList.remove('open')})});
-</script>
+<script src="assets/data.js?v=202611021159"></script>
+<script>window.PG={"type":"year","year":2023,"color":"na","stand":"02.11.2026, 11:59","charts":[{"k":"na_dienste","t":{"de":"Notarztdienste insgesamt (Tag, Nacht, Werk- und Feiertage)","it":"Turni Notarzt totali (diurni, notturni, feriali e festivi)"},"yt":{"de":"12-h-Dienste","it":"Turni da 12 h"},"f":"d","azv":false,"soll":false},{"k":"na_feiertag","t":{"de":"Notarzt Tag- und Nachtdienste an Feiertagen","it":"Turni Notarzt diurni e notturni nei giorni festivi"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false},{"k":"na_werktag","t":{"de":"Notarzt Tag- und Nachtdienste an Werktagen","it":"Turni Notarzt diurni e notturni nei giorni feriali"},"yt":{"de":"12-h-Dienste","it":"Turni da 12 h"},"f":"d","azv":false,"soll":false},{"k":"na_tag_werktag","t":{"de":"Notarzt Tagdienste an Werktagen","it":"Turni Notarzt diurni nei giorni feriali"},"yt":{"de":"12-h-Dienste","it":"Turni da 12 h"},"f":"d","azv":false,"soll":false},{"k":"na_tag_feiertag","t":{"de":"Notarzt Tagdienste an Feiertagen","it":"Turni Notarzt diurni nei giorni festivi"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false},{"k":"na_nacht_auf_werktag","t":{"de":"Notarzt Nachtdienste auf Werktage (mit Stundenabzug)","it":"Turni Notarzt notturni con smonto feriale (con ore in meno)"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false},{"k":"na_nacht_auf_feiertag","t":{"de":"Notarzt Nachtdienste auf Feiertage (ohne Stundenabzug)","it":"Turni Notarzt notturni con smonto festivo (senza ore in meno)"},"yt":{"de":"Dienste","it":"Turni"},"f":"n","azv":false,"soll":false}]};</script>
+<script src="assets/sarme.js?v=202611021159"></script>
 </body></html>
