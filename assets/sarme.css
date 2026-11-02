@@ -24,7 +24,7 @@ a{color:inherit}
 .nav li.open>.sub{display:block}
 @media (hover:hover){.nav li:hover>.sub{display:block}}
 .burger{display:none;background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer}
-@media (max-width:1180px){
+@media (max-width:1320px){
   .burger{display:block}
   .nav{display:none;width:100%;flex-direction:column;margin:0;padding-bottom:8px;order:3}
   .top .in{flex-wrap:wrap}
@@ -111,5 +111,12 @@ h3.sec .seg{text-transform:none;letter-spacing:0}
 .pbar{height:8px;background:#111;border-radius:99px;overflow:hidden}
 .pbar i{display:block;height:100%;background:var(--az);border-radius:99px}
 .prow span:last-child{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
-@media (max-width:1180px){.top .in{flex-wrap:wrap}.tools{margin-left:auto}}
+@media (max-width:1320px){.top .in{flex-wrap:wrap}.tools{margin-left:auto}}
 @media (max-width:520px){.bn{display:none}.mesel span{display:none}.sel.sm{max-width:110px}}
+.note-card{font-size:13px;color:var(--muted);line-height:1.55;padding:14px 16px}
+.note-card b{color:var(--fg);font-weight:500}
+.note-card ul{margin:6px 0 0;padding-left:18px}
+.note-card li{margin:3px 0}
+.nav a,.nav button{padding:15px 9px;font-size:13.5px}
+#steck{grid-template-columns:repeat(auto-fit,minmax(min(215px,45%),1fr))}
+.kpi .v{overflow:hidden;text-overflow:ellipsis}

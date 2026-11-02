@@ -297,7 +297,10 @@ PAGES.profil=function(){
     kpi(t('m_top'),fmt(mt[who]||0),'',chip(fb('top_feiertage'))+'<br>'+((Y_.top[who]||[]).map(function(x){return t('hol_'+x[0])}).join(', ')||t('none_hol')),'frei')+
     kpi(t('m_gap'),fmt(mg[who]),' '+t('days'),t('median')+' '+fmt(med(vals(mg)))+' '+t('days'),'nacht')+
     kpi(t('m_ser'),fmt(ms[who]),' '+t('days'),t('median')+' '+fmt(med(vals(ms)))+' '+t('days'),'na')+
-    kpi(t('partner'),pa.length?esc(pa[0][0]):'–','',pa.slice(0,3).map(function(p){return esc(p[0])+' '+p[1]+'×'}).join(' · '),'az');
+    kpi(t('partner'),pa.length?esc(pa[0][0]):'–','',pa.slice(0,3).map(function(p){return esc(p[0])+' '+p[1]+'×'}).join(' · '),'az')+
+    kpi(t('na_ex'),azv>=1?fmt(Y_.m.na_ex_w[who],'d'):'–',' '+t('eq12'),azv>=1?(lang==='it'?'Stima, regola settimanale':'Schätzung, Wochenregel')+'<br>'+t('avg_ft')+' '+fmt(avgOf(yr,'na_ex_w',function(a){return isFT(yr,a)&&act6(yr,a)}),'d'):t('tz')+': '+(lang==='it'?'Notarzt solo timbrato':'Notarzt nur gestempelt'),'na')+
+    kpi(t('paid'),azv!=null?fmt(Y_.m.paid_w[who],'d'):'–',' '+t('eq12'),(lang==='it'?'Stima, regola settimanale':'Schätzung, Wochenregel')+'<br>'+t('avg_h')+' '+fmt(avgOf(yr,'paid_w',function(a){return yd(yr).azv[a]!=null&&act6(yr,a)}),'d'),'sar')+
+    kpi(t('sal'),Y_.m.nachtsaldo&&Y_.m.nachtsaldo[who]!=null?((Y_.m.nachtsaldo[who]>0?'+':'')+fmt(Y_.m.nachtsaldo[who])):'–',' h',Y_.m.saldo_pro_nacht&&Y_.m.saldo_pro_nacht[who]!=null?((Y_.m.saldo_pro_nacht[who]>0?'+':'')+fmt(Y_.m.saldo_pro_nacht[who],'d')+' '+t('salpn')+' · '+t('median')+' '+fmt(med(vals(Y_.m.saldo_pro_nacht)),'d')):'','nacht');
   // Verlauf
   var msel=document.getElementById('metric'), MET=PG.metrics, mk=msel.value||MET[0].k;
   msel.innerHTML=MET.map(function(m){return '<option value="'+m.k+'"'+(m.k===mk?' selected':'')+'>'+L(m.l)+'</option>'}).join(''); msel.onchange=render;
@@ -327,10 +330,10 @@ PAGES.profil=function(){
   plot('p-mon',{data:[{type:'bar',x:L(T.mon),y:mo,marker:{color:C.sar},hovertemplate:'%{x}: %{y}<extra></extra>'}],
     layout:lay({margin:{l:40,r:10,t:10,b:40},yaxis:{title:{text:t('m_d12'),font:{color:C.muted,size:11}}}})});
   // Fair-Share-Tabelle über alle Jahre
-  var cats=['nacht_gesamt','dienste_an_feiertagen','wochenende','top_feiertage','d12'];
+  var cats=['nacht_gesamt','dienste_an_feiertagen','wochenende','top_feiertage','d12','na_in_w','na_ex_w','paid_w'];
   var h='<tr><th></th>'+Y.map(function(y){return '<th>'+y+'</th>'}).join('')+'<th>'+t('sum')+'</th></tr>';
-  cats.forEach(function(c){var s=0,any=false;h+='<tr><td>'+t('f_'+c)+'</td>'+Y.map(function(y){var f=yd(y).fair[c][who];if(!f)return '<td>–</td>';any=true;var d=f[0]-f[1];s+=d;
-     return '<td>'+f[0]+' <span class="rk">/ '+fmt(f[1],'d')+'</span> <span class="'+(d>0.5?'up':(d<-0.5?'down':'flat'))+'">'+(d>0?'+':'')+fmt(d,'d')+'</span></td>'}).join('')+
+  cats.forEach(function(c){var s=0,any=false;h+='<tr><td>'+t('f_'+c)+'</td>'+Y.map(function(y){var f=(yd(y).fair[c]||{})[who];if(!f)return '<td>–</td>';any=true;var d=f[0]-f[1];s+=d;
+     return '<td>'+fmt(f[0],c.indexOf('na_')===0||c.indexOf('paid')===0?'d':'n')+' <span class="rk">/ '+fmt(f[1],'d')+'</span> <span class="'+(d>0.5?'up':(d<-0.5?'down':'flat'))+'">'+(d>0?'+':'')+fmt(d,'d')+'</span></td>'}).join('')+
      '<td><b class="'+(s>0.5?'up':(s<-0.5?'down':'flat'))+'">'+(any?(s>0?'+':'')+fmt(s,'d'):'–')+'</b></td></tr>'});
   document.getElementById('fair-tbl').innerHTML=h;
   // Top-Feiertage Liste
@@ -344,6 +347,106 @@ PAGES.profil=function(){
      return '<td>'+fmt(v,m.f)+(r?'<span class="rk">#'+r[0]+'</span>':'')+'</td>'}).join('')+'</tr>'});
   document.getElementById('tbl').innerHTML=tb;
   me=save;
+};
+
+/* ── Notarzt & Mehrarbeit ─────────────────────────────────────── */
+var TM={
+ v_w:{de:'Wochenregel',it:'Regola settimanale'}, v_j:{de:'Jahresbilanz',it:'Bilancio annuale'},
+ na_in:{de:'NA gestempelt',it:'NA timbrato'}, na_ex:{de:'NA freiberuflich (intramoenia)',it:'NA intramoenia'},
+ na_in_tag:{de:'NA Tag gestempelt',it:'NA giorno timbrato'}, na_in_nacht:{de:'NA Nacht gestempelt',it:'NA notte timbrato'},
+ na_ex_tag:{de:'NA Tag freiberuflich',it:'NA giorno intramoenia'}, na_ex_nacht:{de:'NA Nacht freiberuflich',it:'NA notte intramoenia'},
+ paid:{de:'Ausbezahlte Dienste (guardie pagate)',it:'Guardie pagate'}, k_naex:{de:'Ø NA intramoenia je Vollzeit',it:'Ø NA intramoenia per tempo pieno'},
+ k_paid:{de:'Ø ausbezahlte Dienste je Kopf',it:'Ø guardie pagate per persona'}, k_sal:{de:'Ø Nachtsaldo je Nacht',it:'Ø saldo per notte'},
+ k_nain:{de:'Ø NA gestempelt je 100 % AZV',it:'Ø NA timbrato per 100 % contratto'},
+ tot:{de:'Team gesamt',it:'Totale team'}, ft:{de:'Vollzeitkräfte',it:'persone a tempo pieno'}, heads:{de:'Personen mit AZV',it:'persone con contratto'},
+ eq12:{de:'12-h-Dienste',it:'turni da 12 h'}, my:{de:'Ich',it:'Io'}, tz:{de:'Teilzeit',it:'tempo parziale'},
+ sal:{de:'Nachtsaldo (Stunden)',it:'Saldo notti (ore)'}, salpn:{de:'Stunden je Nacht',it:'ore per notte'},
+ plusn:{de:'Nächte auf Wochenende/Feiertag',it:'Notti su weekend/festivo'}, minusn:{de:'Nächte Mo–Do',it:'Notti lun–gio'},
+ f_na_in_w:{de:'NA gestempelt',it:'NA timbrato'}, f_na_in_j:{de:'NA gestempelt',it:'NA timbrato'},
+ f_na_ex_w:{de:'NA freiberuflich',it:'NA intramoenia'}, f_na_ex_j:{de:'NA freiberuflich',it:'NA intramoenia'},
+ f_paid_w:{de:'Ausbezahlte Dienste',it:'Guardie pagate'}, f_paid_j:{de:'Ausbezahlte Dienste',it:'Guardie pagate'},
+ f_na_nacht:{de:'NA-Nächte',it:'Notti NA'}, avg_ft:{de:'Ø je Vollzeit',it:'Ø per tempo pieno'}, avg_h:{de:'Ø je Kopf',it:'Ø per persona'},
+ weeks:{de:'Wochen über Soll',it:'Settimane sopra il dovuto'}
+};
+for(var _k in TM) T[_k]=TM[_k];
+function act6(y,a){return (yd(y).m.aktive_monate||{})[a]>=6}
+function avgOf(y,key,filt){var o=mv(y,key),s=0,n=0;for(var a in o){if(o[a]==null||!filt(a))continue;s+=o[a];n++}return n?s/n:null}
+function isFT(y,a){return yd(y).azv[a]>=1}
+
+PAGES.mehr=function(){
+  var v=PG._v||'w', yr=PG._y||YL, fc=PG._f||'na_ex';
+  segs('m-var',['w','j'],v,function(x){PG._v=x;render()},function(x){return t('v_'+x)});
+  segs('m-year',Y,yr,function(x){PG._y=x;render()});
+  [].forEach.call(document.querySelectorAll('.var-note'),function(el){el.style.display=el.getAttribute('data-v')===v?'':'none'});
+  var Yd=yd(yr), M=Yd.m;
+  // KPIs
+  var ftN=Object.keys(M.gesamtdienste).filter(function(a){return isFT(yr,a)&&act6(yr,a)}).length;
+  var hN=Object.keys(M.gesamtdienste).filter(function(a){return Yd.azv[a]!=null&&act6(yr,a)}).length;
+  var naex=avgOf(yr,'na_ex_'+v,function(a){return isFT(yr,a)&&act6(yr,a)}), paid=avgOf(yr,'paid_'+v,function(a){return Yd.azv[a]!=null&&act6(yr,a)});
+  var nain=avgOf(yr,'na_in_azv_'+v,function(a){return Yd.azv[a]!=null&&act6(yr,a)});
+  var sal=sumO(M.nachtsaldo||{}), nn=sumO(M.nacht_plus||{})+sumO(M.nacht_minus||{});
+  var pi=Y.indexOf(+yr),py=pi>0?Y[pi-1]:null;
+  var pv=function(k,f){return py?avgOf(py,k,f):null};
+  var h=kpi(t('k_naex'),fmt(naex,'d'),' '+t('eq12'),(py?delta(naex,pv('na_ex_'+v,function(a){return isFT(py,a)&&act6(py,a)}))+' '+t('vs')+' '+py+'<br>':'')+ftN+' '+t('ft')+' · '+t('tot')+' '+fmt(sumO(mv(yr,'na_ex_'+v)),'n'),'na')+
+    kpi(t('k_paid'),fmt(paid,'d'),' '+t('eq12'),(py?delta(paid,pv('paid_'+v,function(a){return yd(py).azv[a]!=null&&act6(py,a)}))+' '+t('vs')+' '+py+'<br>':'')+hN+' '+t('heads')+' · '+t('tot')+' '+fmt(sumO(mv(yr,'paid_'+v)),'n'),'sar')+
+    kpi(t('k_nain'),fmt(nain,'d'),' '+t('eq12'),t('median')+' '+fmt(med(vals(mv(yr,'na_in_azv_'+v))),'d'),'az')+
+    kpi(t('k_sal'),(sal/nn>0?'+':'')+fmt(sal/nn,'d'),' h',fmt(sumO(M.nacht_minus))+' '+t('minusn')+' · '+fmt(sumO(M.nacht_plus))+' '+t('plusn'),'nacht');
+  document.getElementById('m-kpis').innerHTML=h;
+  var mk=document.getElementById('m-me');
+  if(!me){mk.innerHTML=prompt();wireDup()}
+  else if(!M.gesamtdienste[me]){mk.innerHTML='<div class="kpi" style="grid-column:1/-1"><div class="s"><b>'+esc(me)+'</b> '+t('notin')+'</div></div>'}
+  else{var rk=function(k){var r=rankIn(mv(yr,k),me);return r?t('rank')+' '+r[0]+' '+t('of')+' '+r[1]:''};
+    var sp=M.saldo_pro_nacht?M.saldo_pro_nacht[me]:null;
+    mk.innerHTML=kpi(t('na_ex'),isFT(yr,me)?fmt(M['na_ex_'+v][me],'d'):'–',' '+t('eq12'),isFT(yr,me)?rk('na_ex_'+v)+' · '+t('avg_ft')+' '+fmt(naex,'d'):t('tz')+': '+(lang==='it'?'Notarzt solo timbrato':'Notarzt nur gestempelt'),'na')+
+      kpi(t('na_in'),fmt(M['na_in_'+v][me],'d'),' '+t('eq12'),(Yd.azv[me]!=null?fmt(M['na_in_azv_'+v][me],'d')+' '+(lang==='it'?'per 100 %':'je 100 %')+' · ':'')+t('median')+' '+fmt(med(vals(mv(yr,'na_in_azv_'+v))),'d'),'az')+
+      kpi(t('paid'),fmt(M['paid_'+v][me],'d'),' '+t('eq12'),rk('paid_'+v)+' · '+t('avg_h')+' '+fmt(paid,'d'),'sar')+
+      kpi(t('sal'),M.nachtsaldo[me]==null?'–':((M.nachtsaldo[me]>0?'+':'')+fmt(M.nachtsaldo[me])),' h',sp==null?'':((sp>0?'+':'')+fmt(sp,'d')+' '+t('salpn')+' · '+(M.nacht_minus[me]||0)+' '+t('minusn')),'nacht');}
+  // A: NA je Person gestapelt
+  var nat=M.na_dienste||{}, ns=rows(nat).map(function(x){return x[0]});
+  function g(k,a){var o=M[k+'_'+v]||{};return Math.max(0,o[a]||0)}
+  var parts=[['na_in_tag','#ff8a65','','#ff8a65'],['na_in_nacht','#c4a7ff','','#c4a7ff'],['na_ex_tag','#6b3a2c','/','#ff8a65'],['na_ex_nacht','#4a4466','/','#c4a7ff']];
+  var lab=ns.map(function(a){var z=Yd.azv[a];return (a===me?'<b>'+a+'</b>':a)+(z!=null&&z<1?'*':'')});
+  var data=parts.map(function(p){return {type:'bar',name:t(p[0]),x:ns,y:ns.map(function(a){return g(p[0],a)}),
+    marker:{color:p[1],opacity:ns.map(function(a){return !me||a===me?1:0.45}),pattern:{shape:p[2],fgcolor:p[3],size:6,solidity:0.45},line:{color:ns.map(function(a){return a===me?'#fff':'rgba(0,0,0,0)'}),width:1.5}},
+    hovertemplate:'<b>%{x}</b> · '+t(p[0])+'<br>%{y:.1f}<extra></extra>'}});
+  var i=ns.indexOf(me), ann=i>=0?[{x:me,y:nat[me],yanchor:'bottom',showarrow:false,text:'▼',font:{color:'#fff',size:12}}]:[];
+  plot('p-m-na',{data:data,layout:lay({barmode:'stack',showlegend:true,legend:{orientation:'h',x:0,y:1,yanchor:'bottom',font:{color:C.muted}},margin:{t:40},
+    xaxis:{tickangle:-60,tickvals:ns,ticktext:lab,tickfont:{size:11},gridcolor:'rgba(0,0,0,0)'},yaxis:{title:{text:t('eq12'),font:{color:C.muted,size:11}}},annotations:ann})},'x');
+  // B–E
+  plot('p-m-nain',barFig(mv(yr,'na_in_azv_'+v,true),C.az,'d',{de:'NA gestempelt ÷ AZV',it:'NA timbrato ÷ contratto'}),'x');
+  var ex={},o=mv(yr,'na_ex_'+v);for(var a in o) if(isFT(yr,a)) ex[a]=o[a];
+  plot('p-m-naex',barFig(ex,C.na,'d',{de:'12-h-Dienste',it:'Turni da 12 h'}),'x');
+  plot('p-m-paid',barFig(mv(yr,'paid_'+v,true),C.sar,'d',{de:'12-h-Dienste',it:'Turni da 12 h'}),'x');
+  function minF(o,k,n){var r={},c=mv(yr,k);for(var a in o) if((c[a]||0)>=n) r[a]=o[a];return r}
+  plot('p-m-nanacht',barFig(minF(mv(yr,'na_nacht_anteil'),'na_dienste',10),C.az,'p',{de:'Anteil Nächte an NA-Stunden',it:'Quota notti sulle ore NA'}),'x');
+  // F: kumulierte Bilanz
+  var fopts=['na_in','na_ex','paid','na_nacht'];
+  segs('m-fair',fopts,fc,function(x){PG._f=x;render()},function(x){return t('f_'+(x==='na_nacht'?x:x+'_w'))});
+  var fk=fc==='na_nacht'?fc:fc+'_'+v,bal={},aS={},eS={};
+  Y.forEach(function(y){var f=yd(y).fair[fk]||{};for(var a in f){bal[a]=(bal[a]||0)+f[a][0]-f[a][1];aS[a]=(aS[a]||0)+f[a][0];eS[a]=(eS[a]||0)+f[a][1]}});
+  var fb=barFig(bal,C.accent,'d',{de:'Bilanz (12-h-Dienste)',it:'Saldo (turni da 12 h)'},{keepZero:true,noMedian:true,zero:true,colors:fairColors});
+  fb.data[0].customdata=rows(bal,true).map(function(x){return [fmt(aS[x[0]],'d'),fmt(eS[x[0]],'d')]});
+  fb.data[0].hovertemplate='<b>%{x}</b><br>'+t('diff')+' %{y:+.1f}<br>'+t('act')+' %{customdata[0]} · '+t('exp')+' %{customdata[1]}<extra></extra>';
+  plot('p-m-fair',fb,'x');
+  // G: Nachtsaldo
+  plot('p-m-sal',barFig(M.nachtsaldo||{},C.nacht,'n',{de:'Stunden',it:'Ore'},{keepZero:true,zero:true,colors:fairColors}),'x');
+  var nTot={};for(var a in (M.nacht_plus||{})) nTot[a]=(M.nacht_plus[a]||0)+(M.nacht_minus[a]||0);
+  var spn={};for(var a in (M.saldo_pro_nacht||{})) if(nTot[a]>=10) spn[a]=M.saldo_pro_nacht[a];
+  plot('p-m-salpn',barFig(spn,C.nacht,'d',{de:'Stunden je Nacht',it:'Ore per notte'},{keepZero:true,zero:true,colors:fairColors}),'x');
+  // H: Verlauf über die Jahre
+  var xs=Y.map(String),ln=[];
+  [['na_ex','w',C.na,'solid'],['na_ex','j',C.na,'dot'],['paid','w',C.sar,'solid'],['paid','j',C.sar,'dot']].forEach(function(s){
+    ln.push({type:'scatter',mode:'lines+markers',name:(s[0]==='na_ex'?t('k_naex'):t('k_paid'))+' · '+t('v_'+s[1]),x:xs,
+      y:Y.map(function(y){return s[0]==='na_ex'?avgOf(y,'na_ex_'+s[1],function(a){return isFT(y,a)&&act6(y,a)}):avgOf(y,'paid_'+s[1],function(a){return yd(y).azv[a]!=null&&act6(y,a)})}),
+      line:{color:s[2],dash:s[3],width:s[1]===v?3:1.5},marker:{size:s[1]===v?8:5},hovertemplate:'%{y:.1f}<extra></extra>'})});
+  if(me&&Y.some(function(y){return isFT(y,me)})) ln.push({type:'scatter',mode:'lines+markers',name:me+' · '+t('na_ex'),x:xs,y:Y.map(function(y){var o=yd(y).m['na_ex_'+v]||{};return o[me]==null?null:o[me]}),line:{color:'#fff',width:2},marker:{size:8,color:'#fff'}});
+  plot('p-m-trend',{data:ln,layout:lay({showlegend:true,margin:{l:48,r:10,t:10,b:40},legend:{orientation:'h',x:0,y:1.2,font:{color:C.muted}},xaxis:{type:'category'},hovermode:'x unified',
+    yaxis:{title:{text:t('eq12'),font:{color:C.muted,size:11}},rangemode:'tozero'}})});
+  // I: Gini
+  var gk=[['na_in_'+v,C.az],['na_ex_'+v,C.na],['paid_'+v,C.sar],['na_nacht',C.nacht]];
+  plot('p-m-gini',{data:gk.map(function(s){return {type:'scatter',mode:'lines+markers',name:t('f_'+s[0]),x:xs,y:Y.map(function(y){return yd(y).gini[s[0]]}),line:{color:s[1]},hovertemplate:'%{y:.2f}<extra></extra>'}}),
+    layout:lay({showlegend:true,margin:{l:48,r:10,t:10,b:40},legend:{orientation:'h',x:0,y:1.16,font:{color:C.muted}},xaxis:{type:'category'},hovermode:'x unified',
+      yaxis:{title:{text:t('gini'),font:{color:C.muted,size:11}},rangemode:'tozero'}})});
 };
 
 function render(){ (PAGES[PG.type]||function(){})(); }
