@@ -188,19 +188,68 @@ function meKpis(el,y,list){ var Y_=yd(y);
     return kpi(L(c.l)+(c.est?estB():''),fmt(v,c.f),c.f==='h'?'h':'',(py?delta(v,pv,c.inv)+' '+t('vs')+' '+py+'<br>':'')+(r?t('rank')+' '+r[0]+' '+t('of')+' '+r[1]+' · ':'')+t('median')+' '+fmt(med(vals(o).filter(function(x){return Math.abs(x)>1e-9})),c.f),c.c)}).join('');}
 
 /* ── Seiten ───────────────────────────────────────────────────── */
+/* ── Team-Kacheln (Startseite) ────────────────────────────────── */
+var TK={k_tm:{de:'Team',it:'Team'},k_mix:{de:'Vollzeit / Teilzeit',it:'Tempo pieno / parziale'},k_fte:{de:'Vollzeitäquivalente',it:'Equivalenti a tempo pieno'},
+ k_flow:{de:'Zu- und Abgänge',it:'Ingressi e uscite'},k_other:{de:'Weitere im Plan',it:'Altri nel piano'},k_trend:{de:'Seit',it:'Dal'},
+ share_tz:{de:'Teilzeitquote',it:'Quota tempo parziale'},avg_tz:{de:'Ø AZV in Teilzeit',it:'Ø contratto tempo parziale'},
+ range_m:{de:'Monatsspanne',it:'Intervallo mensile'},per_head:{de:'je Person',it:'per persona'},
+ ein:{de:'Eintritte',it:'Ingressi'},aus:{de:'Austritte',it:'Uscite'},wechsel_n:{de:'AZV-Wechsel',it:'Cambi di contratto'},none_:{de:'keine',it:'nessuno'},
+ wv_l:{de:'Werkvertrag',it:'Contratto d’opera'},pr_l:{de:'Primar',it:'Primario'},ext_l:{de:'ohne AZV',it:'senza contratto'},
+ noaz:{de:'ohne Soll – zählen nicht zum Team',it:'senza ore dovute – non contano nel team'},persons_l:{de:'Personen',it:'persone'}};
+for(var _k in TK) T[_k]=TK[_k];
+function flows(y){var yi=Y.indexOf(+y),e=[],a=[],w=[];(yd(y).meta.team.wechsel||[]).forEach(function(x){if(yi===0&&x[1]===1)return;
+  var o=typeof x[2]==='number',n=typeof x[3]==='number';if(!o&&n)e.push(x[0]);else if(o&&!n)a.push(x[0]);else if(o&&n)w.push(x[0])});
+  function u(l){return l.filter(function(v,i){return l.indexOf(v)===i})}return {ein:u(e),aus:u(a),w:u(w)}}
+function teamTiles(y,py){var tm=yd(y).meta.team,pt=py?yd(py).meta.team:null,Y0=Y[0],t0=yd(Y0).meta.team;
+  function dn(c,p){if(p==null)return '';var d=c-p;return d===0?'<span class="flat">● ±0</span>':'<span class="'+(d>0?'down':'up')+'">'+(d>0?'▲ +':'▼ ')+(Math.abs(d)%1?fmt(d,'d'):d)+'</span>'}
+  var tzVals=[];for(var b in tm.buckets) if(+b<100) for(var i=0;i<tm.buckets[b];i++) tzVals.push(+b);
+  var avgTz=tzVals.length?tzVals.reduce(function(p,c){return p+c},0)/tzVals.length:null;
+  var mf=tm.monat_fte.filter(function(v){return v>0}),mn=Math.min.apply(null,mf),mx=Math.max.apply(null,mf);
+  var f=flows(y);function names(l){return l.length?esc(l.join(', ')):'<span class="flat">'+t('none_')+'</span>'}
+  var oth=(tm.n_wv||0)+(tm.n_primar||0)+(tm.n_ext||0);
+  return kpi(t('k_tm')+' '+y,tm.n,' '+t('persons_l'),(pt?dn(tm.n,pt.n)+' '+t('vs')+' '+py+'<br>':'')+t('vz')+' '+tm.n_vz+' · '+t('tzs')+' '+tm.n_tz,'frei')+
+   '<div class="kpi" style="--c:var(--accent)"><div class="t">'+t('k_mix')+'</div><div class="v">'+Math.round(tm.n_tz/Math.max(tm.n,1)*100)+' %<small>'+(lang==='it'?'parziale':'Teilzeit')+'</small></div>'+
+     '<div class="s">'+(avgTz?t('avg_tz')+' '+Math.round(avgTz)+' %':'')+'</div>'+teamBar(tm)+'</div>'+
+   kpi(t('k_fte'),fmt(tm.fte,'d'),' '+t('fte'),(pt?dn(Math.round(tm.fte*10)/10,Math.round(pt.fte*10)/10)+' '+t('vs')+' '+py+'<br>':'')+t('range_m')+': '+fmt(mn,'d')+'–'+fmt(mx,'d')+'<br>Ø AZV '+fmt(tm.fte/Math.max(tm.n,1)*100,'n')+' %','sar')+
+   kpi(t('k_flow')+' '+y,'+'+f.ein.length+' / −'+f.aus.length,'',t('ein')+': '+names(f.ein)+'<br>'+t('aus')+': '+names(f.aus)+(f.w.length?'<br>'+t('wechsel_n')+': '+names(f.w):''),'na')+
+   kpi(t('k_other'),oth,' '+t('persons_l'),[tm.n_wv?tm.n_wv+' '+t('wv_l'):'',tm.n_primar?tm.n_primar+' '+t('pr_l'):'',tm.n_ext?tm.n_ext+' '+t('ext_l'):''].filter(Boolean).join(' · ')+'<br>'+t('noaz'),'az')+
+   (Y.length>1?kpi(t('k_trend')+' '+Y0,(tm.n-t0.n>0?'+':'')+(tm.n-t0.n),' '+t('persons_l'),Y0+': '+t0.n+' · '+fmt(t0.fte,'d')+' '+t('fte')+'<br>'+y+': '+tm.n+' · '+fmt(tm.fte,'d')+' '+t('fte'),'nacht'):'');}
+
+/* ── Personal-Analysen ────────────────────────────────────────── */
+var GRC={vz:'#f5b83d',tz:'#4fd1c5',wv:'#c4a7ff',primar:'#ff8a65',ext:'#7d8590'},GRK=['vz','tz','wv','primar','ext'];
+var TP={g_vz:{de:'Vollzeit',it:'Tempo pieno'},g_tz:{de:'Teilzeit',it:'Tempo parziale'},g_wv:{de:'Werkvertrag',it:'Contratto d’opera'},g_primar:{de:'Primar',it:'Primario'},g_ext:{de:'ohne AZV',it:'senza contratto'},
+ l_d12:{de:'12-h-Dienste',it:'Turni da 12 h'},l_nacht:{de:'Nächte',it:'Notti'},l_feiertag:{de:'Feiertage',it:'Festivi'},l_wochenende:{de:'Wochenenden',it:'Weekend'},l_na:{de:'Notarzt',it:'Notarzt'},
+ per_vfte:{de:'je verfügbares VZÄ',it:'per ETP disponibile'},vfte:{de:'verfügbare VZÄ',it:'ETP disponibili'},cfte:{de:'VZÄ laut Vertrag',it:'ETP da contratto'},
+ ein_n:{de:'Eintritte',it:'Ingressi'},aus_n:{de:'Austritte',it:'Uscite'},netto:{de:'Saldo',it:'Saldo'},fluk:{de:'Fluktuation',it:'Turnover'},share:{de:'Anteil',it:'Quota'}};
+for(var _k in TP) T[_k]=TP[_k];
+function angest(y){var G=yd(y).meta.team.gruppen||{},o={};['d12','nacht','feiertag','wochenende','na'].forEach(function(k){o[k]=((G.vz||{})[k]||0)+((G.tz||{})[k]||0)});return o}
+function loadFig(){var xs=Y.map(String),ks=[['d12',C.accent],['nacht',C.nacht],['feiertag',C.frei],['wochenende',C.sar],['na',C.na]];
+  return {data:ks.map(function(k){return {type:'scatter',mode:'lines+markers',name:t('l_'+k[0]),x:xs,y:Y.map(function(y){var f=yd(y).meta.team.fte_verf;return f?angest(y)[k[0]]/f:null}),
+    line:{color:k[1],width:2},marker:{size:7},hovertemplate:t('l_'+k[0])+' %{y:.1f}<extra></extra>'}}),
+   layout:lay({showlegend:true,margin:{l:48,r:10,t:50,b:40},legend:{orientation:'h',x:0,y:1,yanchor:'bottom',font:{color:C.muted}},xaxis:{type:'category'},hovermode:'x unified',
+     yaxis:{title:{text:t('per_vfte'),font:{color:C.muted,size:11}},rangemode:'tozero'}})}}
+function grpShareFig(){var xs=Y.map(String);
+  return {data:GRK.map(function(g){return {type:'bar',name:t('g_'+g),x:xs,y:Y.map(function(y){var G=yd(y).meta.team.gruppen||{},tot=0;GRK.forEach(function(k){tot+=(G[k]||{}).d12||0});return tot?((G[g]||{}).d12||0)/tot:0}),
+     customdata:Y.map(function(y){return ((yd(y).meta.team.gruppen||{})[g]||{}).d12||0}),marker:{color:GRC[g]},hovertemplate:t('g_'+g)+': %{customdata} (%{y:.0%})<extra></extra>'}}).filter(function(tr){return tr.customdata.some(function(v){return v>0})}),
+   layout:lay({barmode:'stack',showlegend:true,margin:{l:48,r:10,t:50,b:40},legend:{orientation:'h',x:0,y:1,yanchor:'bottom',font:{color:C.muted}},xaxis:{type:'category'},yaxis:{tickformat:'.0%',range:[0,1]},hovermode:'x unified'})}}
+function flowFig(){var xs=Y.map(String),F=Y.map(function(y){return flows(y)});
+  return {data:[{type:'bar',name:t('ein_n'),x:xs,y:F.map(function(f){return f.ein.length}),marker:{color:C.frei},text:F.map(function(f){return f.ein.join(', ')}),hovertemplate:t('ein_n')+': %{y}<br>%{text}<extra></extra>'},
+    {type:'bar',name:t('aus_n'),x:xs,y:F.map(function(f){return -f.aus.length}),marker:{color:C.na},text:F.map(function(f){return f.aus.join(', ')}),hovertemplate:t('aus_n')+': %{y}<br>%{text}<extra></extra>'},
+    {type:'scatter',mode:'lines+markers',name:t('netto'),x:xs,y:F.map(function(f){return f.ein.length-f.aus.length}),line:{color:'#fff',width:2},marker:{size:8,color:'#fff'},hovertemplate:t('netto')+' %{y:+d}<extra></extra>'}],
+   layout:lay({barmode:'relative',showlegend:true,margin:{l:40,r:10,t:50,b:40},legend:{orientation:'h',x:0,y:1,yanchor:'bottom',font:{color:C.muted}},xaxis:{type:'category'},yaxis:{zeroline:true,zerolinecolor:C.muted,dtick:1},hovermode:'x unified'})}}
+function fteYearsFig(){var xs=Y.map(String);
+  return {data:[{type:'bar',name:t('cfte'),x:xs,y:Y.map(function(y){return yd(y).meta.team.fte}),marker:{color:'rgba(156,204,101,.35)'},hovertemplate:t('cfte')+' %{y:.1f}<extra></extra>'},
+    {type:'bar',name:t('vfte'),x:xs,y:Y.map(function(y){return yd(y).meta.team.fte_verf}),marker:{color:C.frei},hovertemplate:t('vfte')+' %{y:.1f}<extra></extra>'},
+    {type:'scatter',mode:'lines+markers',name:t('l_d12')+' '+t('per_vfte'),x:xs,y:Y.map(function(y){var f=yd(y).meta.team.fte_verf;return f?angest(y).d12/f:null}),yaxis:'y2',line:{color:'#fff',width:2},marker:{size:8,color:'#fff'},hovertemplate:'%{y:.1f}<extra></extra>'}],
+   layout:lay({barmode:'group',showlegend:true,margin:{l:44,r:44,t:50,b:40},legend:{orientation:'h',x:0,y:1,yanchor:'bottom',font:{color:C.muted}},xaxis:{type:'category'},hovermode:'x unified',
+     yaxis:{title:{text:t('fte'),font:{color:C.muted,size:11}},rangemode:'tozero'},yaxis2:{overlaying:'y',side:'right',rangemode:'tozero',gridcolor:'rgba(0,0,0,0)',tickfont:{color:C.muted},title:{text:t('l_d12')+' '+t('per_vfte'),font:{color:C.muted,size:11}}}})}}
+
 var PAGES={};
 
 PAGES.main=function(){var y=YL,py=Y.length>1?Y[Y.length-2]:null,M=yd(y).m,P=py?yd(py).m:null,meta=yd(y).meta;
   function s(k,m){return m?sumO(m[k]):null}
-  document.getElementById('team-h').innerHTML=t('team')+' '+y+(py?' <span class="note">· '+(lang==='it'?'variazione rispetto al ':'Veränderung gegenüber ')+py+'</span>':'');
-  document.getElementById('team-kpis').innerHTML=
-    kpi(t('k_hours'),fmt(s('gesamtstunden',M)),'h',delta(s('gesamtstunden',M),s('gesamtstunden',P))+' '+t('vs')+' '+t('prev')+'<br>'+Object.keys(M.gesamtdienste).length+' '+t('people'),'accent')+
-    kpi(t('k_d12'),fmt(s('d12',M)),'',delta(s('d12',M),s('d12',P))+' '+t('vs')+' '+t('prev')+'<br>'+t('k_day')+' '+fmt(s('tag_gesamt',M))+' · '+t('k_night')+' '+fmt(s('nacht_gesamt',M)),'sar')+
-    kpi(t('k_na'),fmt(s('na_dienste',M)),'',delta(s('na_dienste',M),s('na_dienste',P))+' '+t('vs')+' '+t('prev')+'<br>'+t('k_naf')+' '+fmt(s('na_feiertag',M)),'na')+
-    kpi(t('k_ot')+estB(),fmt(s('ueberstunden',M)),'h',delta(s('ueberstunden',M),s('ueberstunden',P),true)+' '+t('vs')+' '+t('prev')+'<br>'+t('k_ot_s'),'az')+
-    (function(){var tm=meta.team,pt=py?yd(py).meta.team:null;return '<div class="kpi" style="--c:var(--frei)"><div class="t">'+t('k_team')+' '+y+'</div><div class="v">'+tm.n+'<small>'+t('persons')+' · '+fmt(tm.fte,'d')+' '+t('fte')+'</small></div>'+
-      '<div class="s">'+t('vz')+' '+tm.n_vz+' · '+t('tzs')+' '+tm.n_tz+(pt?' · '+delta(tm.fte,pt.fte)+' '+t('fte'):'')+'</div>'+teamBar(tm)+
-      ((tm.n_wv||tm.n_primar)?'<div class="s" style="margin-top:6px">+ '+[tm.n_wv?tm.n_wv+' '+t('wv'):'',tm.n_primar?tm.n_primar+' '+t('primar'):''].filter(Boolean).join(' · ')+'</div>':'')+'</div>'})();
+  document.getElementById('team-h').innerHTML=(lang==='it'?'Composizione del team ':'Teamzusammensetzung ')+y+' <span class="note">· <a href="vergleich.html#v-team" style="color:inherit">'+(lang==='it'?'andamento negli anni →':'Verlauf über die Jahre →')+'</a></span>';
+  document.getElementById('team-kpis').innerHTML=teamTiles(y,py);
   document.getElementById('me-h').innerHTML=t('mine')+' '+y+(me?' · '+esc(me):'');
   meKpis(document.getElementById('me-kpis'),y,[
     {k:'gesamtstunden',l:T.m_hours,f:'h',c:'accent'},{k:'ueberstunden',l:T.m_ot,f:'h',c:'az',azv:true,est:true},
@@ -209,6 +258,7 @@ PAGES.main=function(){var y=YL,py=Y.length>1?Y[Y.length-2]:null,M=yd(y).m,P=py?y
   plot('p-ov-team',catStack(y));
   plot('p-ov-nacht',barFig(M.nacht_gesamt,C.nacht,'n',T.shifts),'x');
   plot('p-ov-jahre',yearsStack());
+  plot('p-ov-pers',fteYearsFig());
   var fs=yd(y).fair.dienste_an_feiertagen,o={};for(var a in fs)o[a]=fs[a][0]-fs[a][1];
   plot('p-ov-fair',barFig(o,C.az,'d',{de:'Bilanz Feiertagsdienste',it:'Saldo turni festivi'},{keepZero:true,noMedian:true,zero:true,colors:fairColors}),'x');
   var img=document.getElementById('hero-img'); if(img&&!img.style.backgroundImage&&PG.images&&PG.images.length) img.style.backgroundImage="url('"+PG.images[Math.floor(Math.random()*PG.images.length)]+"')";
@@ -225,10 +275,11 @@ PAGES.year=function(){var y=PG.year,cs=PG.charts;
 
 PAGES.vergleich=function(){
   var th='<tr><th>'+t('tbl_year')+'</th><th>'+t('tbl_hours')+'</th><th>'+t('m_d12')+'</th><th>'+t('m_night')+'</th><th>'+t('m_na')+'</th><th>'+t('tbl_ot')+estB()+'</th><th>'+t('tbl_ppl')+
-    '</th><th>'+t('vz')+' / '+t('tzs')+'</th><th>'+t('fte')+'</th><th>'+t('m_d12')+' '+t('per_fte')+'</th><th>'+t('m_night')+' '+t('per_fte')+'</th><th>'+t('tbl_hol')+'</th></tr>';
+    '</th><th>'+t('vz')+' / '+t('tzs')+'</th><th>'+t('fte')+'</th><th>'+t('vfte')+'</th><th>'+t('m_d12')+' '+t('per_fte')+'</th><th>'+t('m_night')+' '+t('per_fte')+'</th><th>'+t('ein_n')+' / '+t('aus_n')+'</th><th>'+t('tbl_hol')+'</th></tr>';
   document.getElementById('v-tbl').innerHTML=th+Y.map(function(y){var M=yd(y).m,tm=yd(y).meta.team;return '<tr><td>'+y+'</td><td>'+fmt(sumO(M.gesamtstunden))+'</td><td>'+fmt(sumO(M.d12))+'</td><td>'+fmt(sumO(M.nacht_gesamt))+
     '</td><td>'+fmt(sumO(M.na_dienste))+'</td><td>'+fmt(sumO(M.ueberstunden))+'</td><td>'+tm.n+((tm.n_ext||tm.n_wv||tm.n_primar)?' <span class="rk" title="'+t('wv')+' / '+t('primar')+' / '+t('ext')+'">+'+((tm.n_ext||0)+(tm.n_wv||0)+(tm.n_primar||0))+'</span>':'')+'</td><td>'+tm.n_vz+' / '+tm.n_tz+'</td><td>'+fmt(tm.fte,'d')+
-    '</td><td>'+fmt(sumO(M.d12)/tm.fte,'d')+'</td><td>'+fmt(sumO(M.nacht_gesamt)/tm.fte,'d')+'</td><td>'+yd(y).meta.feiertage+'</td></tr>'}).join('');
+    '</td><td>'+fmt(tm.fte_verf,'d')+'</td><td>'+fmt(angest(y).d12/tm.fte_verf,'d')+'</td><td>'+fmt(angest(y).nacht/tm.fte_verf,'d')+'</td><td>'+(function(){var f=flows(y);return '+'+f.ein.length+' / −'+f.aus.length})()+'</td><td>'+yd(y).meta.feiertage+'</td></tr>'}).join('');
+  plot('p-v-load',loadFig()); plot('p-v-grp',grpShareFig()); plot('p-v-flow',flowFig());
   // Teamzusammensetzung je Jahr
   var bs={};Y.forEach(function(y){for(var b in yd(y).meta.team.buckets) bs[b]=1});var bk=bSort(bs);
   var tdat=bk.map(function(b){return {type:'bar',name:b+' %',x:Y.map(String),y:Y.map(function(y){return yd(y).meta.team.buckets[b]||0}),marker:{color:bCol(b)},hovertemplate:b+' %: %{y} '+t('persons')+'<extra></extra>'}});
@@ -307,6 +358,20 @@ PAGES.analysen=function(){
   plot('p-an-gap',barFig(mv(yr,'dienstfrei_max'),C.sar,'n',{de:'Tage',it:'Giorni'}),'x');
   plot('p-an-frn',barFig(mv(yr,'fr_nacht'),C.nacht,'n',T.shifts),'x');
   plot('p-an-weih',barFig(mv(yr,'weihnacht'),C.na,'n',T.shifts),'x');
+  // Personal: Belastung je verfügbares VZÄ – Vollzeit vs. Teilzeit
+  var G=yd(yr).meta.team.gruppen||{},ks=['d12','nacht','feiertag','wochenende','na'];
+  plot('p-an-grp',{data:['vz','tz'].map(function(g){var f=(G[g]||{}).fte;return {type:'bar',name:t('g_'+g)+' ('+fmt(f,'d')+' '+t('fte')+')',x:ks.map(function(k){return t('l_'+k)}),
+      y:ks.map(function(k){return f?((G[g]||{})[k]||0)/f:0}),customdata:ks.map(function(k){return (G[g]||{})[k]||0}),marker:{color:GRC[g]},
+      hovertemplate:t('g_'+g)+': %{y:.1f} '+t('per_vfte')+'<br>'+(lang==='it'?'totale':'gesamt')+' %{customdata:.0f}<extra></extra>'}}),
+    layout:lay({barmode:'group',showlegend:true,margin:{l:48,r:10,t:50,b:40},legend:{orientation:'h',x:0,y:1,yanchor:'bottom',font:{color:C.muted}},yaxis:{title:{text:t('per_vfte'),font:{color:C.muted,size:11}}}})});
+  // Personal: Monatsbelastung – Dienste nach Gruppe + Dienste je verfügbares VZÄ
+  var tm_=yd(yr).meta.team,mon=L(T.mon),mg=tm_.monat_grp||{};
+  var md=GRK.filter(function(g){return (mg[g]||[]).some(function(v){return v>0})}).map(function(g){return {type:'bar',name:t('g_'+g),x:mon,y:mg[g],marker:{color:GRC[g]},hovertemplate:t('g_'+g)+': %{y}<extra></extra>'}});
+  md.push({type:'scatter',mode:'lines+markers',name:t('l_d12')+' '+t('per_vfte')+' ('+t('g_vz')+'+'+t('g_tz')+')',x:mon,yaxis:'y2',
+    y:mon.map(function(_,i){var f=(tm_.monat_fte_verf||[])[i];return f?(((mg.vz||[])[i]||0)+((mg.tz||[])[i]||0))/f:null}),line:{color:'#fff',width:2},marker:{size:7,color:'#fff'},hovertemplate:'%{y:.2f}<extra></extra>'});
+  md.push({type:'scatter',mode:'lines',name:t('vfte'),x:mon,yaxis:'y2',y:(tm_.monat_fte_verf||[]).map(function(v){return v==null?null:v/10}),visible:'legendonly',line:{color:C.frei,dash:'dot'},hovertemplate:t('vfte')+' ×10: %{y:.2f}<extra></extra>'});
+  plot('p-an-mload',{data:md,layout:lay({barmode:'stack',showlegend:true,margin:{l:48,r:48,t:60,b:40},legend:{orientation:'h',x:0,y:1,yanchor:'bottom',font:{color:C.muted}},hovermode:'x unified',
+    yaxis:{title:{text:t('l_d12'),font:{color:C.muted,size:11}}},yaxis2:{overlaying:'y',side:'right',rangemode:'tozero',gridcolor:'rgba(0,0,0,0)',tickfont:{color:C.muted},title:{text:t('per_vfte'),font:{color:C.muted,size:11}}}})});
 };
 function segs(id,list,cur,cb,lab){var el=document.getElementById(id);if(!el)return;
   el.innerHTML=list.map(function(v){return '<button type="button" class="'+(String(v)===String(cur)?'on':'')+'" data-v="'+v+'">'+(lab?lab(v):v)+'</button>'}).join('');
