@@ -122,3 +122,20 @@ h3.sec .seg{text-transform:none;letter-spacing:0}
 .kpi .v{overflow:hidden;text-overflow:ellipsis}
 .est{display:inline-block;margin-left:8px;font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#f5b83d;border:1px solid #5a4520;background:#221b0e;border-radius:4px;padding:1px 5px;vertical-align:2px}
 h3.sec .est{font-size:9px}
+.tbar{display:flex;height:8px;border-radius:99px;overflow:hidden;margin-top:9px;gap:2px}
+.tbar i{display:block;height:100%}
+.tleg{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:6px;font-size:11px;color:var(--muted)}
+.tleg span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.tleg i{display:inline-block;width:8px;height:8px;border-radius:2px}
+.tleg b{color:var(--fg);font-weight:500}
+.note-card .tbar{max-width:520px}
+.card .hd{position:relative}
+.fsbtn{margin-left:auto;flex:none;background:transparent;border:1px solid transparent;color:var(--muted);border-radius:6px;width:28px;height:26px;display:grid;place-items:center;cursor:pointer;padding:0}
+.fsbtn:hover{color:var(--fg);border-color:var(--line);background:#202020}
+.card .hd a+.fsbtn,.card .hd select+.fsbtn{margin-left:8px}
+.card.fs-on{position:fixed;inset:0;z-index:2000;border-radius:0;border:0;margin:0;padding:16px 18px;overflow:auto;width:100vw;height:100vh;max-width:none;background:var(--panel)}
+.card.fs-on .hd h2{font-size:18px}
+.card:fullscreen{width:100vw;height:100vh;padding:16px 18px;overflow:auto;background:var(--panel)}
+body.fs-lock{overflow:hidden}
+.card .hd h2{flex:1;min-width:0}
+.note-card .chip{display:inline-block;margin:3px 2px}

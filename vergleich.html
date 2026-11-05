@@ -5,7 +5,7 @@
 <title>Jahresvergleich · SAR Meran</title>
 <script>try{if(localStorage.getItem('sarme_ok')!=='1'&&sessionStorage.getItem('sarme_ok')!=='1')location.replace('index.html');}catch(e){}</script>
 <script>(function(){var l=null;try{l=localStorage.getItem('sarme_lang')}catch(e){}if(!l)l=((navigator.language||'').slice(0,2)==='it')?'it':'de';document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l;})();</script>
-<link rel="stylesheet" href="assets/sarme.css?v=202611021545">
+<link rel="stylesheet" href="assets/sarme.css?v=202611051337">
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
 </head>
 <body>
@@ -22,7 +22,20 @@
 <h1><span class="i-de">Jahresvergleich</span><span class="i-it">Confronto annuale</span> 2022–2026</h1>
 <p class="lead"><span class="i-de">Wie sich Dienste, Stunden und Feiertagsbelastung im Team über die Jahre entwickeln – und wie sie sich auf die einzelnen Personen verteilen.</span><span class="i-it">Come si evolvono negli anni turni, ore e carico festivo nel team – e come si distribuiscono tra le singole persone.</span></p>
 <p class="meta"><span class="i-de">Tipp: auf einen Balken klicken, um sich selbst hervorzuheben.</span><span class="i-it">Suggerimento: clicca su una barra per evidenziarti.</span></p>
-<h3 class="sec"><span class="i-de">Team je Jahr</span><span class="i-it">Team per anno</span></h3><div class="card scroll"><table class="tbl" id="v-tbl"></table></div>
+<h3 class="sec"><span class="i-de">Team je Jahr</span><span class="i-it">Team per anno</span></h3><div class="card scroll"><table class="tbl" id="v-tbl"></table><p style="margin:8px 0 0"><span class="i-de">Personen = mit hinterlegtem AZV; „+n“ = zusätzlich mit Werkvertrag, Primar oder ohne AZV. VZÄ = Vollzeitäquivalente im Jahresmittel.</span><span class="i-it">Persone = con contratto indicato; „+n“ = in più con contratto d’opera, primario o senza contratto. ETP = equivalenti a tempo pieno in media annua.</span></p></div>
+<h3 class="sec"><span class="i-de">Teamzusammensetzung</span><span class="i-it">Composizione del team</span></h3><div class="grid">
+<section class="card half" id="v-team">
+  <div class="hd"><h2><span class="i-de">Team nach Arbeitszeitverhältnis</span><span class="i-it">Team per percentuale contrattuale</span></h2></div>
+  <p><span class="i-de">Personen mit AZV nach Stand im letzten Monat im Plan (Balken) und Vollzeitäquivalente im Jahresmittel (Linie).</span><span class="i-it">Persone con contratto noto secondo l’ultimo mese nel piano (barre) ed equivalenti a tempo pieno in media annua (linea).</span></p>
+  <div class="plot" id="p-v-team"></div>
+</section>
+<section class="card half" id="v-fte">
+  <div class="hd"><h2><span class="i-de">Vollzeitäquivalente je Monat</span><span class="i-it">Equivalenti a tempo pieno per mese</span></h2></div>
+  <p><span class="i-de">Summe der AZV aller Personen im Plan – zeigt Ein-/Austritte und AZV-Wechsel im Jahresverlauf.</span><span class="i-it">Somma delle percentuali di tutte le persone nel piano – mostra ingressi/uscite e cambi di contratto durante l’anno.</span></p>
+  <div class="plot" id="p-v-fte"></div>
+</section>
+</div>
+<div class="card note-card" id="v-wechsel" style="margin-top:12px"></div>
 <h3 class="sec"><span class="i-de">Entwicklung</span><span class="i-it">Andamento</span></h3><div class="grid">
 <section class="card half" id="v-stack">
   <div class="hd"><h2><span class="i-de">12-h-Dienste nach Bereich</span><span class="i-it">Turni da 12 h per area</span></h2></div>
@@ -58,10 +71,10 @@
 </main>
 <footer class="foot">
   <span>SAR Meran · <span class="i-de">Dienstplan Anästhesie, Intensiv &amp; Notarzt</span><span class="i-it">Piano turni anestesia, rianimazione e Notarzt</span></span>
-  <span><span class="i-de">Datenquelle: geplanter Dienstplan (keine Stempelungen) – mit „Schätzung“ markierte Werte beruhen auf Annahmen</span><span class="i-it">Fonte: piano turni pianificato (nessuna timbratura) – i valori contrassegnati con „stima“ si basano su ipotesi</span> · <span class="i-de">Stand</span><span class="i-it">Aggiornato</span>: 02.11.2026, 15:45</span>
+  <span><span class="i-de">Datenquelle: geplanter Dienstplan (keine Stempelungen) – mit „Schätzung“ markierte Werte beruhen auf Annahmen</span><span class="i-it">Fonte: piano turni pianificato (nessuna timbratura) – i valori contrassegnati con „stima“ si basano su ipotesi</span> · <span class="i-de">Stand</span><span class="i-it">Aggiornato</span>: 05.11.2026, 13:37</span>
   <a href="#top"><span class="i-de">nach oben ↑</span><span class="i-it">torna su ↑</span></a>
 </footer>
-<script src="assets/data.js?v=202611021545"></script>
-<script>window.PG={"type":"vergleich","stand":"02.11.2026, 15:45"};</script>
-<script src="assets/sarme.js?v=202611021545"></script>
+<script src="assets/data.js?v=202611051337"></script>
+<script>window.PG={"type":"vergleich","stand":"05.11.2026, 13:37"};</script>
+<script src="assets/sarme.js?v=202611051337"></script>
 </body></html>

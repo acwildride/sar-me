@@ -66,8 +66,20 @@ var T={
  sum:{de:'Summe',it:'Totale'}, mine:{de:'Mein Jahr',it:'Il mio anno'}, inteam:{de:'im Team',it:'nel team'},
  times:{de:'×',it:'×'}, none_hol:{de:'keine',it:'nessuna'}
 };
+var TT={k_team:{de:'Team',it:'Team'},vz:{de:'Vollzeit',it:'Tempo pieno'},tzs:{de:'Teilzeit',it:'Tempo parziale'},fte:{de:'VZÄ',it:'ETP'},
+ fte_l:{de:'Vollzeitäquivalente',it:'Equivalenti a tempo pieno'},ext:{de:'ohne AZV (extern/Aushilfe)',it:'senza contratto (esterni)'},wv:{de:'Werkvertrag',it:'Contratto d’opera'},primar:{de:'Primar',it:'Primario'},persons:{de:'Personen',it:'persone'},
+ change:{de:'AZV-Wechsel, Eintritte, Austritte',it:'Cambi di contratto, ingressi, uscite'},from:{de:'ab',it:'dal'},entry:{de:'Eintritt',it:'ingresso'},exit:{de:'Austritt',it:'uscita'},per_fte:{de:'je VZÄ',it:'per ETP'},
+ status_end:{de:'Stand: letzter Monat im Plan',it:'Stato: ultimo mese nel piano'}};
 function L(o){return (o&&typeof o==='object'&&!Array.isArray(o)&&('de' in o))?(o[lang]!=null?o[lang]:o.de):o}
-function t(k){return T[k]?L(T[k]):k}
+function t(k){return T[k]?L(T[k]):(TT[k]?L(TT[k]):k)}
+var BCOL={100:'#f5b83d',75:'#4fd1c5',65:'#c4a7ff',55:'#ff8a65',50:'#5aa9e6'};
+function bCol(b){b=+b;if(BCOL[b])return BCOL[b];return b>=90?'#f5b83d':b>=70?'#4fd1c5':b>=60?'#c4a7ff':b>=52?'#ff8a65':b>=40?'#5aa9e6':'#9ccc65'}
+function bSort(o){return Object.keys(o).sort(function(a,b){return b-a})}
+function teamBar(tm){var tot=0,k=bSort(tm.buckets);k.forEach(function(b){tot+=tm.buckets[b]});
+  return '<div class="tbar">'+k.map(function(b){return '<i title="'+b+' %: '+tm.buckets[b]+'" style="flex:'+tm.buckets[b]+';background:'+bCol(b)+'"></i>'}).join('')+'</div>'+
+   '<div class="tleg">'+k.map(function(b){return '<span><i style="background:'+bCol(b)+'"></i>'+b+' %&nbsp;<b>'+tm.buckets[b]+'</b></span>'}).join('')+'</div>'}
+function azvText(arr){if(!arr)return t('azv_none');var M_=L(T.mon),out=[],i=0;while(i<12){if(arr[i]==null){i++;continue}var j=i;while(j+1<12&&arr[j+1]===arr[i])j++;
+  out.push(Math.round(arr[i]*100)+' %'+((i===0&&j===11)?'':' ('+M_[i]+(j>i?'–'+M_[j]:'')+')'));i=j+1}return out.join(', ')}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 
 /* ── Zahlen ───────────────────────────────────────────────────── */
@@ -186,7 +198,9 @@ PAGES.main=function(){var y=YL,py=Y.length>1?Y[Y.length-2]:null,M=yd(y).m,P=py?y
     kpi(t('k_d12'),fmt(s('d12',M)),'',delta(s('d12',M),s('d12',P))+' '+t('vs')+' '+t('prev')+'<br>'+t('k_day')+' '+fmt(s('tag_gesamt',M))+' · '+t('k_night')+' '+fmt(s('nacht_gesamt',M)),'sar')+
     kpi(t('k_na'),fmt(s('na_dienste',M)),'',delta(s('na_dienste',M),s('na_dienste',P))+' '+t('vs')+' '+t('prev')+'<br>'+t('k_naf')+' '+fmt(s('na_feiertag',M)),'na')+
     kpi(t('k_ot')+estB(),fmt(s('ueberstunden',M)),'h',delta(s('ueberstunden',M),s('ueberstunden',P),true)+' '+t('vs')+' '+t('prev')+'<br>'+t('k_ot_s'),'az')+
-    kpi(t('k_calt'),meta.feiertage,t('k_cal'),t('k_cal_s')+' · '+meta.werktage+' '+t('k_wt')+'<br>'+t('k_last')+' '+meta.last,'frei');
+    (function(){var tm=meta.team,pt=py?yd(py).meta.team:null;return '<div class="kpi" style="--c:var(--frei)"><div class="t">'+t('k_team')+' '+y+'</div><div class="v">'+tm.n+'<small>'+t('persons')+' · '+fmt(tm.fte,'d')+' '+t('fte')+'</small></div>'+
+      '<div class="s">'+t('vz')+' '+tm.n_vz+' · '+t('tzs')+' '+tm.n_tz+(pt?' · '+delta(tm.fte,pt.fte)+' '+t('fte'):'')+'</div>'+teamBar(tm)+
+      ((tm.n_wv||tm.n_primar)?'<div class="s" style="margin-top:6px">+ '+[tm.n_wv?tm.n_wv+' '+t('wv'):'',tm.n_primar?tm.n_primar+' '+t('primar'):''].filter(Boolean).join(' · ')+'</div>':'')+'</div>'})();
   document.getElementById('me-h').innerHTML=t('mine')+' '+y+(me?' · '+esc(me):'');
   meKpis(document.getElementById('me-kpis'),y,[
     {k:'gesamtstunden',l:T.m_hours,f:'h',c:'accent'},{k:'ueberstunden',l:T.m_ot,f:'h',c:'az',azv:true,est:true},
@@ -202,6 +216,7 @@ PAGES.main=function(){var y=YL,py=Y.length>1?Y[Y.length-2]:null,M=yd(y).m,P=py?y
 function fairColors(r){return r.map(function(x){return x[0]===me?'#ffffff':(x[1]>=0?C.accent:C.nacht)})}
 
 PAGES.year=function(){var y=PG.year,cs=PG.charts;
+  var tl_=document.getElementById('team-line'); if(tl_){var tm=yd(y).meta.team;tl_.innerHTML='<b>'+t('k_team')+' '+y+':</b> '+tm.n+' '+t('persons')+' – '+t('vz')+' '+tm.n_vz+', '+t('tzs')+' '+tm.n_tz+' ('+bSort(tm.buckets).map(function(b){return b+' %: '+tm.buckets[b]}).join(', ')+') · '+fmt(tm.fte,'d')+' '+t('fte_l')+(tm.n_wv?' · +'+tm.n_wv+' '+t('wv'):'')+(tm.n_primar?' · +'+tm.n_primar+' '+t('primar'):'')+(tm.n_ext?' · +'+tm.n_ext+' '+t('ext'):'')}
   document.getElementById('me-h').innerHTML=(me?esc(me)+' '+t('inteam'):t('pick_t'));
   meKpis(document.getElementById('me-kpis'),y,cs.slice(0,4).map(function(c){return {k:c.k,l:c.t,f:c.f,azv:c.azv,c:PG.color,inv:c.k==='ueberstunden',est:c.est}}));
   cs.forEach(function(c){plot('p-'+c.k,barFig(mv(y,c.k,c.azv),C[PG.color],c.f,c.yt,{soll:c.soll}),'x')});
@@ -209,9 +224,27 @@ PAGES.year=function(){var y=PG.year,cs=PG.charts;
 };
 
 PAGES.vergleich=function(){
-  var th='<tr><th>'+t('tbl_year')+'</th><th>'+t('tbl_hours')+'</th><th>'+t('m_d12')+'</th><th>'+t('m_night')+'</th><th>'+t('m_na')+'</th><th>'+t('tbl_ot')+'</th><th>'+t('tbl_ppl')+'</th><th>'+t('tbl_hol')+'</th></tr>';
-  document.getElementById('v-tbl').innerHTML=th+Y.map(function(y){var M=yd(y).m;return '<tr><td>'+y+'</td><td>'+fmt(sumO(M.gesamtstunden))+'</td><td>'+fmt(sumO(M.d12))+'</td><td>'+fmt(sumO(M.nacht_gesamt))+
-    '</td><td>'+fmt(sumO(M.na_dienste))+'</td><td>'+fmt(sumO(M.ueberstunden))+'</td><td>'+Object.keys(M.gesamtdienste).length+'</td><td>'+yd(y).meta.feiertage+'</td></tr>'}).join('');
+  var th='<tr><th>'+t('tbl_year')+'</th><th>'+t('tbl_hours')+'</th><th>'+t('m_d12')+'</th><th>'+t('m_night')+'</th><th>'+t('m_na')+'</th><th>'+t('tbl_ot')+estB()+'</th><th>'+t('tbl_ppl')+
+    '</th><th>'+t('vz')+' / '+t('tzs')+'</th><th>'+t('fte')+'</th><th>'+t('m_d12')+' '+t('per_fte')+'</th><th>'+t('m_night')+' '+t('per_fte')+'</th><th>'+t('tbl_hol')+'</th></tr>';
+  document.getElementById('v-tbl').innerHTML=th+Y.map(function(y){var M=yd(y).m,tm=yd(y).meta.team;return '<tr><td>'+y+'</td><td>'+fmt(sumO(M.gesamtstunden))+'</td><td>'+fmt(sumO(M.d12))+'</td><td>'+fmt(sumO(M.nacht_gesamt))+
+    '</td><td>'+fmt(sumO(M.na_dienste))+'</td><td>'+fmt(sumO(M.ueberstunden))+'</td><td>'+tm.n+((tm.n_ext||tm.n_wv||tm.n_primar)?' <span class="rk" title="'+t('wv')+' / '+t('primar')+' / '+t('ext')+'">+'+((tm.n_ext||0)+(tm.n_wv||0)+(tm.n_primar||0))+'</span>':'')+'</td><td>'+tm.n_vz+' / '+tm.n_tz+'</td><td>'+fmt(tm.fte,'d')+
+    '</td><td>'+fmt(sumO(M.d12)/tm.fte,'d')+'</td><td>'+fmt(sumO(M.nacht_gesamt)/tm.fte,'d')+'</td><td>'+yd(y).meta.feiertage+'</td></tr>'}).join('');
+  // Teamzusammensetzung je Jahr
+  var bs={};Y.forEach(function(y){for(var b in yd(y).meta.team.buckets) bs[b]=1});var bk=bSort(bs);
+  var tdat=bk.map(function(b){return {type:'bar',name:b+' %',x:Y.map(String),y:Y.map(function(y){return yd(y).meta.team.buckets[b]||0}),marker:{color:bCol(b)},hovertemplate:b+' %: %{y} '+t('persons')+'<extra></extra>'}});
+  tdat.push({type:'scatter',mode:'lines+markers+text',name:t('fte_l'),x:Y.map(String),y:Y.map(function(y){return yd(y).meta.team.fte}),yaxis:'y2',line:{color:'#fff',width:2},marker:{size:8,color:'#fff'},
+    text:Y.map(function(y){return fmt(yd(y).meta.team.fte,'d')}),textposition:'top center',textfont:{color:'#fff',size:11},hovertemplate:t('fte')+' %{y:.1f}<extra></extra>'});
+  plot('p-v-team',{data:tdat,layout:lay({barmode:'stack',showlegend:true,margin:{l:48,r:48,t:50,b:40},legend:{orientation:'h',x:0,y:1,yanchor:'bottom',font:{color:C.muted}},xaxis:{type:'category'},hovermode:'x unified',
+    yaxis:{title:{text:t('persons'),font:{color:C.muted,size:11}},range:[0,Math.max.apply(null,Y.map(function(y){return yd(y).meta.team.n}))*1.45]},yaxis2:{overlaying:'y',side:'right',title:{text:t('fte'),font:{color:C.muted,size:11}},range:[0,Math.max.apply(null,Y.map(function(y){return yd(y).meta.team.fte}))*1.12],gridcolor:'rgba(0,0,0,0)',tickfont:{color:C.muted}}})});
+  // VZÄ je Monat über alle Jahre
+  var xs=[],fy=[],mon=L(T.mon);Y.forEach(function(y){yd(y).meta.team.monat_fte.forEach(function(v,i){xs.push(mon[i]+' '+String(y).slice(2));fy.push(v)})});
+  plot('p-v-fte',{data:[{type:'scatter',mode:'lines',x:xs,y:fy,line:{color:C.frei,width:2,shape:'hv'},fill:'tozeroy',fillcolor:'rgba(156,204,101,.12)',hovertemplate:'%{x}: %{y:.1f} '+t('fte')+'<extra></extra>'}],
+    layout:lay({margin:{l:48,r:10,t:10,b:60},xaxis:{type:'category',tickangle:-45,nticks:16},yaxis:{title:{text:t('fte_l'),font:{color:C.muted,size:11}},rangemode:'tozero'}})});
+  function lab(v,leer){return v==null?leer:v==='werkvertrag'?t('wv'):v==='primar'?t('primar'):Math.round(v*100)+' %'}
+  var wl=[];Y.forEach(function(y,yi){
+    (yd(y).meta.team.wechsel||[]).forEach(function(w){if(yi===0&&w[1]===1)return;
+      wl.push('<span class="chip">'+esc(w[0])+' · '+t('from')+' 01.'+('0'+w[1]).slice(-2)+'.'+y+': '+lab(w[2],t('entry'))+' → '+lab(w[3],t('exit'))+'</span>')})});
+  var we=document.getElementById('v-wechsel'); if(we) we.innerHTML='<b>'+t('change')+'</b> '+(wl.length?wl.join(' '):'<span class="flat">–</span>')+'<br><span style="font-size:12px">'+(lang==='it'?'Dalla tabella PERSONAL nello script (cambi di contratto, ingressi e uscite sempre dal 1° del mese).':'Aus der Tabelle PERSONAL im Skript (AZV-Wechsel, Eintritte und Austritte immer ab dem 1. des Monats).')+'</span>';
   plot('p-v-stack',yearsStack());
   var data=Y.map(function(y){var o=mv(y,'gesamtstunden',true),ns=Object.keys(o);return {type:'box',name:String(y),y:ns.map(function(n){return o[n]}),text:ns,customdata:ns,boxpoints:'all',jitter:0.4,pointpos:0,
      marker:{color:C.accent,size:5,opacity:0.55},line:{color:C.accent,width:1},fillcolor:'rgba(245,184,61,.12)',hovertemplate:'<b>%{text}</b><br>%{y:,.0f} h<extra></extra>'}});
@@ -287,7 +320,7 @@ PAGES.profil=function(){
   var yrs=Y.filter(function(y){return yd(y).m.gesamtdienste[who]}); var yr=PG._y&&yrs.indexOf(PG._y)>=0?PG._y:yrs[yrs.length-1];
   segs('jahr',yrs,yr,function(v){PG._y=v;render()});
   var Y_=yd(yr),azv=Y_.azv[who];
-  document.getElementById('kpi-h').innerHTML=esc(who)+' · '+yr+' <span class="note">· '+t('azv')+' '+(azv==null?t('azv_none'):Math.round(azv*100)+' %')+'</span>';
+  document.getElementById('kpi-h').innerHTML=esc(who)+' · '+yr+' <span class="note">· '+t('azv')+' '+azvText((Y_.azv_m||{})[who])+'</span>';
   var save=me; me=who; // eigene KPI-Logik nutzt "me"
   meKpis(document.getElementById('kpis'),yr,[{k:'gesamtstunden',l:T.m_hours,f:'h',c:'accent'},{k:'ueberstunden',l:T.m_ot,f:'h',c:'az',azv:true,est:true},
     {k:'d12',l:T.m_d12,f:'n',c:'sar'},{k:'nacht_gesamt',l:T.m_night,f:'n',c:'nacht'},{k:'dienste_an_feiertagen',l:T.m_hol,f:'n',c:'frei'},{k:'na_dienste',l:T.m_na,f:'d',c:'na'}]);
@@ -377,7 +410,7 @@ var TM={
 for(var _k in TM) T[_k]=TM[_k];
 function act6(y,a){return (yd(y).m.aktive_monate||{})[a]>=6}
 function avgOf(y,key,filt){var o=mv(y,key),s=0,n=0;for(var a in o){if(o[a]==null||!filt(a))continue;s+=o[a];n++}return n?s/n:null}
-function isFT(y,a){return yd(y).azv[a]>=1}
+function isFT(y,a){return !!(yd(y).ft||{})[a]}
 
 PAGES.mehr=function(){
   var v=PG._v||'w', yr=PG._y||YL, fc=PG._f||'na_ex';
@@ -398,6 +431,7 @@ PAGES.mehr=function(){
     kpi(t('k_nain')+estB(),fmt(nain,'d'),' '+t('eq12'),t('median')+' '+fmt(med(vals(mv(yr,'na_in_azv_'+v))),'d'),'az')+
     kpi(t('k_sal'),(sal/nn>0?'+':'')+fmt(sal/nn,'d'),' h',fmt(sumO(M.nacht_minus))+' '+t('minusn')+' · '+fmt(sumO(M.nacht_plus))+' '+t('plusn'),'nacht');
   document.getElementById('m-kpis').innerHTML=h;
+  var tmd=document.getElementById('m-team');if(tmd){var tm=Yd.meta.team;tmd.innerHTML='<b>'+t('k_team')+' '+yr+':</b> '+t('vz')+' '+tm.n_vz+' · '+t('tzs')+' '+tm.n_tz+' · '+fmt(tm.fte,'d')+' '+t('fte')+teamBar(tm)}
   var mk=document.getElementById('m-me');
   if(!me){mk.innerHTML=prompt();wireDup()}
   else if(!M.gesamtdienste[me]){mk.innerHTML='<div class="kpi" style="grid-column:1/-1"><div class="s"><b>'+esc(me)+'</b> '+t('notin')+'</div></div>'}
@@ -461,7 +495,32 @@ PAGES.mehr=function(){
       yaxis:{title:{text:t('gini'),font:{color:C.muted,size:11}},rangemode:'tozero'}})});
 };
 
+/* ── Vollbild für Grafiken ────────────────────────────────────── */
+var FS_ICON='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+var FS_EXIT='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+var fsCard=null;
+function fsResize(){ if(!fsCard) return; var pl=fsCard.querySelector('.plot'); if(!pl) return;
+  var used=0;[].forEach.call(fsCard.children,function(ch){if(ch!==pl) used+=ch.offsetHeight});
+  var h=Math.max(window.innerHeight-used-40, pl._h0n||0); pl.style.height=h+'px'; if(window.Plotly&&pl.data) Plotly.Plots.resize(pl);}
+function fsEnter(card){ if(fsCard) fsExit(); fsCard=card; var pl=card.querySelector('.plot'); pl._h0=pl.style.height; pl._h0n=pl.offsetHeight>window.innerHeight?pl.offsetHeight:0;
+  card.classList.add('fs-on'); document.body.classList.add('fs-lock'); card.querySelector('.fsbtn').innerHTML=FS_EXIT;
+  var rq=card.requestFullscreen||card.webkitRequestFullscreen; if(rq){try{var pr=rq.call(card);if(pr&&pr.catch)pr.catch(function(){})}catch(e){}}
+  setTimeout(fsResize,60); setTimeout(fsResize,350);}
+function fsExit(){ if(!fsCard) return; var card=fsCard, pl=card.querySelector('.plot'); fsCard=null;
+  card.classList.remove('fs-on'); document.body.classList.remove('fs-lock'); card.querySelector('.fsbtn').innerHTML=FS_ICON;
+  if(document.fullscreenElement||document.webkitFullscreenElement){var ex=document.exitFullscreen||document.webkitExitFullscreen;try{ex.call(document)}catch(e){}}
+  pl.style.height=pl._h0||''; if(window.Plotly&&pl.data) setTimeout(function(){Plotly.Plots.resize(pl)},50);}
+function fsInit(){ [].forEach.call(document.querySelectorAll('.card'),function(card){ if(card._fs||!card.querySelector('.plot')) return; card._fs=1;
+    var hd=card.querySelector('.hd'); if(!hd){hd=document.createElement('div');hd.className='hd';card.insertBefore(hd,card.firstChild)}
+    var b=document.createElement('button');b.type='button';b.className='fsbtn';b.innerHTML=FS_ICON;b.setAttribute('aria-label','Vollbild / Schermo intero');
+    b.onclick=function(e){e.stopPropagation(); if(fsCard===card) fsExit(); else fsEnter(card)}; hd.appendChild(b); });
+  document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement&&fsCard) fsExit(); else fsResize(); });
+  document.addEventListener('webkitfullscreenchange',function(){ if(!document.webkitFullscreenElement&&fsCard) fsExit(); else fsResize(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&fsCard) fsExit(); });
+  window.addEventListener('resize',function(){ if(fsCard) fsResize(); });
+}
+
 function render(){ (PAGES[PG.type]||function(){})(); }
-initHeader(); render();
+initHeader(); render(); fsInit();
 var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){var s=window.innerWidth<700;if(s!==SMALL){SMALL=s;render()}},250)});
 })();
